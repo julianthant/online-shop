@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.page-container {
+  --max-width: 1200px;
+  max-width: var(--max-width);
+  width: min(var(--max-width), calc(100% - 3rem));
+  margin-inline: auto;
+}
+
+.login-container {
+  --max-width: 29rem;
+  max-width: var(--max-width);
+  width: min(var(--max-width), 100%);
+}
+
+.sidebar-container {
+  --max-width: 20.5rem;
+  max-width: var(--max-width);
+  width: min(var(--max-width), 100%);
+}
+
+.user-container {
+  --max-width: 49rem;
+  max-width: var(--max-width);
+  width: min(var(--max-width), 100%);
+}
+
+.sidebar-border {
+  border-right: 0.5px solid rgba(94, 89, 89, 0.177);
+}
+
+.border-below {
+  border-bottom: 0.5px solid rgba(92, 89, 94, 0.405);
+}
+
+.auth-input {
+  padding: 0.9rem 1rem;
+  background-color: rgba(76, 86, 91, 0.76);
+  border-radius: 0.8rem;
+  color: #fff;
+}
+
+.nav-button:hover {
+  background-color: transparent;
+}
+
+.fill-button:hover {
+  transition: all 200ms;
+}
+
+.cart-circle {
+  top: -0.6rem;
+  right: -0.3rem;
+}
+
+section {
+  min-height: 100vh;
+}
