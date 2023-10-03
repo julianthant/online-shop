@@ -52,19 +52,6 @@ export async function HandleEmailChange(
   }
 }
 
-export async function HandleVerifyEmail(verifyEmail, typeError, typeSuccess) {
-  try {
-    await verifyEmail();
-    showStatus(
-      'Success! The verification link has been sent to your inbox',
-      typeSuccess
-    );
-  } catch (error) {
-    console.log(error);
-    showStatus('Error! Failed to send verification link', typeError);
-  }
-}
-
 export async function HandlePasswordChange(
   newPassword,
   password,

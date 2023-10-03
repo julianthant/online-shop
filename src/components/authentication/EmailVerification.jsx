@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { HandleVerifyEmail } from '../../functions/AccontFunctions';
 import { showStatus } from '../../constants/ShowStatus';
 
 export default function EmailVerification() {
@@ -10,7 +9,7 @@ export default function EmailVerification() {
   const [loading, setLoading] = useState(false);
   const [resendMessage, setResendMessage] = useState('');
   const [isCountdownActive, setIsCountdownActive] = useState(false);
-  const [countdown, setCountdown] = useState(60); // 60 seconds countdown
+  const [countdown, setCountdown] = useState(60);
   const { verifyEmail } = useAuth();
 
   useEffect(() => {
@@ -23,6 +22,7 @@ export default function EmailVerification() {
             clearInterval(countdownTimer);
             setIsCountdownActive(false);
             setResendMessage('');
+            setCountdown(60);
           }
           return prevCountdown - 1;
         });
@@ -39,9 +39,13 @@ export default function EmailVerification() {
     setLoading(true);
 
     try {
-      await HandleVerifyEmail(verifyEmail, setError, setSuccess);
+      await verifyEmail();
       setIsCountdownActive(true);
       setResendMessage('The verification code has been resent to your inbox.');
+      showStatus(
+        'Success! The verification link has been sent to your inbox',
+        setSuccess
+      );
     } catch (error) {
       console.error(error);
       showStatus('Failed to resend verification code', setError);
@@ -66,7 +70,7 @@ export default function EmailVerification() {
             </p>
             {resendMessage && (
               <p className="text-green-700 text-md mb-3">
-                {resendMessage} <br /> Please retry in - {countdown} seconds
+                {resendMessage} <br /> Please retry in {countdown} seconds
               </p>
             )}
             <Link className="text-blue-700" to="/dashboard">
