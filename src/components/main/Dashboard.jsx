@@ -1,6 +1,4 @@
 import { useState } from 'react';
-
-import '../index.css';
 import AccountSettings from './AccountSettings';
 
 export default function Dashboard() {

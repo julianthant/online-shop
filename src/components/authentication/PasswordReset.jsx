@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { showStatus } from '../constants/ShowStatus';
-import { useAuth } from '../hooks/useAuth';
+import { showStatus } from '../../constants/ShowStatus';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function PasswordReset() {
   const [newPassword, setNewPassword] = useState('');

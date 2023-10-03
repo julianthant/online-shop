@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { useNewEmailAddress } from '../hooks/useEmailAddress';
+import { useNewEmailAddress } from '../../hooks/useEmailAddress';
 import {
   HandleNameChange,
   HandleEmailChange,
@@ -9,7 +9,7 @@ import {
   HandlePasswordChange,
   HandleLogout,
   HandleDeleteUser,
-} from '../functions/AccontFunctions';
+} from '../../functions/AccontFunctions';
 
 export default function AccountSettings() {
   const {

@@ -1,14 +1,14 @@
-import Dashboard from './Dashboard';
-import Login from './Login';
-import Homepage from './Homepage';
-import ForgotPassword from './ForgotPassword';
-import Signup from './Signup';
+import Dashboard from './main/Dashboard';
+import Login from './authentication/Login';
+import Homepage from './home/Homepage';
+import ForgotPassword from './authentication/ForgotPassword';
+import Signup from './authentication/Signup';
 import PrivateRoute from '../hooks/PrivateRoute';
 import { AuthProvider } from '../contexts/AuthContext';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import '../index.css';
-import Navbar from './Navbar';
-import PasswordReset from './PasswordReset';
+import Navbar from './main/Navbar';
+import PasswordReset from './authentication/PasswordReset';
 
 function App() {
   return (

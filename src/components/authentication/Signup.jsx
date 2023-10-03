@@ -1,9 +1,7 @@
-import '../index.css';
-
 import { useRef, useState } from 'react';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
-import { showStatus } from '../constants/ShowStatus';
+import { showStatus } from '../../constants/ShowStatus';
 
 export default function NewSignup() {
   const firstRef = useRef();

@@ -1,13 +1,12 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 
-import '../index.css';
-import logo from '../assets/shoe-logo.png';
-import menu_icon from '../assets/menu.svg';
-import close_menu_icon from '../assets/close_menu.svg';
-import profile_icon from '../assets/profile-icon.svg';
-import cart_icon from '../assets/cart-icon.svg';
+import logo from '../../assets/shoe-logo.png';
+import menu_icon from '../../assets/menu.svg';
+import close_menu_icon from '../../assets/close_menu.svg';
+import profile_icon from '../../assets/profile-icon.svg';
+import cart_icon from '../../assets/cart-icon.svg';
 
 export default function Navbar() {
   const [menu, setMenu] = useState(false);
