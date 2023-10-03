@@ -24,6 +24,11 @@
   status = 200
 
 [[redirects]]
-  from = "/reset-password/*"
+  from = "/verify-email/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/action-center/*"
   to = "/index.html"
   status = 200
