@@ -8,7 +8,8 @@ import { AuthProvider } from '../contexts/AuthContext';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import '../index.css';
 import Navbar from './main/Navbar';
-import PasswordReset from './authentication/PasswordReset';
+import AccountCenter from './authentication/AccountCenter';
+import EmailVerification from './authentication/EmailVerification';
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
             <Route index element={<Dashboard />} />
           </Route>
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<PasswordReset />} />
+          <Route path="/verify-email" element={<EmailVerification />} />
+          <Route path="/action-center" element={<AccountCenter />} />
         </Routes>
       </AuthProvider>
     </Router>

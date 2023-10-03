@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { showStatus } from '../../constants/ShowStatus';
 import { useAuth } from '../../hooks/useAuth';
+import PropTypes from 'prop-types';
 
-export default function PasswordReset() {
+export default function PasswordReset({ oobCode }) {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -11,10 +12,6 @@ export default function PasswordReset() {
 
   const { confirmPasswordResetToken } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-
-  const oobCode = queryParams.get('oobCode');
 
   async function handlePasswordReset(e) {
     e.preventDefault();
@@ -84,3 +81,7 @@ export default function PasswordReset() {
     </section>
   );
 }
+
+PasswordReset.propTypes = {
+  oobCode: PropTypes.string.isRequired,
+};

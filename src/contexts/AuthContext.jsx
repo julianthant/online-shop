@@ -1,19 +1,18 @@
 import { createContext, useEffect, useState } from 'react';
 import { auth } from '../../database/firebase';
-import { useNewEmailAddress } from '../hooks/useEmailAddress';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
-  verifyPasswordResetCode,
   confirmPasswordReset,
   updatePassword,
   sendEmailVerification,
   verifyBeforeUpdateEmail,
   updateProfile,
   deleteUser,
+  applyActionCode,
 } from 'firebase/auth';
 import PropTypes from 'prop-types';
 
@@ -21,8 +20,6 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
-  const [emailVerify, setEmailVerify] = useState(false);
-  const [newEmailAddress, setNewEmailAddress] = useNewEmailAddress();
   const [loading, setLoading] = useState(true);
 
   function signup(email, password, displayName) {
@@ -72,17 +69,16 @@ export function AuthProvider({ children }) {
       setLoading(false);
     }
   }
-
-  function verifyPasswordResetToken(token) {
-    return verifyPasswordResetCode(auth, token);
-  }
-
   function confirmPasswordResetToken(token, password) {
     return confirmPasswordReset(auth, token, password);
   }
 
   function newEmail(email) {
     return verifyBeforeUpdateEmail(currentUser, email);
+  }
+
+  function applyCode(code) {
+    return applyActionCode(auth, code);
   }
 
   function newPassword(password) {
@@ -99,24 +95,8 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setLoading(false);
-      if (user) {
-        setEmailVerify(user.emailVerified);
-        if (newEmailAddress && user.email === newEmailAddress) {
-          setCurrentUser(user);
-          setNewEmailAddress('');
-        }
-      } else {
-        setEmailVerify(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [newEmailAddress, setNewEmailAddress]);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -129,12 +109,11 @@ export function AuthProvider({ children }) {
     login,
     signup,
     verifyEmail,
+    applyCode,
     logout,
     resetPassword,
     changeProfile,
     deleteAccount,
-    emailVerify,
-    verifyPasswordResetToken,
     confirmPasswordResetToken,
   };
 

@@ -32,6 +32,7 @@ export async function HandleEmailChange(
 ) {
   try {
     await newEmail(newEmailAddress);
+    setNewEmailAddress('');
     showStatus(
       'Success! Your email will change once you verify it',
       typeSuccess

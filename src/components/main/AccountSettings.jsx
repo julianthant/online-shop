@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { useNewEmailAddress } from '../../hooks/useEmailAddress';
 import {
   HandleNameChange,
   HandleEmailChange,
-  HandleVerifyEmail,
   HandlePasswordChange,
   HandleLogout,
   HandleDeleteUser,
@@ -18,18 +16,18 @@ export default function AccountSettings() {
     deleteAccount,
     changeProfile,
     newEmail,
-    verifyEmail,
     newPassword,
-    emailVerify,
   } = useAuth();
   const navigate = useNavigate();
 
+  const emailAddress = currentUser.email;
+  const emailVerify = currentUser.emailVerified;
+
   const [displayName, setDisplayName] = useState(currentUser.displayName);
-  const [emailAddress, setEmailAddress] = useState(currentUser.email);
   const [password, setPassword] = useState('**********');
 
   const [newDisplayName, setNewDisplayName] = useState('');
-  const [newEmailAddress, setNewEmailAddress] = useNewEmailAddress();
+  const [newEmailAddress, setNewEmailAddress] = useState('');
   const [changePassword, setChangePassword] = useState('');
 
   const [editDisplayName, setEditDisplayName] = useState(false);
@@ -76,13 +74,12 @@ export default function AccountSettings() {
         setSuccess
       );
     }
-
     setEditState(!editState);
   }
 
   function handleVerify(setEditState, editState, id) {
     if (id === 'accountStatus') {
-      HandleVerifyEmail(verifyEmail, setError, setSuccess);
+      navigate('/verify-email');
     }
     setEditState(!editState);
   }
@@ -99,6 +96,7 @@ export default function AccountSettings() {
       setEditPassword(false);
     }
   }
+
   const userFields = [
     {
       id: 'displayName',
@@ -117,7 +115,7 @@ export default function AccountSettings() {
       editState: editEmail,
       setEditState: setEditEmail,
       value: editEmail ? newEmailAddress : emailAddress,
-      setValue: editEmail ? setNewEmailAddress : setEmailAddress,
+      setValue: editEmail ? setNewEmailAddress : null,
       type: 'email',
       buttonName: 'Edit',
       buttonClass: userEdit,
@@ -182,10 +180,10 @@ export default function AccountSettings() {
                 )}
               </div>
               {field.editState && field.id !== 'accountStatus' ? (
-                <div className="flex gap-5">
+                <div className="flex gap-3">
                   <button
                     onClick={() => handleCancel(field.id)}
-                    className="bg-red-500 w-16 text-sm text-white rounded-[0.22rem] h-9 hover:bg-red-600 transition-all"
+                    className="bg-transparent w-16 text-sm text-white h-9 hover:underline underline-offset-[3px]"
                     type="button"
                   >
                     Cancel
