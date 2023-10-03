@@ -3,6 +3,7 @@ import '../index.css';
 import { useRef, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
+import { showStatus } from '../constants/ShowStatus';
 
 export default function NewSignup() {
   const firstRef = useRef();
@@ -21,11 +22,10 @@ export default function NewSignup() {
     e.preventDefault();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError('Passwords do not match');
+      return showStatus('Passwords do not match', setError);
     }
 
     try {
-      setError('');
       setLoading(true);
       await signup(
         emailRef.current.value,
@@ -35,7 +35,7 @@ export default function NewSignup() {
       navigate('/dashboard');
     } catch (err) {
       console.log(err);
-      setError('Failed to create an account');
+      showStatus('Failed to create an account', setError);
     }
 
     setLoading(false);
@@ -79,7 +79,7 @@ export default function NewSignup() {
             </div>
             <input
               className="auth-input"
-              type="text"
+              type="email"
               placeholder="Email"
               autoComplete="email-address"
               ref={emailRef}

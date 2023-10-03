@@ -9,7 +9,7 @@ import {
   HandlePasswordChange,
   HandleLogout,
   HandleDeleteUser,
-} from '../hooks/AccontFunctions';
+} from '../functions/AccontFunctions';
 
 export default function AccountSettings() {
   const {
@@ -107,6 +107,7 @@ export default function AccountSettings() {
       setEditState: setEditDisplayName,
       value: editDisplayName ? newDisplayName : displayName,
       setValue: editDisplayName ? setNewDisplayName : setDisplayName,
+      type: 'text',
       buttonName: 'Edit',
       buttonClass: userEdit,
     },
@@ -117,6 +118,7 @@ export default function AccountSettings() {
       setEditState: setEditEmail,
       value: editEmail ? newEmailAddress : emailAddress,
       setValue: editEmail ? setNewEmailAddress : setEmailAddress,
+      type: 'email',
       buttonName: 'Edit',
       buttonClass: userEdit,
     },
@@ -127,6 +129,7 @@ export default function AccountSettings() {
       setEditState: emailVerify ? null : setEditVerify,
       value: emailVerify ? 'Verified' : 'Not Verified',
       setValue: setEditVerify,
+      type: 'text',
       buttonName: emailVerify ? '' : 'Verify',
       buttonClass: emailVerify ? '' : userEdit,
     },
@@ -137,6 +140,7 @@ export default function AccountSettings() {
       setEditState: setEditPassword,
       value: editPassword ? changePassword : password,
       setValue: editPassword ? setChangePassword : setPassword,
+      type: 'password',
       buttonName: 'Change Password',
       buttonClass: 'w-40 ' + userEdit,
     },
@@ -165,7 +169,7 @@ export default function AccountSettings() {
                   <label htmlFor={field.id}>
                     <input
                       id={field.id}
-                      type={field.id === 'password' ? 'password' : 'text'}
+                      type={field.type}
                       value={field.value}
                       placeholder="Edit"
                       onChange={(e) => field.setValue(e.target.value)}

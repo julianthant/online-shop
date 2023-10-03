@@ -1,8 +1,9 @@
 import '../index.css';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { showStatus } from '../constants/ShowStatus';
 
 export default function NewSignup() {
   const emailRef = useRef();
@@ -13,18 +14,38 @@ export default function NewSignup() {
 
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const passwordResetMessage = queryParams.get('passwordResetMessage');
+
+  useEffect(() => {
+    if (passwordResetMessage) {
+      const timeoutId = setTimeout(() => {
+        navigate('/login', { replace: true });
+      }, 3000);
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [passwordResetMessage, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      setError('');
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
       navigate('/dashboard');
-    } catch (err) {
-      console.log(err);
-      setError('Unable to log in');
+    } catch (error) {
+      if (error.code === 'auth/invalid-login-credentials') {
+        showStatus(
+          'Invalid login credentials. Please check your email and password.',
+          setError
+        );
+      } else {
+        showStatus('An error occurred during login', setError);
+      }
     }
 
     setLoading(false);
@@ -34,14 +55,19 @@ export default function NewSignup() {
     <section className="flex items-center bg-matte-black">
       <div className="container mx-auto flex flex-wrap-reverse justify-center">
         <div className="grid login-container">
-          <h1 className="text-slate-50 text-5xl font-bold font-[Montserrat] py-3 text-center">
+          <h1 className="text-slate-50 text-5xl font-bold font-[Montserrat] py-5 text-center">
             Log In<span className="text-emerald-900">.</span>
           </h1>
-
-          <form onSubmit={handleSubmit} className="grid pt-5 gap-3">
+          {error && <p className="text-red-500">{error}</p>}
+          {passwordResetMessage && (
+            <p className="text-green-700 text-md mb-3">
+              {passwordResetMessage}
+            </p>
+          )}
+          <form onSubmit={handleSubmit} className="grid pt-2 gap-3">
             <input
               className="auth-input"
-              type="text"
+              type="email"
               placeholder="Email"
               autoComplete="email-address"
               ref={emailRef}
@@ -55,18 +81,22 @@ export default function NewSignup() {
               ref={passwordRef}
               required
             />
-            {error && <p className="text-red-500">Error: {error}</p>}
-            <p className="text-slate-200">
-              Need an account?{' '}
-              <Link className="text-blue-700" to="/signup">
-                Sign Up
+            <div className="flex justify-between">
+              <p className="text-slate-200 text-sm">
+                Need an account?{' '}
+                <Link className="text-blue-700" to="/signup">
+                  Sign Up
+                </Link>
+              </p>
+              <Link className="text-blue-700 text-sm" to="/forgot-password">
+                Forgot Password
               </Link>
-            </p>
+            </div>
             <div className="flex justify-center">
               <button
                 disabled={loading}
                 type="submit"
-                className="bg-emerald-900 py-[0.9rem] rounded-full w-[14rem] mt-3 font-bold text-slate-50 transition-all duration-300 hover:bg-emerald-800 hover:w-[15rem]"
+                className="bg-emerald-900 py-[0.9rem] rounded-full w-[14rem] mt-3 font-bold text-slate-50 transition-300 hover:bg-emerald-800 hover:w-[15rem]"
               >
                 Login
               </button>

@@ -46,12 +46,12 @@ body {
   color: #fff;
 }
 
-.nav-button:hover {
-  background-color: transparent;
-}
-
 .fill-button:hover {
   transition: all 200ms;
+}
+
+.transition-300 {
+  transition: all 300ms;
 }
 
 .cart-circle {

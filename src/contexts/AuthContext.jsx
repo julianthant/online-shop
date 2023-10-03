@@ -7,6 +7,8 @@ import {
   signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
+  verifyPasswordResetCode,
+  confirmPasswordReset,
   updatePassword,
   sendEmailVerification,
   verifyBeforeUpdateEmail,
@@ -59,8 +61,24 @@ export function AuthProvider({ children }) {
     signOut(auth);
   }
 
-  function resetPassword(email) {
-    return sendPasswordResetEmail(auth, email);
+  async function resetPassword(email) {
+    try {
+      setLoading(true);
+      await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+      console.error('Error sending password reset email:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function verifyPasswordResetToken(token) {
+    return verifyPasswordResetCode(auth, token);
+  }
+
+  function confirmPasswordResetToken(token, password) {
+    return confirmPasswordReset(auth, token, password);
   }
 
   function newEmail(email) {
@@ -116,6 +134,8 @@ export function AuthProvider({ children }) {
     changeProfile,
     deleteAccount,
     emailVerify,
+    verifyPasswordResetToken,
+    confirmPasswordResetToken,
   };
 
   return (

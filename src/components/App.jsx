@@ -6,9 +6,9 @@ import Signup from './Signup';
 import PrivateRoute from '../hooks/PrivateRoute';
 import { AuthProvider } from '../contexts/AuthContext';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import UpdateProfile from './UpdateProfile';
 import '../index.css';
 import Navbar from './Navbar';
+import PasswordReset from './PasswordReset';
 
 function App() {
   return (
@@ -22,10 +22,8 @@ function App() {
           <Route path="/dashboard" element={<PrivateRoute />}>
             <Route index element={<Dashboard />} />
           </Route>
-          <Route path="/update-profile" element={<PrivateRoute />}>
-            <Route index element={<UpdateProfile />} />
-          </Route>
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<PasswordReset />} />
         </Routes>
       </AuthProvider>
     </Router>

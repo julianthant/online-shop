@@ -103,14 +103,13 @@ export default function Navbar() {
             <div className="flex flex-col gap-3">
               <button
                 onClick={handleLogin}
-                className="bg-slate-50 w-36 text-slate-950 py-2 rounded-md border-2 transition-all hover:text-slate-50 duration-300 nav-button"
+                className="bg-slate-50 w-36 text-slate-950 py-2 rounded-md border-2 transition-300 hover:text-slate-50 hover:bg-transparent"
               >
                 Log In
               </button>
-
               <button
                 onClick={handleSignup}
-                className="bg-emerald-900 w-36 text-slate-950 py-2 rounded-md border-2 border-emerald-900 hover:text-emerald-900 transition-all duration-300 nav-button"
+                className="bg-emerald-900 w-36 text-slate-50 py-2 rounded-md border-2 border-emerald-900 hover:border-emerald-700 transition-300 hover:bg-emerald-700"
               >
                 Sign Up
               </button>
@@ -148,13 +147,13 @@ export default function Navbar() {
           <div className="flex gap-3 max-lg:hidden items-center">
             <button
               onClick={handleLogin}
-              className="bg-slate-50 w-20 text-slate-950 py-2 rounded-md border-2 transition-all hover:text-slate-50 duration-300 nav-button"
+              className="bg-transparent w-20 text-slate-50 py-2 rounded-md border-2 hover:text-slate-950 transition-300 hover:bg-slate-50"
             >
               Log In
             </button>
             <button
               onClick={handleSignup}
-              className="bg-emerald-900 w-20 text-slate-950 py-2 rounded-md border-2 border-emerald-900 hover:text-emerald-900 transition-all duration-300 nav-button"
+              className="bg-emerald-900 w-20 text-slate-50 py-2 rounded-md border-2 border-emerald-900 hover:border-emerald-700 transition-300 hover:bg-emerald-700"
             >
               Sign Up
             </button>
