@@ -5,12 +5,12 @@ import { showStatus } from '../../constants/ShowStatus';
 import { useState } from 'react';
 
 export default function VerifyAndChangeEmail({ oobCode }) {
-  const { applyCode, currentUser } = useAuth();
+  const { applyCode, currentUser, setCurrentUser } = useAuth();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [status, setStatus] = useState(currentUser.emailVerified);
+  const [status, setStatus] = useState(false);
 
   async function handleEmailVerification() {
     try {
@@ -21,6 +21,7 @@ export default function VerifyAndChangeEmail({ oobCode }) {
         'Your new email address was successfully verified',
         setSuccess
       );
+      setCurrentUser(null);
     } catch (error) {
       showStatus('Unable to verify new email', setError);
     }

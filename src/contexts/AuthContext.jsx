@@ -44,8 +44,6 @@ export function AuthProvider({ children }) {
     }
   }
 
-  console.log(currentUser);
-
   function verifyEmail() {
     return sendEmailVerification(currentUser);
   }
@@ -115,6 +113,7 @@ export function AuthProvider({ children }) {
     changeProfile,
     deleteAccount,
     confirmPasswordResetToken,
+    setCurrentUser,
   };
 
   return (
