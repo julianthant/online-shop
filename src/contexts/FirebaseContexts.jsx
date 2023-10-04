@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { auth } from '../../database/firebase';
+import { auth, db } from '../../database/firebase';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -15,12 +15,89 @@ import {
   applyActionCode,
 } from 'firebase/auth';
 import PropTypes from 'prop-types';
+import {
+  getDocs,
+  collection,
+  addDoc,
+  deleteDoc,
+  doc,
+  updateDoc,
+  query,
+  where,
+} from 'firebase/firestore';
 
 export const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
+export function FirebaseProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+
+  function getCollection(subcollection) {
+    return collection(db, subcollection);
+  }
+
+  async function getShoeCollection(shoeCollectionRef, getShoeList) {
+    try {
+      const data = await getDocs(shoeCollectionRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      getShoeList(filteredData);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function addNewShoe(
+    shoeCollectionRef,
+    newBrand,
+    newName,
+    newColor,
+    newDescription,
+    newInstock,
+    newSizes
+  ) {
+    try {
+      const querySnapshot = await getDocs(
+        query(shoeCollectionRef, where('name', '==', newName))
+      );
+
+      if (querySnapshot.size === 0) {
+        await addDoc(shoeCollectionRef, {
+          brand: newBrand,
+          name: newName,
+          color: newColor,
+          description: newDescription,
+          instock: newInstock,
+          sizes: newSizes,
+        });
+        console.log(`Added shoe with the name "${newName}".`);
+      } else {
+        console.log(`A shoe with the name "${newName}" already exists.`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function removeShoe(id) {
+    try {
+      const movieDoc = doc(db, 'movies', id);
+      deleteDoc(movieDoc);
+    } catch (error) {
+      console.error('Unable to delete item: ', error);
+    }
+  }
+
+  async function updateShoe(id) {
+    try {
+      const movieDoc = doc(db, 'movies', id);
+      updateDoc(movieDoc, {});
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   function signup(email, password, displayName) {
     try {
@@ -114,6 +191,11 @@ export function AuthProvider({ children }) {
     deleteAccount,
     confirmPasswordResetToken,
     setCurrentUser,
+    addNewShoe,
+    removeShoe,
+    updateShoe,
+    getCollection,
+    getShoeCollection,
   };
 
   return (
@@ -123,6 +205,6 @@ export function AuthProvider({ children }) {
   );
 }
 
-AuthProvider.propTypes = {
+FirebaseProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };

@@ -4,7 +4,7 @@ import Homepage from './home/Homepage';
 import ForgotPassword from './authentication/ForgotPassword';
 import Signup from './authentication/Signup';
 import PrivateRoute from '../hooks/PrivateRoute';
-import { AuthProvider } from '../contexts/AuthContext';
+import { FirebaseProvider } from '../contexts/FirebaseContexts';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import '../index.css';
 import Navbar from './main/Navbar';
@@ -14,7 +14,7 @@ import EmailVerification from './authentication/EmailVerification';
 function App() {
   return (
     <Router>
-      <AuthProvider>
+      <FirebaseProvider>
         <Navbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -27,7 +27,7 @@ function App() {
           <Route path="/verify-email" element={<EmailVerification />} />
           <Route path="/action-center" element={<AccountCenter />} />
         </Routes>
-      </AuthProvider>
+      </FirebaseProvider>
     </Router>
   );
 }
