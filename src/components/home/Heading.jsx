@@ -15,7 +15,7 @@ export default function Heading() {
               cupiditate temporibus libero sunt, iste saepe, explicabo quibusdam
               soluta voluptate quos rerum!
             </p>
-            <button className="bg-emerald-900 w-36 text-slate-50 py-2 rounded-md border-2 border-emerald-900 hover:border-emerald-700 transition-300 hover:bg-emerald-700">
+            <button className="hover:shadow-2xl shadow-md bg-emerald-700 w-36 text-slate-50 py-2 rounded-md border-2 border-emerald-700 hover:border-emerald-900 transition-300 hover:bg-emerald-900">
               Shop Now
             </button>
           </div>
