@@ -25,6 +25,12 @@ body {
   width: min(var(--max-width), 100%);
 }
 
+@media (max-width: 984px) {
+  .sidebar-container {
+    --max-width: 16rem;
+  }
+}
+
 .user-container {
   --max-width: 49rem;
   max-width: var(--max-width);
