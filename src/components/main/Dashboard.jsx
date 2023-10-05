@@ -5,8 +5,8 @@ export default function Dashboard() {
   const [settingsMode, setSettingsMode] = useState('Account');
 
   return (
-    <section className="bg-matte-black pt-36 flex">
-      <div className="container mx-auto flex">
+    <section className="bg-matte-black pt-36">
+      <div className="container mx-auto flex max-lg:hidden">
         <div className="sidebar-container sidebar-border pr-8 text-slate-50">
           <h1 className="text-center text-5xl py-16 font-[Merriweather]">
             Settings
@@ -35,6 +35,12 @@ export default function Dashboard() {
         <div className="ml-28 user-container mt-[10rem]">
           {settingsMode === 'Account' ? <AccountSettings /> : 'Order Page'}
         </div>
+      </div>
+      <div className="lg:hidden container">
+        <h1 className="font-bold text-4xl text-slate-50 text-center pb-14">
+          Account Settings
+        </h1>
+        <AccountSettings />
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -22,6 +22,7 @@ export default function AccountSettings() {
 
   const emailAddress = currentUser.email;
   const emailVerify = currentUser.emailVerified;
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const [displayName, setDisplayName] = useState(currentUser.displayName);
   const [password, setPassword] = useState('**********');
@@ -108,6 +109,7 @@ export default function AccountSettings() {
       type: 'text',
       buttonName: 'Edit',
       buttonClass: userEdit,
+      placeholder: displayName,
     },
     {
       id: 'emailAddress',
@@ -119,6 +121,7 @@ export default function AccountSettings() {
       type: 'email',
       buttonName: 'Edit',
       buttonClass: userEdit,
+      placeholder: emailAddress,
     },
     {
       id: 'accountStatus',
@@ -141,8 +144,23 @@ export default function AccountSettings() {
       type: 'password',
       buttonName: 'Change Password',
       buttonClass: 'w-40 ' + userEdit,
+      placeholder: 'Password',
     },
   ];
+
+  useEffect(() => {
+    const updateWindowWidth = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', updateWindowWidth);
+    return () => {
+      window.removeEventListener('resize', updateWindowWidth);
+    };
+  }, []);
+
+  const isBelowBreakpoint = () => {
+    return windowWidth <= 650;
+  };
 
   return (
     <>
@@ -159,20 +177,34 @@ export default function AccountSettings() {
               onSubmit={(e) =>
                 handleEditSave(e, field.id, field.setEditState, field.editState)
               }
-              className="flex justify-between items-end"
+              className="flex justify-between sm:items-end max-sm:flex-col"
             >
               <div>
                 <p className={userStyles}>{field.label}</p>
-                {field.editState && field.id !== 'accountStatus' ? (
+                {(field.editState && field.id !== 'accountStatus') ||
+                isBelowBreakpoint() ? (
                   <label htmlFor={field.id}>
                     <input
                       id={field.id}
                       type={field.type}
-                      value={field.value}
-                      placeholder="Edit"
-                      onChange={(e) => field.setValue(e.target.value)}
+                      value={
+                        isBelowBreakpoint && !field.editState
+                          ? null
+                          : field.value
+                      }
+                      defaultValue={
+                        isBelowBreakpoint && !field.editState
+                          ? field.value
+                          : null
+                      }
+                      placeholder={field.placeholder}
+                      onChange={
+                        isBelowBreakpoint && !field.editState
+                          ? null
+                          : (e) => field.setValue(e.target.value)
+                      }
                       required
-                      className="bg-[#28282B] py-2 px-3 rounded-[0.25rem] mt-1 w-60"
+                      className="bg-[#28282B] max-sm:w-full py-2 px-3 rounded-[0.25rem] mt-1 w-60"
                     />
                   </label>
                 ) : (
@@ -180,15 +212,25 @@ export default function AccountSettings() {
                 )}
               </div>
               {field.editState && field.id !== 'accountStatus' ? (
-                <div className="flex gap-3">
+                <div className="flex gap-3 max-sm:pt-5">
                   <button
                     onClick={() => handleCancel(field.id)}
-                    className="bg-transparent w-16 text-sm text-white h-9 hover:underline underline-offset-[3px]"
+                    className="max-sm:hidden bg-transparent w-16 max-sm:w-1/2 text-sm text-white h-9 hover:underline underline-offset-[3px]"
                     type="button"
                   >
                     Cancel
                   </button>
-                  <button className={field.buttonClass} type="submit">
+                  <button
+                    onClick={() => handleCancel(field.id)}
+                    className="sm:hidden rounded-[0.22rem] bg-red-700 w-16 max-sm:w-1/2 text-sm text-white h-9 hover:bg-red-500"
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className={`${field.buttonClass} max-sm:w-1/2`}
+                    type="submit"
+                  >
                     Save
                   </button>
                 </div>
@@ -197,7 +239,7 @@ export default function AccountSettings() {
                   onClick={() =>
                     handleVerify(field.setEditState, field.editState, field.id)
                   }
-                  className={field.buttonClass}
+                  className={`${field.buttonClass} max-sm:mt-5 max-sm:w-full`}
                   type="button"
                 >
                   {field.buttonName}
@@ -214,13 +256,13 @@ export default function AccountSettings() {
         <div className="flex items-center gap-4 mt-3 mb-10">
           <button
             onClick={() => HandleLogout(logout, setError, navigate)}
-            className="h-9 text-sm border-[1px] bg-slate-50 w-36 text-slate-950 rounded-[0.25rem] hover:bg-light-gray transition-all duration-200 border-light-gray"
+            className="h-9 text-sm border-[1px] max-sm:w-1/2 bg-slate-50 w-36 text-slate-950 rounded-[0.25rem] hover:bg-light-gray transition-all duration-200 border-light-gray"
           >
             Log Out
           </button>
           <button
             onClick={() => HandleDeleteUser(deleteAccount, setError, navigate)}
-            className="h-9 text-sm border-[1px] border-red-700 bg-transparent text-slate-50 w-36 rounded-[0.25rem] hover:bg-red-700 fill-button"
+            className="h-9 text-sm border-[1px] max-sm:w-1/2 border-red-700 bg-transparent text-slate-50 w-36 rounded-[0.25rem] hover:bg-red-700 fill-button"
           >
             Delete Account
           </button>
