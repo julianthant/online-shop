@@ -13,6 +13,7 @@ export default function Navbar() {
   const [authPage, setAuthPage] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { currentUser } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
@@ -60,8 +61,6 @@ export default function Navbar() {
     'flex w-[31rem] justify-between max-md:hidden font-medium px-8';
   const mobileMenu = `absolute flex justify-center inset-x-0 text-center gap-8 py-8 top-[4.085rem] grid bg-[#1B1B1B]`;
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
   useEffect(() => {
     const updateWindowWidth = () => {
       setWindowWidth(window.innerWidth);
@@ -73,6 +72,14 @@ export default function Navbar() {
       removeEventListener('resize', () => setMenu(false));
     };
   }, []);
+
+  function showNavMenu() {
+    if (!signedIn && authPage && windowWidth >= 768) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   return (
     <header className="absolute font-medium inset-x-0 top-0 text-slate-50 backdrop-blur-md border-b-[1px] border-b-slate-400">
@@ -117,22 +124,22 @@ export default function Navbar() {
             ''
           )}
         </nav>
-        {(!authPage && signedIn) ||
-          (windowWidth <= 768 && (
-            <div className="flex gap-4 items-center">
-              {!authPage && signedIn && (
-                <div className="flex gap-4 items-center">
-                  <button className="relative">
-                    <div className="bg-red-600 w-5 h-5 absolute cart-circle rounded-full">
-                      <p className="text-sm pr-[0.05rem]">0</p>
-                    </div>
-                    <img className="w-7" src={cart_icon} alt="cart" />
-                  </button>
-                  <button onClick={handleDashboard} className="max-xs:hidden">
-                    <img className="w-10" src={profile_icon} alt="profile" />
-                  </button>
-                </div>
-              )}
+        {showNavMenu() && (
+          <div className="flex gap-4 items-center">
+            {!authPage && signedIn && (
+              <div className="flex gap-4 items-center">
+                <button className="relative">
+                  <div className="bg-red-600 w-5 h-5 absolute cart-circle rounded-full">
+                    <p className="text-sm pr-[0.05rem]">0</p>
+                  </div>
+                  <img className="w-7" src={cart_icon} alt="cart" />
+                </button>
+                <button onClick={handleDashboard} className="max-xs:hidden">
+                  <img className="w-10" src={profile_icon} alt="profile" />
+                </button>
+              </div>
+            )}
+            {windowWidth <= 768 && (
               <button className="md:hidden" onClick={() => setMenu(!menu)}>
                 <img
                   className={`${menu ? 'w-9' : 'w-11'}`}
@@ -140,8 +147,9 @@ export default function Navbar() {
                   alt="menu"
                 />
               </button>
-            </div>
-          ))}
+            )}
+          </div>
+        )}
         {!authPage && !signedIn && (
           <div className="flex gap-3 max-lg:hidden items-center">
             <button
