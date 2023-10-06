@@ -12,6 +12,7 @@ export default function ShoeCarousel() {
       <Carousel
         autoPlay
         infiniteLoop
+        dynamicHeight
         showThumbs={false}
         renderArrowPrev={(onClickHandler, hasPrev) =>
           hasPrev && (
@@ -38,19 +39,19 @@ export default function ShoeCarousel() {
           )
         }
       >
-        <div>
+        <div className="h-[680px]">
           <img loading="eager" src={NikeCarousel} alt="Nike" />
         </div>
-        <div>
+        <div className="h-[680px]">
           <img loading="lazy" src={ConverseCarousel} alt="Converse" />
         </div>
-        <div>
+        <div className="h-[680px]">
           <img loading="lazy" src={AdidasCarousel} alt="Adidas" />
         </div>
-        <div>
+        <div className="h-[680px]">
           <img loading="lazy" src={NBCarousel} alt="New Balance" />
         </div>
-        <div>
+        <div className="h-[680px]">
           <img loading="lazy" src={VansCarousel} alt="Vans" />
         </div>
       </Carousel>

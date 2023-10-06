@@ -104,11 +104,6 @@ body {
   display: none;
 }
 
-/* Set a fixed height for the carousel container */
-.carousel {
-  height: 680px; /* Adjust the height as needed */
-}
-
 .prev-arrow {
   left: 3rem; /* Adjust position as needed */
   z-index: 2;
@@ -117,6 +112,36 @@ body {
 .next-arrow {
   right: 3rem; /* Adjust position as needed */
   z-index: 2;
+}
+
+@media (max-width: 1150px) {
+  .prev-arrow {
+    left: 2rem; /* Adjust position as needed */
+  }
+
+  .next-arrow {
+    right: 2rem; /* Adjust position as needed */
+  }
+}
+
+@media (max-width: 850px) {
+  .prev-arrow {
+    left: 1.5rem; /* Adjust position as needed */
+  }
+
+  .next-arrow {
+    right: 1.5rem; /* Adjust position as needed */
+  }
+}
+
+@media (max-width: 750px) {
+  .prev-arrow {
+    left: 1rem; /* Adjust position as needed */
+  }
+
+  .next-arrow {
+    right: 1rem; /* Adjust position as needed */
+  }
 }
 
 /* Custom Legend Label */
