@@ -14,19 +14,44 @@ export default function EmailVerification() {
 
   useEffect(() => {
     let countdownTimer;
+    let startTime;
 
-    if (isCountdownActive) {
-      countdownTimer = setInterval(() => {
-        setCountdown((prevCountdown) => {
-          if (prevCountdown === 1) {
-            clearInterval(countdownTimer);
-            setIsCountdownActive(false);
-            setResendMessage('');
-            setCountdown(60);
-          }
-          return prevCountdown - 1;
-        });
-      }, 1000);
+    // Check if there is countdown data in localStorage
+    const savedCountdownData = localStorage.getItem('countdownData');
+    if (savedCountdownData) {
+      const parsedData = JSON.parse(savedCountdownData);
+      setIsCountdownActive(parsedData.isCountdownActive);
+      setResendMessage(parsedData.resendMessage);
+      startTime = parsedData.startTime;
+      const currentTime = new Date().getTime();
+      const elapsedTime = currentTime - startTime;
+      const remainingTime = 60000 - elapsedTime;
+      if (remainingTime > 0) {
+        setCountdown(Math.floor(remainingTime / 1000));
+        startCountdown();
+      } else {
+        setIsCountdownActive(false);
+        setResendMessage('');
+        setCountdown(60);
+      }
+    }
+
+    function startCountdown() {
+      if (isCountdownActive) {
+        countdownTimer = setInterval(() => {
+          setCountdown((prevCountdown) => {
+            if (prevCountdown === 1) {
+              clearInterval(countdownTimer);
+              setIsCountdownActive(false);
+              setResendMessage('');
+              setCountdown(60);
+              // Remove countdown data from localStorage when the countdown is completed
+              localStorage.removeItem('countdownData');
+            }
+            return prevCountdown - 1;
+          });
+        }, 1000);
+      }
     }
 
     return () => {
@@ -46,9 +71,26 @@ export default function EmailVerification() {
         'Success! The verification link has been sent to your inbox',
         setSuccess
       );
+
+      // Save countdown data to localStorage
+      localStorage.setItem(
+        'countdownData',
+        JSON.stringify({
+          isCountdownActive: true,
+          resendMessage: 'The verification code has been resent to your inbox.',
+          startTime: new Date().getTime(),
+        })
+      );
     } catch (error) {
-      console.error(error);
-      showStatus('Failed to resend verification code', setError);
+      if (error.code === 'auth/requires-recent-login') {
+        showStatus(
+          'There are too many requests at the moment. Please try again later',
+          setError
+        );
+      } else {
+        console.error(error);
+        showStatus('Failed to resend verification code', setError);
+      }
     } finally {
       setLoading(false);
     }
