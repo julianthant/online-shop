@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const Homepage = lazy(() => import('./home/Homepage'));
@@ -17,20 +17,22 @@ const EmailVerification = lazy(() =>
 function App() {
   return (
     <Router>
-      <FirebaseProvider>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<PrivateRoute />}>
-            <Route index element={<Dashboard />} />
-          </Route>
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/verify-email" element={<EmailVerification />} />
-          <Route path="/action-center" element={<AccountCenter />} />
-        </Routes>
-      </FirebaseProvider>
+      <Suspense>
+        <FirebaseProvider>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<PrivateRoute />}>
+              <Route index element={<Dashboard />} />
+            </Route>
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/verify-email" element={<EmailVerification />} />
+            <Route path="/action-center" element={<AccountCenter />} />
+          </Routes>
+        </FirebaseProvider>
+      </Suspense>
     </Router>
   );
 }
