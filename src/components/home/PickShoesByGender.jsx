@@ -9,7 +9,7 @@ export default function PickShoesByGender() {
     'tracking-widest bg-transparent text-sm text-white py-4 border-2 transition-300 hover:text-slate-950 font-[Inter] hover:bg-white';
 
   return (
-    <div className="pb-10 md:px-16">
+    <div className="pb-16 md:px-16 pt-20">
       <div className="flex justify-between flex-wrap">
         <div className={imageContainer}>
           <img className={imageClass} src={menShoes} alt="" />
