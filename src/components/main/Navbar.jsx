@@ -74,7 +74,7 @@ export default function Navbar() {
   }, []);
 
   function showNavMenu() {
-    if (!signedIn && authPage && windowWidth >= 768) {
+    if (!signedIn && windowWidth >= 768) {
       return false;
     } else {
       return true;
