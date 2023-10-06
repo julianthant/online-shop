@@ -8,6 +8,7 @@ import {
   HandleLogout,
   HandleDeleteUser,
 } from '../../functions/AccontFunctions';
+import { showStatus } from '../../constants/ShowStatus';
 
 export default function AccountSettings() {
   const {
@@ -47,33 +48,54 @@ export default function AccountSettings() {
     e.preventDefault();
 
     if (id === 'displayName') {
-      HandleNameChange(
-        currentUser,
-        changeProfile,
-        newDisplayName,
-        setNewDisplayName,
-        setDisplayName,
-        setError,
-        setSuccess
-      );
+      if (emailVerify) {
+        HandleNameChange(
+          currentUser,
+          changeProfile,
+          newDisplayName,
+          setNewDisplayName,
+          setDisplayName,
+          setError,
+          setSuccess
+        );
+      } else {
+        showStatus(
+          'Please verify your email before you make changes to your account',
+          setError
+        );
+      }
     } else if (id === 'emailAddress') {
-      HandleEmailChange(
-        currentUser,
-        newEmail,
-        newEmailAddress,
-        setNewEmailAddress,
-        setError,
-        setSuccess
-      );
+      if (emailVerify) {
+        HandleEmailChange(
+          currentUser,
+          newEmail,
+          newEmailAddress,
+          setNewEmailAddress,
+          setError,
+          setSuccess
+        );
+      } else {
+        showStatus(
+          'Please verify your email before you make changes to your account',
+          setError
+        );
+      }
     } else if (id === 'password') {
-      HandlePasswordChange(
-        newPassword,
-        changePassword,
-        setChangePassword,
-        setPassword,
-        setError,
-        setSuccess
-      );
+      if (emailVerify) {
+        HandlePasswordChange(
+          newPassword,
+          changePassword,
+          setChangePassword,
+          setPassword,
+          setError,
+          setSuccess
+        );
+      } else {
+        showStatus(
+          'Please verify your email before you make changes to your account',
+          setError
+        );
+      }
     }
     setEditState(!editState);
   }
