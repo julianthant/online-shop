@@ -210,18 +210,18 @@ export default function AccountSettings() {
                       id={field.id}
                       type={field.type}
                       value={
-                        isBelowBreakpoint && !field.editState
+                        isBelowBreakpoint() && !field.editState
                           ? null
                           : field.value
                       }
                       defaultValue={
-                        isBelowBreakpoint && !field.editState
+                        isBelowBreakpoint() && !field.editState
                           ? field.value
                           : null
                       }
                       placeholder={field.placeholder}
                       onChange={
-                        isBelowBreakpoint && !field.editState
+                        isBelowBreakpoint() && !field.editState
                           ? null
                           : (e) => field.setValue(e.target.value)
                       }
