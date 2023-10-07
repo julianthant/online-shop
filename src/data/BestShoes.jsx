@@ -1,9 +1,9 @@
-import NB990v3 from '../assets/BestShoes/NB990v3.webp';
-import AJ1 from '../assets/BestShoes/AJ1.webp';
-import Chuck70VintageCanvas from '../assets/BestShoes/Chuck70VintageCanvas.webp';
-import VansAuthentic from '../assets/BestShoes/VansAuthentic.webp';
-import AdidasEQTCSG91 from '../assets/BestShoes/EQT-CSG-91.webp';
-import NB5740 from '../assets/BestShoes/NB5740.webp';
+import NB990v3 from '../assets/TopSneakers/NB990v3.webp';
+import AJ1 from '../assets/TopSneakers/AJ1.webp';
+import Chuck70VintageCanvas from '../assets/TopSneakers/Chuck70VintageCanvas.webp';
+import VansAuthentic from '../assets/TopSneakers/VansAuthentic.webp';
+import AdidasEQTCSG91 from '../assets/TopSneakers/EQT-CSG-91.webp';
+import NB5740 from '../assets/TopSneakers/NB5740.webp';
 
 let BestShoes = [
   {
