@@ -98,13 +98,15 @@ export default function Navbar() {
           <Link className={navLinks} to="/" onClick={handleMenuItemClick}>
             Contact
           </Link>
-          <Link
-            className={`${navLinks} xs:hidden`}
-            to="/dashboard"
-            onClick={handleMenuItemClick}
-          >
-            Profile
-          </Link>
+          {signedIn && (
+            <Link
+              className={`${navLinks} xs:hidden`}
+              to="/dashboard"
+              onClick={handleMenuItemClick}
+            >
+              Profile
+            </Link>
+          )}
           {menu && !authPage && !signedIn ? (
             <div className="flex flex-col gap-3">
               <button
