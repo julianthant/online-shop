@@ -21,7 +21,7 @@ export default function Heading() {
           </div>
           <img
             src={background}
-            loading="eager"
+            rel="preload"
             className="h-[26rem] max-xl:h-[24rem] max-lg:h-[20rem] ml-auto max-lg:hidden"
             alt=""
           />

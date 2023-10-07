@@ -40,19 +40,19 @@ export default function ShoeCarousel() {
         }
       >
         <div className="h-[680px]">
-          <img loading="eager" src={NikeCarousel} alt="Nike" />
+          <img rel="preload" src={NikeCarousel} alt="Nike" />
         </div>
         <div className="h-[680px]">
-          <img loading="lazy" src={ConverseCarousel} alt="Converse" />
+          <img rel="preload" src={ConverseCarousel} alt="Converse" />
         </div>
         <div className="h-[680px]">
-          <img loading="lazy" src={AdidasCarousel} alt="Adidas" />
+          <img rel="preload" src={AdidasCarousel} alt="Adidas" />
         </div>
         <div className="h-[680px]">
-          <img loading="lazy" src={NBCarousel} alt="New Balance" />
+          <img rel="preload" src={NBCarousel} alt="New Balance" />
         </div>
         <div className="h-[680px]">
-          <img loading="lazy" src={VansCarousel} alt="Vans" />
+          <img rel="preload" src={VansCarousel} alt="Vans" />
         </div>
       </Carousel>
     </div>
