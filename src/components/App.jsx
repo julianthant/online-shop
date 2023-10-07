@@ -29,7 +29,9 @@ function App() {
             </Route>
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/verify-email" element={<EmailVerification />} />
-            <Route path="/action-center" element={<AccountCenter />} />
+            <Route path="/dashboard" element={<PrivateRoute />}>
+              <Route path="/action-center" element={<AccountCenter />} />
+            </Route>
           </Routes>
         </Suspense>
       </FirebaseProvider>
