@@ -22,6 +22,7 @@ export default {
         xs: '450px',
         s: '600px',
         sm: '650px',
+        lm: '700px',
       },
     },
   },
