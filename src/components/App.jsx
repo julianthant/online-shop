@@ -29,8 +29,8 @@ function App() {
             </Route>
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/verify-email" element={<EmailVerification />} />
-            <Route path="/dashboard" element={<PrivateRoute />}>
-              <Route path="/action-center" element={<AccountCenter />} />
+            <Route path="/action-center" element={<PrivateRoute />}>
+              <Route index element={<AccountCenter />} />
             </Route>
           </Routes>
         </Suspense>
