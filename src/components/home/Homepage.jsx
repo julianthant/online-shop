@@ -5,6 +5,7 @@ import PickShoesByGender from './PickShoesByGender';
 import ShoeCarousel from './ShoeCarousel';
 
 import NewShoes from '../../data/NewShoes';
+import BestShoes from '../../data/BestShoes';
 
 export default function Homepage() {
   return (
@@ -21,7 +22,7 @@ export default function Homepage() {
       <ShoeGrid
         Heading="Best Sellers"
         Subheading="VIEW ALL BEST SELLERS"
-        Data={NewShoes}
+        Data={BestShoes}
       />
     </section>
   );
