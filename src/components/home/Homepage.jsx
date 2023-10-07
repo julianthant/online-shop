@@ -6,6 +6,7 @@ import ShoeCarousel from './ShoeCarousel';
 
 import NewShoes from '../../data/NewShoes';
 import BestShoes from '../../data/BestShoes';
+import ShoeBanner from './ShoeBanner';
 
 export default function Homepage() {
   return (
@@ -24,6 +25,7 @@ export default function Homepage() {
         Subheading="VIEW ALL BEST SELLERS"
         Data={BestShoes}
       />
+      <ShoeBanner />
     </section>
   );
 }
