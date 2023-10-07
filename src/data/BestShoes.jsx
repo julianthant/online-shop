@@ -1,4 +1,4 @@
-import NB990v3 from '../assets/TopSneakers/NB990v3.webp';
+import NB990v3 from '../assets/TopSneakers/NB990V3.webp';
 import AJ1 from '../assets/TopSneakers/AJ1.webp';
 import Chuck70VintageCanvas from '../assets/TopSneakers/Chuck70VintageCanvas.webp';
 import VansAuthentic from '../assets/TopSneakers/VansAuthentic.webp';
