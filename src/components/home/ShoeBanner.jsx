@@ -12,7 +12,7 @@ export default function ShoeBanner() {
   };
 
   return (
-    <div className="pb-10 pt-16 relative">
+    <div id="shoe-banner" className="pb-10 pt-16 relative">
       <div
         style={bannerStyle}
         className="lg:h-[42rem] max-lg:h-[25rem] flex justify-center items-center"

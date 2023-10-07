@@ -11,7 +11,7 @@ export default function ShoeCard({
   return (
     <div
       to="/shoe-details"
-      className="bg-white overflow-hidden shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105"
+      className="bg-white overflow-hidden shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
     >
       <div className="relative">
         <div className="bg-gray-200 h-[20rem] flex items-center">

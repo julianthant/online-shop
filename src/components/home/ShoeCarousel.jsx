@@ -8,7 +8,7 @@ import VansCarousel from '../../assets/Carousel/VansCarousel.webp';
 
 export default function ShoeCarousel() {
   return (
-    <div className="pb-10 md:px-16">
+    <div id="shoe-display" className="pb-10 md:px-16">
       <Carousel
         autoPlay
         infiniteLoop

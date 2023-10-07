@@ -6,7 +6,7 @@ import vans from '../../assets/vans.svg';
 
 export default function FeaturedBrands() {
   return (
-    <div className="container text-slate-50 pt-20 pb-12">
+    <div id="featured-brands" className="container text-slate-50 pt-20 pb-12">
       <h2 className="text-3xl pb-8 text-center font-medium font-[Poppins]">
         Featured Brands
       </h2>

@@ -1,9 +1,9 @@
 import ShoeCard from './ShoeCard';
 import PropTypes from 'prop-types';
 
-export default function ShoeGrid({ Heading, Subheading, Data }) {
+export default function ShoeGrid({ Heading, Subheading, Data, ID }) {
   return (
-    <div className="container py-8">
+    <div id={ID} className="container py-8">
       <div className="flex justify-between items-center">
         <h2 className="font-[Poppins] text-2xl text-slate-50">{Heading}</h2>
         <a className="underline underline-offset-[6px] max-s:hidden decoration-emerald-600 text-slate-50 hover:decoration-slate-50 transition-300 text-md tracking-[0.2rem] cursor-pointer">
@@ -43,4 +43,5 @@ ShoeGrid.propTypes = {
       tag: PropTypes.bool,
     })
   ).isRequired,
+  ID: PropTypes.string.isRequired,
 };
