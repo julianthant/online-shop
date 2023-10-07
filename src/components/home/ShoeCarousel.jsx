@@ -1,10 +1,10 @@
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import NikeCarousel from '../../assets/Carousel/NikeCarousel.jpg';
-import ConverseCarousel from '../../assets/Carousel/ConverseCarousel.jpg';
-import AdidasCarousel from '../../assets/Carousel/AdidasCarousel.jpg';
-import NBCarousel from '../../assets/Carousel/NBCarousel.jpg';
-import VansCarousel from '../../assets/Carousel/VansCarousel.jpg';
+import ConverseCarousel from '../../assets/Carousel/ConverseCarousel.webp';
+import AdidasCarousel from '../../assets/Carousel/AdidasCarousel.webp';
+import NBCarousel from '../../assets/Carousel/NBCarousel.webp';
+import VansCarousel from '../../assets/Carousel/VansCarousel.webp';
 
 export default function ShoeCarousel() {
   return (

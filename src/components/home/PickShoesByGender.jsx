@@ -1,5 +1,5 @@
-import menShoes from '../../assets/men-shoes.jpg';
-import womenShoes from '../../assets/women-shoes.jpg';
+import menShoes from '../../assets/men-shoes.webp';
+import womenShoes from '../../assets/women-shoes.webp';
 
 export default function PickShoesByGender() {
   const imageContainer =
