@@ -77,6 +77,42 @@ body {
   }
 }
 
+#fb-icon {
+  fill: white;
+  transition: all 300ms;
+}
+
+#fb-icon:hover {
+  fill: rgb(5 150 105);
+}
+
+#insta-icon {
+  fill: white;
+  transition: all 300ms;
+}
+
+#insta-icon:hover {
+  fill: rgb(5 150 105);
+}
+
+#tiktok-icon {
+  fill: white;
+  transition: all 300ms;
+}
+
+#tiktok-icon:hover {
+  fill: rgb(5 150 105);
+}
+
+#twitter-icon {
+  fill: white;
+  transition: all 300ms;
+}
+
+#twitter-icon:hover {
+  fill: rgb(5 150 105);
+}
+
 /* Custom Arrows */
 .custom-arrow {
   position: absolute;
