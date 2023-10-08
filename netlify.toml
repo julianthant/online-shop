@@ -2,11 +2,13 @@
   from = "/api/*"
   to = "http://localhost:3001/:splat"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/signup/*"

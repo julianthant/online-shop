@@ -1,6 +1,5 @@
 import SneakerCard from '../main/SneakerCard';
 import GetSneakers from '../../functions/GetSneakers';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -38,17 +37,3 @@ export default function SneakerGrid() {
     </section>
   );
 }
-
-SneakerGrid.propTypes = {
-  Data: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number,
-      description: PropTypes.string,
-      image: PropTypes.string.isRequired,
-      colors: PropTypes.string,
-      onAddToCart: PropTypes.func,
-    })
-  ).isRequired,
-  ID: PropTypes.string.isRequired,
-};
