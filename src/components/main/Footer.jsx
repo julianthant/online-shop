@@ -24,7 +24,7 @@ export default function Footer() {
   ];
 
   const linkClass =
-    'hover:text-emerald-700 transition-300 max-s:text-center cursor-pointer';
+    'hover:text-emerald-600 transition-300 max-s:text-center cursor-pointer';
 
   return (
     <footer className="pt-20 font-[Inter]">
@@ -93,7 +93,7 @@ export default function Footer() {
             Need Help?
           </h2>
           <nav
-            className="grid text-light-gray gap-2 font-light text-lg"
+            className="grid text-[#909090] gap-2 font-light text-lg"
             aria-label="footer-navigation"
           >
             <Link className={linkClass}>FAQs</Link>

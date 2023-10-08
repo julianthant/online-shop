@@ -19,7 +19,13 @@ function App() {
     <Router>
       <FirebaseProvider>
         <Navbar />
-        <Suspense fallback={<Navbar />}>
+        <Suspense
+          fallback={
+            <div className="bg-matte-black">
+              <Navbar />
+            </div>
+          }
+        >
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/signup" element={<Signup />} />
