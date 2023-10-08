@@ -5,6 +5,16 @@
   headers = {Access-Control-Allow-Origin = "*", Access-Control-Allow-Methods = "GET", Access-Control-Allow-Headers = "Origin, Host, Content-Type, x-api-key"}
 
 [[redirects]]
+  from = "/api/v1/sneakers/brands"
+  to = "/.netlify/functions/getBrands"
+  status = 200
+
+[[redirects]]
+  from = "/api/v1/sneakers"
+  to = "/.netlify/functions/getSneakers"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

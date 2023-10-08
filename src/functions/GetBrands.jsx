@@ -7,8 +7,11 @@ export default async function GetSneakers(setBrand) {
 
   try {
     const response = await axios.get(
-      '/.netlify/functions/getBrands', // Update with your actual function name, e.g., 'getBrands'
-      { headers: headers, maxBodyLength: Infinity }
+      `${import.meta.env.VITE_API_ORIGIN}/.netlify/functions/getBrands`,
+      {
+        headers: headers,
+        maxBodyLength: Infinity,
+      }
     );
     console.log(response.data.data);
     setBrand(response.data.data);
