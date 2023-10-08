@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 import InvalidPage from './InvalidPage';
 
-// Define lazy-loaded components
+const Navbar = lazy(() => import('../main/Navbar'));
 const PasswordReset = lazy(() => import('./PasswordReset'));
 const EmailVerified = lazy(() => import('./EmailVerified'));
 const VerifyAndChangeEmail = lazy(() => import('./VerifyAndChangeEmail'));
@@ -26,5 +26,15 @@ export default function AccountCenter() {
     }
   };
 
-  return <Suspense>{renderComponent()}</Suspense>;
+  return (
+    <Suspense
+      fallback={
+        <div className="bg-matte-black min-h-screen w-screen">
+          <Navbar fallbackClass="bg-matte-black" />
+        </div>
+      }
+    >
+      {renderComponent()}
+    </Suspense>
+  );
 }
