@@ -21,7 +21,7 @@ function App() {
         <Navbar />
         <Suspense
           fallback={
-            <div className="bg-matte-black">
+            <div className="bg-matte-black min-h-screen w-screen">
               <Navbar />
             </div>
           }
