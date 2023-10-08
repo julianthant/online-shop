@@ -1,5 +1,5 @@
-import axios from 'axios';
-import https from 'https';
+const axios = require('axios');
+const https = require('https');
 
 export async function handler(event, context) {
   const apiUrl = 'https://app.retailed.io/api/v1/sneakers/brands';

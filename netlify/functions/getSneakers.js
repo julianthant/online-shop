@@ -1,7 +1,6 @@
 // netlify/functions/getSneakers.js
-
-import axios from 'axios';
-import https from 'https';
+const axios = require('axios');
+const https = require('https');
 
 export async function handler(event, context) {
   try {
