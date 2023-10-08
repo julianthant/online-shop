@@ -32,8 +32,3 @@
   from = "/action-center/*"
   to = "/index.html"
   status = 200
-
-[[redirects]]
-  from = "/*"
-  to = "http://localhost:3001/:splat"
-  status = 200
