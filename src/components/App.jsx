@@ -1,9 +1,15 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Homepage from './home/Homepage';
+import Homepage from './pages/home/Homepage';
 import PrivateRoute from '../hooks/PrivateRoute';
 import { FirebaseProvider } from '../contexts/FirebaseContexts';
 import Navbar from './main/Navbar';
+import LookbookPage from './pages/lookbook/LookbookPage';
+import CollectionsPage from './pages/collections/CollectionsPage';
+import SneakerGrid from './main/SneakerGrid';
+
+const CartPage = lazy(() => import('./cart/CartPage'));
+const ContactsPage = lazy(() => import('./pages/contacts/ContactsPage'));
 
 const Dashboard = lazy(() => import('./main/Dashboard'));
 const Login = lazy(() => import('./authentication/Login'));
@@ -38,6 +44,14 @@ function App() {
             <Route path="/action-center" element={<PrivateRoute />}>
               <Route index element={<AccountCenter />} />
             </Route>
+            <Route path="/lookbook" element={<LookbookPage />} />
+            <Route path="/collections" element={<CollectionsPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/contacts" element={<ContactsPage />} />
+            <Route
+              path="/sneaker-grid/:name/:brandID"
+              element={<SneakerGrid />}
+            />
           </Routes>
         </Suspense>
       </FirebaseProvider>
