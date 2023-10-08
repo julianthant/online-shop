@@ -10,7 +10,6 @@ export default async function GetSneakers(setBrand) {
       `${import.meta.env.VITE_API_ORIGIN}/api/v1/sneakers/brands`,
       { headers: headers, maxBodyLength: Infinity }
     );
-    console.log(response.data.data);
     setBrand(response.data.data);
   } catch (error) {
     console.error('Error fetching brands:', error);
