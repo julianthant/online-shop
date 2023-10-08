@@ -32,3 +32,8 @@
   from = "/action-center/*"
   to = "/index.html"
   status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "https://solesteals.netlify.app/:splat"
+  status = 200
