@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
+import PropTypes from 'prop-types';
 
 import logo from '../../assets/shoe-logo.png';
 import menu_icon from '../../assets/menu.svg';
@@ -8,7 +9,7 @@ import close_menu_icon from '../../assets/close_menu.svg';
 import profile_icon from '../../assets/profile-icon.svg';
 import cart_icon from '../../assets/cart-icon.svg';
 
-export default function Navbar() {
+export default function Navbar({ fallbackClass }) {
   const [menu, setMenu] = useState(false);
   const [authPage, setAuthPage] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
@@ -82,7 +83,9 @@ export default function Navbar() {
   }
 
   return (
-    <header className="absolute font-medium inset-x-0 top-0 text-slate-50 backdrop-blur-md border-b-[1px] border-b-slate-400">
+    <header
+      className={`${fallbackClass} absolute font-medium inset-x-0 top-0 text-slate-50 backdrop-blur-md border-b-[1px] border-b-slate-400`}
+    >
       <div className="container mx-auto flex justify-between items-center h-16">
         <img className="w-[11.5rem] pb-1" src={logo} alt="" />
         <nav className={`${menu ? mobileMenu : normalMenu}`}>
@@ -172,3 +175,7 @@ export default function Navbar() {
     </header>
   );
 }
+
+Navbar.propTypes = {
+  fallbackClass: PropTypes.string,
+};
