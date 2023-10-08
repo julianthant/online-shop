@@ -1,4 +1,4 @@
-import background from '../../assets/homepage_background.webp';
+import background from '../../../assets/homepage_background.webp';
 
 export default function Heading() {
   return (

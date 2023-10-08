@@ -4,11 +4,11 @@ import ShoeGrid from './ShoeGrid';
 import PickShoesByGender from './PickShoesByGender';
 import ShoeCarousel from './ShoeCarousel';
 
-import NewShoes from '../../data/NewShoes';
-import BestShoes from '../../data/BestShoes';
+import NewShoes from '../../../data/NewShoes';
+import BestShoes from '../../../data/BestShoes';
 import ShoeBanner from './ShoeBanner';
 import StoreServices from './StoreServices';
-import Footer from '../main/Footer';
+import Footer from '../../main/Footer';
 
 export default function Homepage() {
   return (

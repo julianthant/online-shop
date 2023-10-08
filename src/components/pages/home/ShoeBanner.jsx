@@ -1,4 +1,4 @@
-import background from '../../assets/shoe-footer.jpg';
+import background from '../../../assets/shoe-footer.jpg';
 
 export default function ShoeBanner() {
   const imageButton =

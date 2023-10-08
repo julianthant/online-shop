@@ -1,6 +1,6 @@
-import DeliveryTruck from '../../assets/delivery-truck.svg';
-import RefreshArrows from '../../assets/refresh-arrows.svg';
-import Lock from '../../assets/lock-icon.svg';
+import DeliveryTruck from '../../../assets/delivery-truck.svg';
+import RefreshArrows from '../../../assets/refresh-arrows.svg';
+import Lock from '../../../assets/lock-icon.svg';
 
 export default function StoreServices() {
   const iconsContainer =

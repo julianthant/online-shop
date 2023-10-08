@@ -1,8 +1,8 @@
-import nike from '../../assets/nike.svg';
-import adidas from '../../assets/adidas.svg';
-import newBalance from '../../assets/new-balance.svg';
-import converse from '../../assets/converse.svg';
-import vans from '../../assets/vans.svg';
+import nike from '../../../assets/nike.svg';
+import adidas from '../../../assets/adidas.svg';
+import newBalance from '../../../assets/new-balance.svg';
+import converse from '../../../assets/converse.svg';
+import vans from '../../../assets/vans.svg';
 
 export default function FeaturedBrands() {
   return (
