@@ -92,13 +92,25 @@ export default function Navbar({ fallbackClass }) {
           <Link className={navLinks} to="/" onClick={handleMenuItemClick}>
             Home
           </Link>
-          <Link className={navLinks} to="/" onClick={handleMenuItemClick}>
-            Featured
+          <Link
+            className={navLinks}
+            to="/collections"
+            onClick={handleMenuItemClick}
+          >
+            Collections
           </Link>
-          <Link className={navLinks} to="/" onClick={handleMenuItemClick}>
-            Categories
+          <Link
+            className={navLinks}
+            to="/lookbook"
+            onClick={handleMenuItemClick}
+          >
+            Lookbook
           </Link>
-          <Link className={navLinks} to="/" onClick={handleMenuItemClick}>
+          <Link
+            className={navLinks}
+            to="/contacts"
+            onClick={handleMenuItemClick}
+          >
             Contact
           </Link>
           {signedIn && (
@@ -133,7 +145,7 @@ export default function Navbar({ fallbackClass }) {
           <div className="flex gap-4 items-center">
             {!authPage && signedIn && (
               <div className="flex gap-4 items-center">
-                <button className="relative">
+                <button className="relative" onClick={() => navigate('/cart')}>
                   <div className="bg-red-600 w-5 h-5 absolute cart-circle rounded-full">
                     <p className="text-sm pr-[0.05rem]">0</p>
                   </div>
