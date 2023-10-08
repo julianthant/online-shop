@@ -40,7 +40,6 @@ export default function SneakerGrid() {
 }
 
 SneakerGrid.propTypes = {
-  Heading: PropTypes.string.isRequired,
   Data: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
