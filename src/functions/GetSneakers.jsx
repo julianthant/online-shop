@@ -7,7 +7,9 @@ export default async function GetSneakers(setSneakers, brand_id) {
 
   try {
     const response = await axios.get(
-      `http://localhost:3001/api/v1/sneakers?brand_id=${brand_id}&extended=true`,
+      `${
+        import.meta.env.VITE_API_ORIGIN
+      }/api/v1/sneakers?brand_id=${brand_id}&extended=true`,
       { headers: headers, maxBodyLength: Infinity }
     );
     setSneakers(response.data.data);
