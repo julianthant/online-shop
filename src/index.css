@@ -73,8 +73,14 @@ body {
 
 @media (max-width: 686px) {
   .shoe-grid {
-    grid-template-columns: repeat(auto-fit, minmax(13.7rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr));
   }
+}
+
+.sneaker-grid {
+  display: grid;
+  gap: 2.3rem;
+  grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
 }
 
 #fb-icon {
