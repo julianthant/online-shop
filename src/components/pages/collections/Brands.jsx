@@ -11,7 +11,7 @@ export default function Brands() {
         {BrandsList.map((brand) => (
           <button
             key={brand.id}
-            onClick={() => navigate(`/sneaker-grid/${brand.name}/${brand.id}`)}
+            onClick={() => navigate(`/sneaker-grid/${brand.name}`)}
             className="rounded-md bg-[#1B1B1B] border border-light-gray hover:bg-[#2B2B2B] transition-colors duration-300 cursor-pointer"
           >
             <p className="px-5 py-4 text-white text-center font-semibold">

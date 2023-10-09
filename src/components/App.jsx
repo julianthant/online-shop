@@ -48,10 +48,7 @@ function App() {
             <Route path="/collections" element={<CollectionsPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/contacts" element={<ContactsPage />} />
-            <Route
-              path="/sneaker-grid/:brandName/:brandID"
-              element={<SneakerGrid />}
-            />
+            <Route path="/sneaker-grid/:brandName" element={<SneakerGrid />} />
           </Routes>
         </Suspense>
       </FirebaseProvider>
