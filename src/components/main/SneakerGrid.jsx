@@ -12,21 +12,65 @@ export default function SneakerGrid() {
   const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
-    function getSneakers(sizing) {
-      setSneakers((prevSneakers) => [
-        ...prevSneakers,
-        ...GetSneakers({ sizing: sizing, brand_id: brandID, extended: true }),
-      ]);
-    }
+    const paramsMan = {
+      sizing: 'man',
+      brand_id: brandID,
+      extended: true,
+    };
+
+    const paramsWoman = {
+      sizing: 'woman',
+      brand_id: brandID,
+      extended: true,
+    };
+
+    const paramsBrand = {
+      sizing: brandName.toLowerCase(),
+      brand_id: brandID,
+      extended: true,
+    };
+
+    const paramsToddler = {
+      sizing: 'toddler',
+      brand_id: brandID,
+      extended: true,
+    };
+
+    const paramsPrimarySchool = {
+      sizing: 'primaryschool',
+      brand_id: brandID,
+      extended: true,
+    };
+
+    const paramsGradeSchool = {
+      sizing: 'gradeschool',
+      brand_id: brandID,
+      extended: true,
+    };
 
     async function fetchSneakers() {
-      getSneakers('man');
+      const menSneakers = await GetSneakers(paramsMan);
+      setSneakers(menSneakers);
       setIsLoading(false);
-      getSneakers(brandName.toLowerCase());
-      getSneakers('woman');
-      getSneakers('toddler');
-      getSneakers('primaryschool');
-      getSneakers('gradeschool');
+
+      const womenSneakers = await GetSneakers(paramsWoman);
+      setSneakers((prevSneakers) => [...prevSneakers, ...womenSneakers]);
+
+      const brandSneakers = await GetSneakers(paramsBrand);
+      setSneakers((prevSneakers) => [...prevSneakers, ...brandSneakers]);
+
+      const toddlerSneakers = await GetSneakers(paramsToddler);
+      setSneakers((prevSneakers) => [...prevSneakers, ...toddlerSneakers]);
+
+      const primarySchoolSneakers = await GetSneakers(paramsPrimarySchool);
+      setSneakers((prevSneakers) => [
+        ...prevSneakers,
+        ...primarySchoolSneakers,
+      ]);
+
+      const gradeSchoolSneakers = await GetSneakers(paramsGradeSchool);
+      setSneakers((prevSneakers) => [...prevSneakers, ...gradeSchoolSneakers]);
+
       setCompleted(true);
     }
 
