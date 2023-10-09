@@ -6,7 +6,7 @@ export const handler = async (event) => {
 
     const queryParams = {
       brand_id: event.queryStringParameters.brand_id,
-      extended: true,
+      extended: event.queryStringParameters.extended,
     };
 
     const response = await axios.get(baseUrl, {
