@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 export default function SneakerGrid() {
-  const { name, brandID } = useParams();
+  const { brandName, brandID } = useParams();
   const [sneakers, setSneakers] = useState([]);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function SneakerGrid() {
     <section className="pb-8 pt-24 bg-matte-black">
       <div className="container">
         <h2 className="text-slate-50 text-center pt-[5rem] text-5xl font-[Poppins]">
-          {name} Collection
+          {brandName} Collection
         </h2>
         <div className="pt-16 sneaker-grid">
           {sneakers &&

@@ -49,7 +49,7 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/contacts" element={<ContactsPage />} />
             <Route
-              path="/sneaker-grid/:name/:name/:brandID"
+              path="/sneaker-grid/:brandName/:brandID"
               element={<SneakerGrid />}
             />
           </Routes>
