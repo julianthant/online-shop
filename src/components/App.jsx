@@ -10,7 +10,7 @@ import SneakerGrid from './pages/sneakers//SneakerGrid';
 const Lookbook = lazy(() => import('./pages/lookbook/LookbookPage'));
 const Collections = lazy(() => import('./pages/collections/CollectionsPage'));
 
-const CartPage = lazy(() => import('./cart/CartPage'));
+const CartPage = lazy(() => import('./pages/cart/CartPage'));
 const ContactsPage = lazy(() => import('./pages/contacts/ContactsPage'));
 
 const Dashboard = lazy(() => import('./main/Dashboard'));
