@@ -42,7 +42,7 @@ export default function SneakerDetails() {
 
   return (
     <section
-      className={`min-h-screen bg-matte-black font-[Montserrat] pt-[7rem]`}
+      className={`min-h-screen bg-matte-black font-[Montserrat] pt-[7rem] xl:pt-[8rem]`}
       style={{
         paddingBottom: paddingBottomStyle,
       }}
