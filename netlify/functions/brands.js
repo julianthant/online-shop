@@ -1,9 +1,9 @@
-import fetch from 'node-fetch';
+import axios from 'axios';
 
 const handler = async (event, context) => {
   const url = 'https://app.retailed.io/api/v1/sneakers/brands';
   try {
-    const brands = await fetch(url, {
+    const brands = await axios.get(url, {
       headers: {
         Accept: 'application/json',
         Host: 'app.retailed.io',
