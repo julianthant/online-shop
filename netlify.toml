@@ -1,11 +1,17 @@
+[functions]
+  external_node_modules = ["express"]
+  node_bundler = "esbuild"
+
 [[redirects]]
-  from = "/api/v1/sneakers"
-  to = "/.netlify/functions/sneakers"
+  force = true
+  from = "/sneakers/*"
+  to = "/.netlify/functions/sneakers/:splat"
   status = 200
 
 [[redirects]]
-  from = "/api/v1/sneakers/brands"
-  to = "/.netlify/functions/sneakers/brands"
+  force = true
+  from = "/brands/*"
+  to = "/.netlify/functions/brands/:splat"
   status = 200
 
 [[redirects]]

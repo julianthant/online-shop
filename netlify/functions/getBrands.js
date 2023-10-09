@@ -31,6 +31,6 @@ router.get('/api/v1/sneakers/brands', async (req, res) => {
 });
 
 const api = express();
-api.use('/.netlify/functions/sneakers/brands', router);
+api.use('/sneakers/', router);
 
 export const handler = serverless(api);
