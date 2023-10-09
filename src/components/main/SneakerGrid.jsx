@@ -16,7 +16,7 @@ export default function SneakerGrid() {
     };
 
     const paramsWoman = {
-      sizing: 'man',
+      sizing: 'woman',
       brand_id: brandID,
       extended: true,
     };
