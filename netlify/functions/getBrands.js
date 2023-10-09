@@ -2,8 +2,6 @@ import express, { Router } from 'express';
 import serverless from 'serverless-http';
 import axios from 'axios';
 
-const { json, urlencoded } = express();
-
 const router = Router();
 router.get('/api/v1/sneakers/brands', async (req, res) => {
   try {
@@ -31,9 +29,6 @@ router.get('/api/v1/sneakers/brands', async (req, res) => {
     });
   }
 });
-
-json();
-urlencoded({ extended: true });
 
 const api = express();
 api.use('/.netlify/functions/sneakers/brands', router);
