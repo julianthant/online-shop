@@ -25,7 +25,7 @@ export default function SneakerGrid() {
     };
 
     const paramsBrand = {
-      sizing: brandName.toLowerCase(),
+      sizing: brandName.replace(/\s+/g, '').toLowerCase(),
       brand_id: brandID,
       extended: true,
     };
