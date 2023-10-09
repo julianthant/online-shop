@@ -7,7 +7,7 @@ import {
   HandlePasswordChange,
   HandleLogout,
   HandleDeleteUser,
-} from '../../functions/AccontFunctions';
+} from '../authentication/AccontFunctions';
 import { showStatus } from '../../constants/ShowStatus';
 
 export default function AccountSettings() {
