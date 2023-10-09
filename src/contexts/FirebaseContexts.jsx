@@ -17,6 +17,7 @@ import {
 import PropTypes from 'prop-types';
 import {
   getDocs,
+  getDoc,
   collection,
   addDoc,
   deleteDoc,
@@ -36,14 +37,30 @@ export function FirebaseProvider({ children }) {
     return collection(db, subcollection);
   }
 
-  async function getShoeCollection(shoeCollectionRef, getShoeList) {
+  async function getShoeCollection(shoeCollectionRef, setShoeList) {
     try {
       const data = await getDocs(shoeCollectionRef);
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
-      getShoeList(filteredData);
+      setShoeList(filteredData);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function getShoe(brandName, sneakerID, setSneaker, setError) {
+    try {
+      const data = await doc(db, brandName, sneakerID);
+      const item = await getDoc(data);
+
+      if (item.exists()) {
+        setSneaker(item.data());
+      } else {
+        console.error(`Sneaker with ID ${sneakerID} not found.`);
+        setError(true);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -209,6 +226,7 @@ export function FirebaseProvider({ children }) {
     updateShoe,
     getCollection,
     getShoeCollection,
+    getShoe,
   };
 
   return (
