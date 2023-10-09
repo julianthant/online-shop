@@ -4,9 +4,11 @@ import Homepage from './pages/home/Homepage';
 import PrivateRoute from '../hooks/PrivateRoute';
 import { FirebaseProvider } from '../contexts/FirebaseContexts';
 import Navbar from './main/Navbar';
-import LookbookPage from './pages/lookbook/LookbookPage';
-import CollectionsPage from './pages/collections/CollectionsPage';
-import SneakerGrid from './main/SneakerGrid';
+import SneakerDetails from './pages/sneakers/SneakerDetails';
+import SneakerGrid from './pages/sneakers//SneakerGrid';
+
+const Lookbook = lazy(() => import('./pages/lookbook/LookbookPage'));
+const Collections = lazy(() => import('./pages/collections/CollectionsPage'));
 
 const CartPage = lazy(() => import('./cart/CartPage'));
 const ContactsPage = lazy(() => import('./pages/contacts/ContactsPage'));
@@ -44,11 +46,15 @@ function App() {
             <Route path="/action-center" element={<PrivateRoute />}>
               <Route index element={<AccountCenter />} />
             </Route>
-            <Route path="/lookbook" element={<LookbookPage />} />
-            <Route path="/collections" element={<CollectionsPage />} />
+            <Route path="/lookbook" element={<Lookbook />} />
+            <Route path="/collections" element={<Collections />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/contacts" element={<ContactsPage />} />
             <Route path="/sneaker-grid/:brandName" element={<SneakerGrid />} />
+            <Route
+              path="/sneaker-grid/:brandName/:sneakerID"
+              element={<SneakerDetails />}
+            />
           </Routes>
         </Suspense>
       </FirebaseProvider>
