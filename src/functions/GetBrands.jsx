@@ -6,9 +6,12 @@ export default async function GetSneakers(setBrand) {
   };
 
   try {
-    const response = await axios.get('/.netlify/functions/sneakers/brands', {
-      headers: headers,
-    });
+    const response = await axios.get(
+      'https://solesteals.netlify.app/.netlify/functions/getBrands',
+      {
+        headers: headers,
+      }
+    );
     console.log(response.data.data);
     setBrand(response.data.data);
   } catch (error) {

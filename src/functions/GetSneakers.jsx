@@ -7,7 +7,7 @@ export default async function GetSneakers(setSneakers, brand_id) {
 
   try {
     const response = await axios.get(
-      `/.netlify/functions/sneakers?brand_id=${brand_id}&extended=true`,
+      `https://solesteals.netlify.app/.netlify/functions/getSneakers?brand_id=${brand_id}&extended=true`,
       { headers: headers, maxBodyLength: Infinity }
     );
     console.log(response.data.data);
