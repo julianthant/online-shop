@@ -51,30 +51,43 @@ export function FirebaseProvider({ children }) {
 
   async function addNewShoe(
     shoeCollectionRef,
-    newBrand,
-    newName,
-    newColor,
-    newDescription,
-    newInstock,
-    newSizes
+    {
+      id,
+      name,
+      image,
+      releasedAt,
+      sizing,
+      initialPrice,
+      colorway,
+      sku,
+      createdAt,
+      updatedAt,
+      brand: { id: brandId, name: brandName },
+    }
   ) {
     try {
       const querySnapshot = await getDocs(
-        query(shoeCollectionRef, where('name', '==', newName))
+        query(shoeCollectionRef, where('name', '==', name))
       );
 
       if (querySnapshot.size === 0) {
         await addDoc(shoeCollectionRef, {
-          brand: newBrand,
-          name: newName,
-          color: newColor,
-          description: newDescription,
-          instock: newInstock,
-          sizes: newSizes,
+          id,
+          name,
+          image,
+          releasedAt,
+          sizing,
+          initialPrice,
+          colorway,
+          sku,
+          createdAt,
+          updatedAt,
+          brandId,
+          brandName,
         });
-        console.log(`Added shoe with the name "${newName}".`);
+        console.log(`Added shoe with the name "${name}".`);
       } else {
-        console.log(`A shoe with the name "${newName}" already exists.`);
+        console.log(`A shoe with the name "${name}" already exists.`);
       }
     } catch (error) {
       console.error(error);

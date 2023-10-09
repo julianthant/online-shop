@@ -2,35 +2,50 @@ import SneakerCard from '../main/SneakerCard';
 import GetSneakers from '../../functions/GetSneakers';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function SneakerGrid() {
   const { brandName, brandID } = useParams();
   const [sneakers, setSneakers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { getCollection, addNewShoe } = useAuth();
+  const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
-    const paramsMan = {
-      sizing: 'man',
-      brand_id: brandID,
-      extended: true,
-    };
-
-    const paramsWoman = {
-      sizing: 'woman',
-      brand_id: brandID,
-      extended: true,
-    };
+    function getSneakers(sizing) {
+      setSneakers((prevSneakers) => [
+        ...prevSneakers,
+        ...GetSneakers({ sizing: sizing, brand_id: brandID, extended: true }),
+      ]);
+    }
 
     async function fetchSneakers() {
-      const menSneakers = await GetSneakers(paramsMan);
-      setSneakers(menSneakers);
+      getSneakers('man');
       setIsLoading(false);
-      const womenSneakers = await GetSneakers(paramsWoman);
-      setSneakers((prevSneakers) => [...prevSneakers, ...womenSneakers]);
+      getSneakers(brandName.toLowerCase());
+      getSneakers('woman');
+      getSneakers('toddler');
+      getSneakers('primaryschool');
+      getSneakers('gradeschool');
+      setCompleted(true);
     }
 
     fetchSneakers();
-  }, [brandID]);
+  }, [brandID, brandName]);
+
+  useEffect(() => {
+    async function uploadSneakers() {
+      const shoeCollectionRef = getCollection(brandName);
+
+      for (const sneaker of sneakers) {
+        await addNewShoe(shoeCollectionRef, sneaker);
+      }
+    }
+
+    if (completed) {
+      uploadSneakers();
+    }
+  }, [addNewShoe, brandName, completed, getCollection, sneakers]);
 
   return (
     <section className="pb-8 pt-24 bg-matte-black">

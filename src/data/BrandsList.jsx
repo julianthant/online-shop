@@ -25,7 +25,7 @@ const BrandsList = [
   },
   {
     id: '0995e44d-a111-479b-aae2-54763e6c152e',
-    name: 'Reebook',
+    name: 'Reebok',
   },
   {
     id: '473b90f7-203a-46ac-9e68-3b43fd0466ac',
