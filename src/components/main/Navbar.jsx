@@ -59,8 +59,8 @@ export default function Navbar({ fallbackClass }) {
 
   const navLinks = 'hover:text-emerald-600 duration-[250ms]';
   const normalMenu =
-    'flex w-[31rem] justify-between max-md:hidden font-medium px-8';
-  const mobileMenu = `absolute flex justify-center inset-x-0 text-center gap-8 py-8 top-[4.085rem] grid bg-[#1B1B1B]`;
+    'flex w-[31rem] justify-between max-md:hidden font-medium px-8 z-10';
+  const mobileMenu = `absolute flex justify-center inset-x-0 text-center gap-8 py-8 top-[4.085rem] grid bg-[#1B1B1B] z-10`;
 
   useEffect(() => {
     const updateWindowWidth = () => {
@@ -84,7 +84,7 @@ export default function Navbar({ fallbackClass }) {
 
   return (
     <header
-      className={`${fallbackClass} absolute font-medium inset-x-0 top-0 text-slate-50 backdrop-blur-md border-b-[1px] border-b-slate-400`}
+      className={`${fallbackClass} absolute font-medium inset-x-0 top-0 text-slate-50 backdrop-blur-md border-b-[1px] border-b-slate-400 z-10`}
     >
       <div className="container mx-auto flex justify-between items-center h-16">
         <img className="w-[11.5rem] pb-1" src={logo} alt="" />
