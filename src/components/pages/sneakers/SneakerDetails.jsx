@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
-
 import QuantityControl from './QuantityControl';
-
 import SelectColors from './SelectColors';
 import InvalidPage from './InvalidPage';
 import MinorDetails from './MinorDetails';
@@ -36,7 +34,7 @@ export default function SneakerDetails() {
   const paddingBottomStyle =
     viewportWidth < 1024 && enabled && items > 3
       ? `${items * 1.8}rem`
-      : viewportWidth > 1024 && enabled && items > 5
+      : viewportWidth > 1024 && enabled && items > 4
       ? `${items * 1.8}rem`
       : '3rem';
 

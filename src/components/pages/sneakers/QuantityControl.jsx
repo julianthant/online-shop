@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 
 export default function QuantityControl({ value, setValue }) {
   const handleIncrementQuantity = () => {
-    setValue((prevQuantity) => prevQuantity + 1);
+    if (value < 100) {
+      setValue((prevQuantity) => prevQuantity + 1);
+    }
   };
 
   const handleDecrementQuantity = () => {
@@ -12,7 +14,7 @@ export default function QuantityControl({ value, setValue }) {
   };
 
   const handleChangeQuantity = (event) => {
-    const newValue = parseInt(event.target.value, 10);
+    const newValue = parseInt(event.target.value, 1);
     if (!isNaN(newValue)) {
       setValue(newValue);
     }
