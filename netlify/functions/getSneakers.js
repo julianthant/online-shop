@@ -1,36 +1,28 @@
-import express, { Router } from 'express';
-import serverless from 'serverless-http';
 import axios from 'axios';
 
-const router = Router();
-router.get('/api/v1/sneakers', async (req, res) => {
+export const handler = async (event) => {
   try {
-    const apiUrl = 'https://app.retailed.io' + req.url;
+    const baseUrl = 'https://app.retailed.io/api/v1/sneakers';
 
-    const axiosConfig = {
-      headers: {
-        ...req.headers,
-        Host: 'app.retailed.io',
-      },
+    const queryParams = {
+      brand_id: event.queryStringParameters.brand_id,
+      extended: true,
     };
 
-    const response = await axios.get(apiUrl, axiosConfig);
-
-    console.log('API URL:', apiUrl);
-    console.log('Response:', response.status, response.data);
-
-    res.status(response.status).json(response.data);
-  } catch (error) {
-    console.error('Error:', error);
-
-    const statusCode = error.response?.status || 500;
-    res.status(statusCode).json({
-      error: `Something went wrong: ${error.message}`,
+    const response = await axios.get(baseUrl, {
+      headers: {
+        Accept: 'application/json',
+        Host: 'app.retailed.io',
+        'x-api-key': 'cefe79da-294d-4afa-b530-69f24ad08e64',
+      },
+      params: queryParams,
     });
+
+    return {
+      statusCode: response.status,
+      body: JSON.stringify(response.data),
+    };
+  } catch (error) {
+    return { statusCode: 422, body: error.stack };
   }
-});
-
-const api = express();
-api.use('/brands/', router);
-
-export const handler = serverless(api);
+};

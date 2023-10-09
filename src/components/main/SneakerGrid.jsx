@@ -8,7 +8,7 @@ export default function SneakerGrid() {
   const [sneakers, setSneakers] = useState([]);
 
   useEffect(() => {
-    GetSneakers(setSneakers, brandID);
+    GetSneakers(setSneakers, { brand_id: brandID });
   }, [brandID]);
 
   return (
