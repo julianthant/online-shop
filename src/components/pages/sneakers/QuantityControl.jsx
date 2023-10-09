@@ -36,7 +36,7 @@ export default function QuantityControl({ value, setValue }) {
           type="text"
           value={value}
           onChange={handleChangeQuantity}
-          className="text-center p-1 w-11 h-9 border border-gray-300 focus:shadow-xl focus:outline-none"
+          className="text-center p-1 w-11 h-9 border rounded-none border-gray-300 focus:shadow-xl focus:outline-none"
         />
         <div className="relative">
           <button
