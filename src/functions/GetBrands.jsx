@@ -1,16 +1,11 @@
-import axios from 'axios';
+import fetch from 'node-fetch';
 
 export default async function GetSneakers(setBrand) {
-  const headers = {
-    'x-api-key': 'cefe79da-294d-4afa-b530-69f24ad08e64',
-  };
-
   try {
-    const response = await axios.get('/.netlify/functions/getBrands', {
-      headers: headers,
-    });
-    console.log(response.data.data);
-    setBrand(response.data.data);
+    const response = await fetch('/.netlify/functions/brands');
+    const data = await response.json();
+    console.log(data.data.data);
+    setBrand(data.data.data);
   } catch (error) {
     console.error('Error fetching brands:', error);
   }
