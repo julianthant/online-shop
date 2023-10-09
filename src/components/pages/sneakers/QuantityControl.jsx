@@ -23,7 +23,7 @@ export default function QuantityControl({ value, setValue }) {
   return (
     <div className="flex items-center">
       <p className="text-gray-600 w-28">QTY:</p>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 sidebar-container">
         <div className="relative">
           <button
             onClick={handleDecrementQuantity}
