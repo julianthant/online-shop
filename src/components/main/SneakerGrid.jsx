@@ -6,9 +6,30 @@ import { useState, useEffect } from 'react';
 export default function SneakerGrid() {
   const { brandName, brandID } = useParams();
   const [sneakers, setSneakers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    GetSneakers(setSneakers, { brand_id: brandID, extended: true });
+    const paramsMan = {
+      sizing: 'man',
+      brand_id: brandID,
+      extended: true,
+    };
+
+    const paramsWoman = {
+      sizing: 'man',
+      brand_id: brandID,
+      extended: true,
+    };
+
+    async function fetchSneakers() {
+      const menSneakers = await GetSneakers(paramsMan);
+      setSneakers(menSneakers);
+      setIsLoading(false);
+      const womenSneakers = await GetSneakers(paramsWoman);
+      setSneakers((prevSneakers) => [...prevSneakers, ...womenSneakers]);
+    }
+
+    fetchSneakers();
   }, [brandID]);
 
   return (
@@ -18,7 +39,9 @@ export default function SneakerGrid() {
           {brandName} Collection
         </h2>
         <div className="pt-16 sneaker-grid">
-          {sneakers &&
+          {isLoading && !sneakers ? (
+            <p>Loading sneakers...</p>
+          ) : (
             sneakers.map((sneaker) => (
               <SneakerCard
                 key={sneaker.id}
@@ -31,7 +54,8 @@ export default function SneakerGrid() {
                   console.log(`Added ${sneaker.name} to cart`);
                 }}
               />
-            ))}
+            ))
+          )}
         </div>
       </div>
     </section>

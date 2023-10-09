@@ -5,6 +5,7 @@ const handler = async (event, context) => {
     const baseUrl = 'https://app.retailed.io/api/v1/sneakers';
 
     const queryParams = {
+      sizing: event.queryStringParameters.sizing,
       brand_id: event.queryStringParameters.brand_id,
       extended: event.queryStringParameters.extended,
     };
