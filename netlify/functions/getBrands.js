@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const handler = async (event, context) => {
+export const handler = async (event, context) => {
   const url = 'https://app.retailed.io/api/v1/sneakers/brands';
   try {
     const response = await axios.get(url, {
@@ -21,5 +21,3 @@ const handler = async (event, context) => {
     return { statusCode: 422, body: error.stack };
   }
 };
-
-export { handler };

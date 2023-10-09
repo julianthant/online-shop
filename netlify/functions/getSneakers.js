@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const handler = async (event, context) => {
+export const handler = async (event, context) => {
   try {
     const baseUrl = 'https://app.retailed.io/api/v1/sneakers';
 
@@ -26,5 +26,3 @@ const handler = async (event, context) => {
     return { statusCode: 422, body: error.stack };
   }
 };
-
-export { handler };
