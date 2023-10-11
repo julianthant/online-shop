@@ -198,3 +198,11 @@ body {
 section {
   min-height: 100vh;
 }
+
+.track-color.track-color-0 {
+  background: rgb(16, 185, 129);
+}
+
+.track-color.track-color-2 {
+  background: rgb(16, 185, 129);
+}
