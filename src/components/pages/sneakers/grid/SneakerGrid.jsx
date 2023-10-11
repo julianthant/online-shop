@@ -35,6 +35,7 @@ export default function SneakerGrid() {
         <SneakerFilter
           sneakers={sneakers}
           setFilteredSneakers={setFilteredSneakers}
+          filteredSneakers={filteredSneakers}
         />
         <div className="pt-16 sneaker-grid">
           {!sneakers ? (

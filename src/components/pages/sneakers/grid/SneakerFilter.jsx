@@ -4,10 +4,12 @@ import Modal from 'react-modal';
 import PriceSlider from './PriceSlider';
 import GenderFilter from './GenderFilter';
 import GeneratePrice from './GeneratePrice';
+import SearchFilter from './SearchFilter';
 Modal.setAppElement('#root');
 
 export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
   const [priceRange, setPriceRange] = useState([0, 100]);
   const [genderFilters, setGenderFilters] = useState({
     men: false,
@@ -20,8 +22,10 @@ export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
   };
 
   const applyFilters = () => {
-    const noGenderFiltersSelected =
-      !genderFilters.men && !genderFilters.women && !genderFilters.unisex;
+    const isGenderFilterSelected =
+      genderFilters.men || genderFilters.women || genderFilters.unisex;
+    const isPriceFilterSelected = priceRange[0] !== 0 || priceRange[1] !== 100;
+    const isSearchFilterSelected = searchValue.length > 0;
 
     const getSneakerPrice = (sneaker) => {
       if (sneaker.initialPrice !== null) {
@@ -31,14 +35,10 @@ export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
       }
     };
 
-    if (noGenderFiltersSelected) {
-      const priceFilteredSneakers = sneakers.filter((sneaker) => {
-        const sneakerPrice = getSneakerPrice(sneaker);
-        return sneakerPrice >= priceRange[0] && sneakerPrice <= priceRange[1];
-      });
-      setFilteredSneakers(priceFilteredSneakers);
-    } else {
-      const filteredSneakers = sneakers.filter((sneaker) => {
+    let filteredSneakers = sneakers;
+
+    if (isGenderFilterSelected) {
+      filteredSneakers = filteredSneakers.filter((sneaker) => {
         return (
           (genderFilters.men && sneaker.sizing === 'man') ||
           (genderFilters.women && sneaker.sizing === 'woman') ||
@@ -47,15 +47,22 @@ export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
             sneaker.sizing !== 'woman')
         );
       });
+    }
 
-      const priceFilteredSneakers = filteredSneakers.filter((sneaker) => {
+    if (isPriceFilterSelected) {
+      filteredSneakers = filteredSneakers.filter((sneaker) => {
         const sneakerPrice = getSneakerPrice(sneaker);
         return sneakerPrice >= priceRange[0] && sneakerPrice <= priceRange[1];
       });
-
-      setFilteredSneakers(priceFilteredSneakers);
     }
 
+    if (isSearchFilterSelected) {
+      filteredSneakers = filteredSneakers.filter((sneaker) =>
+        sneaker.name.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    }
+
+    setFilteredSneakers(filteredSneakers);
     closeModal();
   };
 
@@ -90,6 +97,11 @@ export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
 
           {sneakers && (
             <>
+              <SearchFilter
+                setFilteredSneakers={setFilteredSneakers}
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
+              />
               <PriceSlider
                 priceRange={priceRange}
                 setPriceRange={setPriceRange}
