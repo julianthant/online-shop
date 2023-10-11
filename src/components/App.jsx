@@ -4,8 +4,8 @@ import Homepage from './pages/home/Homepage';
 import PrivateRoute from '../hooks/PrivateRoute';
 import { FirebaseProvider } from '../contexts/FirebaseContexts';
 import Navbar from './main/Navbar';
-import SneakerDetails from './pages/sneakers/SneakerDetails';
-import SneakerGrid from './pages/sneakers//SneakerGrid';
+import SneakerDetails from './pages/sneakers/details/SneakerDetails';
+import SneakerGrid from './pages/sneakers/grid/SneakerGrid';
 
 const Lookbook = lazy(() => import('./pages/lookbook/LookbookPage'));
 const Collections = lazy(() => import('./pages/collections/CollectionsPage'));
