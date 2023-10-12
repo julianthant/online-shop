@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import Modal from 'react-modal';
 import PriceSlider from './PriceSlider';
 import GenderFilter from './GenderFilter';
 import GeneratePrice from './GeneratePrice';
 import SearchFilter from './SearchFilter';
-Modal.setAppElement('#root');
+import CloseMenu from '../../../../assets/close_menu_dark.svg';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,11 +17,13 @@ export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
     unisex: false,
   });
 
+  const modalRef = useRef(null);
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  const applyFilters = () => {
+  useEffect(() => {
     const isGenderFilterSelected =
       genderFilters.men || genderFilters.women || genderFilters.unisex;
     const isPriceFilterSelected = priceRange[0] !== 0 || priceRange[1] !== 100;
@@ -63,8 +65,15 @@ export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
     }
 
     setFilteredSneakers(filteredSneakers);
-    closeModal();
-  };
+  }, [
+    genderFilters.men,
+    genderFilters.women,
+    genderFilters.unisex,
+    priceRange,
+    searchValue,
+    setFilteredSneakers,
+    sneakers,
+  ]);
 
   const customOverlayStyle = {
     position: 'fixed',
@@ -72,6 +81,22 @@ export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
     zIndex: 20,
   };
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
+        closeModal();
+      }
+    };
+
+    if (isModalOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isModalOpen]);
 
   return (
     <div>
@@ -81,56 +106,54 @@ export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
       >
         Filter
       </button>
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Filter Modal"
-        className="fixed left-0 top-0 w-[22rem] h-full bg-white shadow-lg p-4"
-        style={{
-          overlay: customOverlayStyle,
-        }}
-      >
-        <div className="flex flex-col">
-          <h2 className="text-3xl font-semibold font-[Inter]">
-            Filter Options
-          </h2>
-
-          {sneakers && (
-            <>
-              <SearchFilter
-                setFilteredSneakers={setFilteredSneakers}
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
-              />
-              <PriceSlider
-                priceRange={priceRange}
-                setPriceRange={setPriceRange}
-                sneakers={sneakers}
-              />
-              <GenderFilter
-                genderFilters={genderFilters}
-                setGenderFilters={setGenderFilters}
-                sneakers={sneakers}
-                priceRange={priceRange}
-              />
-            </>
-          )}
-          <div className="flex justify-between">
-            <button
-              onClick={closeModal}
-              className="bg-matte-black hover:bg-[#3b3b3b] text-white font-medium py-2 px-4 rounded-md"
+      <AnimatePresence>
+        {isModalOpen && (
+          <div style={customOverlayStyle}>
+            <motion.div
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ duration: 0.25 }}
+              className="fixed left-0 top-0 w-[22rem] h-full bg-white shadow-lg p-4"
+              ref={modalRef}
             >
-              Close
-            </button>
-            <button
-              onClick={applyFilters}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-md"
-            >
-              Apply
-            </button>
+              <div className="flex flex-col">
+                <div className="flex justify-between">
+                  <h2 className="text-3xl font-semibold font-[Inter]">
+                    Filter Options
+                  </h2>
+                  <button
+                    className="w-8 h-8 hover-bg-gray-100 rounded-full"
+                    onClick={closeModal}
+                  >
+                    <img className="w-6 mx-auto" src={CloseMenu} alt="" />
+                  </button>
+                </div>
+                {sneakers && (
+                  <>
+                    <SearchFilter
+                      setFilteredSneakers={setFilteredSneakers}
+                      searchValue={searchValue}
+                      setSearchValue={setSearchValue}
+                    />
+                    <PriceSlider
+                      priceRange={priceRange}
+                      setPriceRange={setPriceRange}
+                      sneakers={sneakers}
+                    />
+                    <GenderFilter
+                      genderFilters={genderFilters}
+                      setGenderFilters={setGenderFilters}
+                      sneakers={sneakers}
+                      priceRange={priceRange}
+                    />
+                  </>
+                )}
+              </div>
+            </motion.div>
           </div>
-        </div>
-      </Modal>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
