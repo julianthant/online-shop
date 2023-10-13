@@ -6,8 +6,13 @@ import GeneratePrice from './GeneratePrice';
 import SearchFilter from './SearchFilter';
 import CloseMenu from '../../../../assets/close_menu_dark.svg';
 import { motion, AnimatePresence } from 'framer-motion';
+import OpenMenu from '../../../../assets/menu.svg';
 
-export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
+export default function SneakerFilter({
+  sneakers,
+  setFilteredSneakers,
+  setOriginalSneakers,
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [priceRange, setPriceRange] = useState([0, 100]);
@@ -65,6 +70,7 @@ export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
     }
 
     setFilteredSneakers(filteredSneakers);
+    setOriginalSneakers(filteredSneakers);
   }, [
     genderFilters.men,
     genderFilters.women,
@@ -73,6 +79,7 @@ export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
     searchValue,
     setFilteredSneakers,
     sneakers,
+    setOriginalSneakers,
   ]);
 
   const customOverlayStyle = {
@@ -99,12 +106,13 @@ export default function SneakerFilter({ sneakers, setFilteredSneakers }) {
   }, [isModalOpen]);
 
   return (
-    <div>
+    <div className="w-full">
       <button
         onClick={() => setIsModalOpen(true)}
-        className="bg-emerald-500 text-white px-4 py-2 rounded-md"
+        className="bg-emerald-700 text-white px-4 py-[0.6rem] w-full font-[Inter] tracking-widest whitespace-nowrap flex items-center gap-3 hover:bg-emerald-800"
       >
-        Filter
+        <img className="w-6 max-xs:hidden" src={OpenMenu} alt="Menu" />
+        <p>FILTER SHOES</p>
       </button>
       <AnimatePresence>
         {isModalOpen && (
@@ -166,4 +174,5 @@ SneakerFilter.propTypes = {
     })
   ),
   setFilteredSneakers: PropTypes.func.isRequired,
+  setOriginalSneakers: PropTypes.func.isRequired,
 };
