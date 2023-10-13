@@ -54,11 +54,11 @@ export default function PriceSlider({ priceRange, setPriceRange, sneakers }) {
         max={localPriceRange[1]}
         value={priceRange}
         onChange={handlePriceChange}
-        thumbClassName="h-4 w-4 bg-emerald-500 rounded-full"
-        trackClassName="h-1 bg-gray-300 mt-[0.38rem] relative track-color"
-        className="w-full mt-2"
+        thumbClassName="h-4 max-xs:h-6 w-4 max-xs:w-6 bg-emerald-500 rounded-full"
+        trackClassName="h-1 bg-gray-300 mt-[0.38rem] max-xs:mt-[0.65rem] relative track-color"
+        className="w-full mt-2 max-xs:w-[90%] mx-auto"
       />
-      <div className="flex justify-between text-sm pt-4">
+      <div className="flex justify-between text-sm pt-4 max-xs:pt-7 max-xs:w-[90%] mx-auto">
         <span>${priceRange[0]}</span>
         <span>${priceRange[1]}</span>
       </div>
