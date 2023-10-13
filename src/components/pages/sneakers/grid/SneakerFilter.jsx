@@ -157,6 +157,15 @@ export default function SneakerFilter({
                     />
                   </>
                 )}
+                <div className="font-[Inter] pt-5">
+                  <h3 className="text-2xl font-medium">Settings</h3>
+                  <button
+                    onClick={() => setFilteredSneakers(sneakers)}
+                    className="bg-red-600 py-2 w-full mt-3 rounded-md text-md"
+                  >
+                    Reset
+                  </button>
+                </div>
               </div>
             </motion.div>
           </div>
