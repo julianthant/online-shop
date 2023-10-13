@@ -38,5 +38,5 @@ MinorDetails.propTypes = {
     id: PropTypes.string,
   }),
   setValue: PropTypes.func.isRequired,
-  ID: PropTypes.string,
+  ID: PropTypes.string.isRequired,
 };
