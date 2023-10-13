@@ -17,7 +17,7 @@ export default function SneakerCard({
         <img src={image} alt={`${cleanedName}`} className="w-80 h-auto px-4" />
       </div>
       <div className="p-4 font-[Poppins] grid sm:h-[16rem] h-[14rem]">
-        <h2 className="text-gray-900 text-xl font-semibold mb-2">
+        <h2 className="text-gray-900 text-xl font-semibold mb-2 capitalize">
           {cleanedName}
         </h2>
         <p className="text-gray-700 text-lg">

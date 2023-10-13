@@ -25,7 +25,7 @@ export default function MinorDetails({ value, setValue, ID }) {
       <PriceControl value={value} setValue={setValue} ID={ID} />
       <p className="text-gray-600">Gender: {formatSizing(value.sizing)}</p>
       <p className="text-gray-600">
-        {GenerateDescriptions(fixName(value.name), ID)}
+        {GenerateDescriptions(fixName(value.name), value.id)}
       </p>
     </>
   );
