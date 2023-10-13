@@ -14,43 +14,36 @@ export default function PaginationInfo({
   );
 
   return (
-    <div className="flex justify-between mt-4">
-      <p className="text-white">
-        {`Showing ${startIndex + 1}-${Math.min(
-          endIndex,
-          totalItems
-        )} of ${totalItems} results`}
-      </p>
+    <div className="flex justify-center items-center mt-8">
       <div className="flex gap-2">
-        {currentPage > 1 && (
-          <button
-            onClick={() => setCurrentPage(currentPage - 1)}
-            className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-3 rounded"
-          >
-            Previous Page
-          </button>
-        )}
+        <button
+          disabled={currentPage < 2}
+          onClick={() => setCurrentPage(currentPage - 1)}
+          className="text-gray-300 disabled:hover:opacity-60 hover:opacity-70 font-bold py-2 pr-10 text-sm tracking-widest opacity-50 font-[Montserrat]"
+        >
+          BACK
+        </button>
         {pageNumbers.map((pageNumber) => (
           <button
             key={pageNumber}
             onClick={() => setCurrentPage(pageNumber)}
             className={`${
               currentPage === pageNumber
-                ? 'bg-gray-500'
-                : 'bg-gray-300 hover:bg-gray-400'
-            } text-white font-bold py-2 px-3 rounded`}
+                ? 'text-emerald-500'
+                : 'text-white bg-transparent hover:text-emerald-600'
+            }  font-bold py-2 px-5 rounded`}
           >
             {pageNumber}
           </button>
         ))}
-        {currentPage < totalPageCount && (
-          <button
-            onClick={() => setCurrentPage(currentPage + 1)}
-            className="bg-gray-500 hover.bg-gray-600 text-white font-bold py-2 px-3 rounded"
-          >
-            Next Page
-          </button>
-        )}
+
+        <button
+          disabled={currentPage > totalPageCount - 1}
+          onClick={() => setCurrentPage(currentPage + 1)}
+          className="text-gray-300 disabled:hover:opacity-60 hover:opacity-70 font-bold py-2 pl-10 text-sm tracking-widest opacity-50 font-[Montserrat]"
+        >
+          NEXT
+        </button>
       </div>
     </div>
   );
