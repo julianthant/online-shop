@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import GeneratePrice from './GeneratePrice';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 
 export default function SneakerSort({
   filteredSneakers,
@@ -48,30 +49,56 @@ export default function SneakerSort({
     setFilteredSneakers(sortedSneakers);
   };
 
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      height: '48px',
+      backgroundColor: 'transparent',
+      border: state.menuIsOpen ? '1px solid #10b981' : '1px solid #CED4DA',
+      borderRadius: '0px',
+      width: '16rem',
+      paddingInline: '0.4rem',
+      boxShadow: 'none',
+      '&:hover': {
+        border: '1px solid #10b981',
+      },
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected ? '#059669' : 'transparent',
+      borderRadius: '0px',
+      color: 'black',
+      '&:hover': {
+        backgroundColor: state.isSelected ? '#059669' : '#34d39930',
+        color: 'black',
+      },
+    }),
+    menu: (provided) => ({
+      ...provided,
+      borderRadius: '0px',
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: 'white',
+    }),
+  };
+
+  const options = [
+    { value: 'default', label: 'Default sorting' },
+    { value: 'ascendingPrice', label: 'Ascending Price' },
+    { value: 'descendingPrice', label: 'Descending Price' },
+    { value: 'ascendingName', label: 'Ascending Name' },
+    { value: 'descendingName', label: 'Descending Name' },
+  ];
+
   return (
-    <div>
-      <select
-        value={sortOption}
-        onChange={(e) => handleSortChange(e.target.value)}
-        className="py-3 px-4 text-white bg-transparent font-[Inter] font-light outline-none border-[1px] border-gray-300 w-56"
-      >
-        <option className="text-black" value="default">
-          Default sorting
-        </option>
-        <option className="text-black" value="ascendingPrice">
-          Ascending Price
-        </option>
-        <option className="text-black" value="descendingPrice">
-          Descending Price
-        </option>
-        <option className="text-black" value="ascendingName">
-          Ascending Name
-        </option>
-        <option className="text-black" value="descendingName">
-          Descending Name
-        </option>
-      </select>
-    </div>
+    <Select
+      value={options.find((opt) => opt.value === sortOption)}
+      onChange={(selectedOption) => handleSortChange(selectedOption.value)}
+      options={options}
+      styles={customStyles}
+      isSearchable={false}
+    />
   );
 }
 
