@@ -17,11 +17,12 @@ export default function SelectColors({ value, setClick, setItems }) {
     setClick(false);
   };
 
-  const availableColors = value.colorway.split('/');
+  const availableColors = [...new Set(value.colorway.split('/'))];
 
   useEffect(() => {
-    setItems(availableColors.length);
-  }, [availableColors.length, setItems]);
+    const uniqueColors = [...new Set(value.colorway.split('/'))];
+    setItems(uniqueColors.length);
+  }, [value.colorway, setItems]);
 
   useEffect(() => {
     function handleClickOutside(event) {
