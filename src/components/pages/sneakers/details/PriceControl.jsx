@@ -5,8 +5,6 @@ import GeneratePrice from '../grid/GeneratePrice';
 export default function PriceControl({ value, setValue, ID }) {
   useEffect(() => {
     if (value && value.initialPrice === null) {
-      console.log(ID);
-
       const initialPrice = GeneratePrice(ID);
 
       setValue((prevSneaker) => ({
