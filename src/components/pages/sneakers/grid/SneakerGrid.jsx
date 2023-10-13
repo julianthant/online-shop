@@ -10,6 +10,7 @@ import ShowPageResults from './ShowPageResults';
 export default function SneakerGrid() {
   const { brandName } = useParams();
   const [sneakers, setSneakers] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { getCollection, getShoeCollection } = useAuth();
   const sneakersPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,6 +22,7 @@ export default function SneakerGrid() {
     getShoeCollection(collection, (data) => {
       setSneakers(data);
       setOriginalSneakers(data);
+      setLoading(true);
     });
   }, [brandName, getCollection, getShoeCollection]);
 
@@ -61,9 +63,9 @@ export default function SneakerGrid() {
           />
         </div>
         <div className="pt-10 sneaker-grid">
-          {!sneakers ? (
+          {!loading ? (
             <h1 className="text-slate-50 text-4xl font-bold font-[Montserrat] py-3 text-center">
-              Loading Seaker Details
+              Loading Sneakers
               <span className="text-emerald-900 pl-[0.35rem] tracking-[0.3rem]">
                 ....
               </span>
