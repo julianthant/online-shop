@@ -4,6 +4,8 @@ import { useAuth } from '../../../../hooks/useAuth';
 import PaginationInfo from './PaginationInfo';
 import SneakerCard from './SneakerCard';
 import SneakerFilter from './SneakerFilter';
+import SneakerSort from './SneakerSort';
+import ShowPageResults from './ShowPageResults';
 
 export default function SneakerGrid() {
   const { brandName } = useParams();
@@ -12,10 +14,14 @@ export default function SneakerGrid() {
   const sneakersPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredSneakers, setFilteredSneakers] = useState([]);
+  const [originalSneakers, setOriginalSneakers] = useState([]);
 
   useEffect(() => {
     const collection = getCollection(brandName);
-    getShoeCollection(collection, setSneakers);
+    getShoeCollection(collection, (data) => {
+      setSneakers(data);
+      setOriginalSneakers(data);
+    });
   }, [brandName, getCollection, getShoeCollection]);
 
   useEffect(() => {
@@ -32,12 +38,29 @@ export default function SneakerGrid() {
         <h2 className="text-slate-50 text-center pt-[5rem] text-5xl font-[Poppins]">
           {brandName} Collection
         </h2>
-        <SneakerFilter
-          sneakers={sneakers}
-          setFilteredSneakers={setFilteredSneakers}
-          filteredSneakers={filteredSneakers}
-        />
-        <div className="pt-16 sneaker-grid">
+        <div className="flex lm:items-center pt-14 justify-between max-lm:flex-col max-lm:gap-3">
+          <div className="flex gap-3 items-center">
+            <div className="flex flex-grow">
+              <SneakerFilter
+                sneakers={sneakers}
+                setFilteredSneakers={setFilteredSneakers}
+                filteredSneakers={filteredSneakers}
+                setOriginalSneakers={setOriginalSneakers}
+              />
+            </div>
+            <ShowPageResults
+              startIndex={startIndex}
+              endIndex={endIndex}
+              totalItems={filteredSneakers.length}
+            />
+          </div>
+          <SneakerSort
+            filteredSneakers={filteredSneakers}
+            setFilteredSneakers={setFilteredSneakers}
+            originalSneakers={originalSneakers}
+          />
+        </div>
+        <div className="pt-10 sneaker-grid">
           {!sneakers ? (
             <h1 className="text-slate-50 text-4xl font-bold font-[Montserrat] py-3 text-center">
               Loading Seaker Details
