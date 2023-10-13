@@ -19,7 +19,7 @@ export default function PaginationInfo({
         <button
           disabled={currentPage < 2}
           onClick={() => setCurrentPage(currentPage - 1)}
-          className="text-gray-300 disabled:hover:opacity-60 hover:opacity-70 font-bold py-2 pr-10 text-sm tracking-widest opacity-50 font-[Montserrat]"
+          className="text-gray-300 disabled:hover:opacity-60 hover:opacity-70 font-bold py-2 pr-10 max-sm:pr-3 text-sm tracking-widest opacity-50 font-[Montserrat]"
         >
           BACK
         </button>
@@ -31,7 +31,7 @@ export default function PaginationInfo({
               currentPage === pageNumber
                 ? 'text-emerald-500'
                 : 'text-white bg-transparent hover:text-emerald-600'
-            }  font-bold py-2 px-5 rounded`}
+            }  font-bold py-2 px-5 max-sm:px-3 rounded`}
           >
             {pageNumber}
           </button>
@@ -40,7 +40,7 @@ export default function PaginationInfo({
         <button
           disabled={currentPage > totalPageCount - 1}
           onClick={() => setCurrentPage(currentPage + 1)}
-          className="text-gray-300 disabled:hover:opacity-60 hover:opacity-70 font-bold py-2 pl-10 text-sm tracking-widest opacity-50 font-[Montserrat]"
+          className="text-gray-300 disabled:hover:opacity-60 hover:opacity-70 font-bold py-2 pl-10 max-sm:pl-3 text-sm tracking-widest opacity-50 font-[Montserrat]"
         >
           NEXT
         </button>
