@@ -32,6 +32,26 @@ export const AuthContext = createContext();
 export function FirebaseProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+  const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    async function getNumberOfItems() {
+      const currentUserId = currentUser ? currentUser.uid : null;
+      try {
+        const userQuery = query(
+          getCollection('users_cart'),
+          where('userId', '==', currentUserId)
+        );
+        const querySnapshot = await getDocs(userQuery);
+        const numberOfItems = querySnapshot.size;
+        setQuantity(numberOfItems);
+      } catch (error) {
+        console.error('Error getting number of items:', error);
+      }
+    }
+
+    getNumberOfItems();
+  });
 
   function getCollection(subcollection) {
     return collection(db, subcollection);
@@ -111,19 +131,82 @@ export function FirebaseProvider({ children }) {
     }
   }
 
-  async function removeShoe(id) {
+  async function getCart(setCartItems) {
     try {
-      const movieDoc = doc(db, 'movies', id);
-      deleteDoc(movieDoc);
+      const currentUserId = currentUser ? currentUser.uid : null;
+      const userQuery = query(
+        getCollection('users_cart'),
+        where('userId', '==', currentUserId)
+      );
+      const data = await getDocs(userQuery);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setCartItems(filteredData);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function addCart(shoeID, name, brand, price, image, colors, quantity) {
+    try {
+      const userId = auth?.currentUser?.uid;
+      const cartCollection = getCollection('users_cart');
+
+      // Check if the item already exists in the cart
+      const querySnapshot = await getDocs(
+        query(
+          cartCollection,
+          where('shoeID', '==', shoeID),
+          where('userId', '==', userId)
+        )
+      );
+
+      if (querySnapshot.docs.length > 0) {
+        // If the item exists, update the quantity
+        const existingItem = querySnapshot.docs[0];
+        const existingItemId = existingItem.id;
+        const existingItemData = existingItem.data();
+        const updatedQuantity = existingItemData.quantity + quantity;
+
+        // Update the item with the new quantity
+        await updateDoc(doc(cartCollection, existingItemId), {
+          quantity: updatedQuantity,
+        });
+      } else {
+        // If the item doesn't exist, add a new item
+        await addDoc(cartCollection, {
+          shoeID,
+          brand,
+          name,
+          price,
+          image,
+          colors,
+          quantity,
+          userId,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function removeCartItem(ID) {
+    try {
+      const cartCollection = getCollection('users_cart');
+      const cartItem = doc(cartCollection, ID);
+      deleteDoc(cartItem);
     } catch (error) {
       console.error('Unable to delete item: ', error);
     }
   }
 
-  async function updateShoe(id) {
+  async function updateCartItem(ID, newQuantity) {
     try {
-      const movieDoc = doc(db, 'movies', id);
-      updateDoc(movieDoc, {});
+      const cartCollection = getCollection('users_cart');
+      const cartItem = doc(cartCollection, ID);
+      updateDoc(cartItem, { quantity: newQuantity });
     } catch (error) {
       console.error(error);
     }
@@ -222,11 +305,15 @@ export function FirebaseProvider({ children }) {
     confirmPasswordResetToken,
     setCurrentUser,
     addNewShoe,
-    removeShoe,
-    updateShoe,
     getCollection,
     getShoeCollection,
     getShoe,
+    getCart,
+    addCart,
+    removeCartItem,
+    updateCartItem,
+    quantity,
+    setQuantity,
   };
 
   return (
