@@ -23,7 +23,7 @@ export default function PasswordReset({ oobCode }) {
         return;
       }
       await confirmPasswordResetToken(oobCode, newPassword);
-      navigate('/login?passwordResetMessage=Password%20reset%20successfully');
+      navigate('/login?Message=Password%20reset%20successfully');
     } catch (error) {
       showStatus('Unable to reset password', setError);
     } finally {
