@@ -15,7 +15,7 @@ export default function Navbar({ fallbackClass }) {
   const [signedIn, setSignedIn] = useState(false);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const { currentUser } = useAuth();
+  const { currentUser, quantity } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -147,7 +147,7 @@ export default function Navbar({ fallbackClass }) {
               <div className="flex gap-4 items-center">
                 <button className="relative" onClick={() => navigate('/cart')}>
                   <div className="bg-red-600 w-5 h-5 absolute cart-circle rounded-full">
-                    <p className="text-sm pr-[0.05rem]">0</p>
+                    <p className="text-sm pr-[0.05rem]">{quantity}</p>
                   </div>
                   <img className="w-7" src={cart_icon} alt="cart" />
                 </button>
