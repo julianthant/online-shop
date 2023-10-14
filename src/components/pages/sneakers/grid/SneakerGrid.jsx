@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAuth } from '../../../../hooks/useAuth';
 import PaginationInfo from './PaginationInfo';
 import SneakerCard from './SneakerCard';
@@ -62,7 +62,7 @@ export default function SneakerGrid() {
             originalSneakers={originalSneakers}
           />
         </div>
-        <div className="pt-10 sneaker-grid">
+        <ul className="pt-10 sneaker-grid">
           {!loading ? (
             <h1 className="text-slate-50 text-4xl font-bold font-[Montserrat] py-3 text-center">
               Loading Sneakers
@@ -72,24 +72,19 @@ export default function SneakerGrid() {
             </h1>
           ) : (
             sneakersToDisplay.map((sneaker) => (
-              <Link
-                to={`/sneaker-grid/${brandName}/${sneaker.id}`}
-                key={sneaker.id}
-              >
+              <li key={sneaker.id}>
                 <SneakerCard
                   id={sneaker.id}
+                  brand={brandName}
                   name={sneaker.name}
                   price={sneaker.initialPrice}
                   image={sneaker.image}
                   colors={sneaker.colorway}
-                  onAddToCart={() => {
-                    console.log(`Added ${sneaker.name} to cart`);
-                  }}
                 />
-              </Link>
+              </li>
             ))
           )}
-        </div>
+        </ul>
         <PaginationInfo
           startIndex={startIndex}
           endIndex={endIndex}
