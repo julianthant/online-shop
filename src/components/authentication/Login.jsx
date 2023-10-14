@@ -14,7 +14,7 @@ export default function NewSignup() {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const passwordResetMessage = queryParams.get('passwordResetMessage');
+  const passwordResetMessage = queryParams.get('Message');
 
   useEffect(() => {
     if (currentUser) {
