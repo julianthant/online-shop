@@ -63,12 +63,12 @@ export default function CartPage() {
               </h2>
             </div>
             <table className="w-full">
-              <thead className="h-14">
+              <thead className="h-14 max-lm:hidden">
                 <tr>
                   <th className="text-left">PRODUCTS</th>
-                  <th className="text-right max-lm:hidden">PRICE</th>
-                  <th className="text-center max-lm:hidden">QUANTITY</th>
-                  <th className="text-right max-lm:hidden">TOTAL</th>
+                  <th className="text-right">PRICE</th>
+                  <th className="text-center">QUANTITY</th>
+                  <th className="text-right">TOTAL</th>
                 </tr>
               </thead>
               <tbody>
