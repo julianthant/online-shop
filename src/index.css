@@ -31,6 +31,12 @@ body {
   }
 }
 
+.product-container {
+  --max-width: 19rem;
+  max-width: var(--max-width);
+  width: min(var(--max-width), 100%);
+}
+
 .user-container {
   --max-width: 49rem;
   max-width: var(--max-width);
