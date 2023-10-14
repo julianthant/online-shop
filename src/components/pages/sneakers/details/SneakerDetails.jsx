@@ -1,21 +1,23 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../hooks/useAuth';
 import QuantityControl from './QuantityControl';
 import SelectColors from './SelectColors';
 import InvalidPage from './InvalidPage';
 import MinorDetails from './MinorDetails';
 import SizeControl from './SizeControl';
+import GeneratePrice from '../grid/GeneratePrice';
 
 export default function SneakerDetails() {
   const { brandName, sneakerID } = useParams();
-  const { getShoe } = useAuth();
+  const { getShoe, currentUser, addCart, setQuantity, quantity } = useAuth();
   const [sneaker, setSneaker] = useState(null);
-  const [quantity, setQuantity] = useState(1);
+  const [value, setValue] = useState(1);
   const [error, setError] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const [items, setItems] = useState(0);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getShoe(brandName, sneakerID, setSneaker, setError);
@@ -30,6 +32,26 @@ export default function SneakerDetails() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  function addToCart(name, price, image, colors) {
+    if (currentUser) {
+      const cleanedName = name.replace(/\([^()]*\)/g, '');
+      addCart(
+        sneakerID,
+        cleanedName,
+        brandName,
+        price ? price : GeneratePrice(sneakerID),
+        image,
+        colors,
+        value
+      );
+      setQuantity(quantity + 1);
+    } else {
+      navigate(
+        '/login?Message=Please%20login%20to%20add%20items%20into%20cart'
+      );
+    }
+  }
 
   const paddingBottomStyle =
     viewportWidth < 1024 && enabled && items > 3
@@ -63,7 +85,7 @@ export default function SneakerDetails() {
                   ID={sneakerID}
                 />
                 <div className="flex flex-col gap-5 mt-3">
-                  <QuantityControl value={quantity} setValue={setQuantity} />
+                  <QuantityControl value={value} setValue={setValue} />
                   <SizeControl ID={sneaker.id} sizing={sneaker.sizing} />
                   <SelectColors
                     value={sneaker}
@@ -71,7 +93,17 @@ export default function SneakerDetails() {
                     setItems={setItems}
                   />
                 </div>
-                <button className="bg-gray-800 text-white px-4 py-2 rounded-md mt-4">
+                <button
+                  onClick={() =>
+                    addToCart(
+                      sneaker.name,
+                      sneaker.price,
+                      sneaker.image,
+                      sneaker.colorway
+                    )
+                  }
+                  className="bg-gray-800 text-white px-4 py-2 rounded-md mt-4"
+                >
                   Add to Cart
                 </button>
               </div>
