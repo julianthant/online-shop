@@ -1,18 +1,38 @@
 import PropTypes from 'prop-types';
 import GeneratePrice from './GeneratePrice';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../../hooks/useAuth';
 
-export default function SneakerCard({
-  id,
-  name,
-  price,
-  image,
-  colors,
-  onAddToCart,
-}) {
+export default function SneakerCard({ id, brand, name, price, image, colors }) {
+  const navigate = useNavigate();
+  const { currentUser, addCart, setQuantity, quantity } = useAuth();
   const cleanedName = name.replace(/\([^()]*\)/g, '');
 
+  function addToCart(e) {
+    e.stopPropagation();
+    if (currentUser) {
+      addCart(
+        id,
+        cleanedName,
+        brand,
+        price ? price : GeneratePrice(id),
+        image,
+        colors,
+        1
+      );
+      setQuantity(quantity + 1);
+    } else {
+      navigate(
+        '/login?Message=Please%20login%20to%20add%20items%20into%20cart'
+      );
+    }
+  }
+
   return (
-    <div className="bg-white overflow-hidden shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer">
+    <div
+      className="bg-white overflow-hidden shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
+      onClick={() => navigate(`/sneaker-grid/${brand}/${id}`)}
+    >
       <div className="bg-white h-[18rem] flex items-center justify-center">
         <img src={image} alt={`${cleanedName}`} className="w-80 h-auto px-4" />
       </div>
@@ -31,7 +51,7 @@ export default function SneakerCard({
         <div className="mt-auto">
           <button
             className="mt-2 px-4 py-2 w-full bg-emerald-700 text-white rounded-lg hover:bg-emerald-600 transition"
-            onClick={onAddToCart}
+            onClick={addToCart}
           >
             Add to Cart
           </button>
@@ -43,10 +63,10 @@ export default function SneakerCard({
 
 SneakerCard.propTypes = {
   id: PropTypes.string.isRequired,
+  brand: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number,
   description: PropTypes.string,
   image: PropTypes.string,
   colors: PropTypes.string.isRequired,
-  onAddToCart: PropTypes.func,
 };
