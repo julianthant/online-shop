@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
   const [addCosts, setAddCosts] = useState(0);
-  const [refresh, setRefresh] = useState(false);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const {
     currentUser,
     removeCartItem,
@@ -19,39 +20,33 @@ export default function CartPage() {
 
   useEffect(() => {
     getCart(setCartItems);
-    setRefresh(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refresh]);
+  }, []);
 
   useEffect(() => {
     setAddCosts(
       (cartItems.length > 0 ? 5 : 0) +
         cartItems.reduce((total, item) => total + item.quantity, 0) * 1
     );
+    const newTotalItems = cartItems.reduce(
+      (total, item) => total + item.quantity,
+      0
+    );
+    const newTotalPrice = cartItems.reduce(
+      (total, item) => total + item.quantity * item.price,
+      0
+    );
+    setTotalItems(newTotalItems);
+    setTotalPrice(newTotalPrice);
   }, [cartItems]);
 
   const handleDelete = (ID) => {
-    removeCartItem(ID);
+    removeCartItem(ID, setCartItems);
     setQuantity(quantity - 1);
-    setRefresh(true);
   };
 
   const handleQuantityChange = (item, newQuantity) => {
-    updateCartItem(item.id, newQuantity);
-    getTotalPrice();
-    getTotalItems();
-    setRefresh(true);
-  };
-
-  const getTotalPrice = () => {
-    return cartItems.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
-  };
-
-  const getTotalItems = () => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+    updateCartItem(item.id, newQuantity, setCartItems);
   };
 
   return (
@@ -95,12 +90,8 @@ export default function CartPage() {
               </h2>
               <div className="pt-10">
                 <div className="flex justify-between items-center pb-12">
-                  <h4 className="text-base font-bold">
-                    ITEMS {getTotalItems()}
-                  </h4>
-                  <h4 className="text-base font-bold">
-                    ${getTotalPrice()}.00 USD
-                  </h4>
+                  <h4 className="text-base font-bold">ITEMS {totalItems}</h4>
+                  <h4 className="text-base font-bold">${totalPrice}.00 USD</h4>
                 </div>
                 <h3 className="text-lg font-bold border-b-[1px] border-gray-400">
                   ADDITIONAL COSTS
@@ -109,7 +100,7 @@ export default function CartPage() {
                   <div className="flex items-center justify-between">
                     <h4 className="text-base font-bold">SHIPPING</h4>
                     <h4 className="text-base font-bold">
-                      ${getTotalItems > 0 ? '5' : '0'}.00 USD
+                      ${totalItems > 0 ? '5' : '0'}.00 USD
                     </h4>
                   </div>
                   <div className="flex items-center justify-between">
@@ -119,14 +110,14 @@ export default function CartPage() {
                   <div className="flex items-center justify-between">
                     <h4 className="text-base font-bold">TAX</h4>
                     <h4 className="text-base font-bold">
-                      ${getTotalItems() * 1}.00 USD
+                      ${totalItems * 1}.00 USD
                     </h4>
                   </div>
                 </div>
                 <div className="flex items-center justify-between py-8">
                   <h4 className="text-base font-bold">TOTAL COST</h4>
                   <h4 className="text-base font-bold">
-                    ${getTotalPrice() + addCosts}.00 USD
+                    ${totalPrice + addCosts}.00 USD
                   </h4>
                 </div>
                 <button className="text-center py-2 w-full mb-4 bg-emerald-700 hover:bg-emerald-600 text-white font-bold rounded-full">

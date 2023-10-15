@@ -161,21 +161,23 @@ export function FirebaseProvider({ children }) {
     }
   }
 
-  async function removeCartItem(ID) {
+  async function removeCartItem(ID, updatedList) {
     try {
       const cartCollection = getCollection('users_cart');
       const cartItem = doc(cartCollection, ID);
-      deleteDoc(cartItem);
+      await deleteDoc(cartItem);
+      getCart(updatedList);
     } catch (error) {
       console.error('Unable to delete item: ', error);
     }
   }
 
-  async function updateCartItem(ID, newQuantity) {
+  async function updateCartItem(ID, newQuantity, updatedList) {
     try {
       const cartCollection = getCollection('users_cart');
       const cartItem = doc(cartCollection, ID);
-      updateDoc(cartItem, { quantity: newQuantity });
+      await updateDoc(cartItem, { quantity: newQuantity });
+      getCart(updatedList);
     } catch (error) {
       console.error(error);
     }
