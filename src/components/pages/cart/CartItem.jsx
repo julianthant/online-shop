@@ -55,10 +55,7 @@ export default function CartItem({ item, onQuantityChange, onDelete }) {
             </div>
           </div>
           <p className="max-lm:hidden">{item.brand.toUpperCase()}</p>
-          <button
-            className="text-red-600 max-lm:hidden"
-            onClick={() => onDelete(item.id)}
-          >
+          <button className="text-red-600" onClick={() => onDelete(item.id)}>
             Remove
           </button>
         </div>
