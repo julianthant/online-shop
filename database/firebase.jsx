@@ -12,6 +12,15 @@ const app = initializeApp({
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 });
 
+export const setCache = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+export const getCache = (key) => {
+  const cachedData = localStorage.getItem(key);
+  return cachedData ? JSON.parse(cachedData) : null;
+};
+
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export default app;
