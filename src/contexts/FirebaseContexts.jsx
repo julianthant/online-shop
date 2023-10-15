@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { auth, db } from '../../database/firebase';
+import { auth, db, setCache, getCache } from '../../database/firebase';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -54,17 +54,26 @@ export function FirebaseProvider({ children }) {
   }, [currentUser]);
 
   function getCollection(subcollection) {
+    console.log('col');
     return collection(db, subcollection);
   }
 
-  async function getShoeCollection(shoeCollectionRef, setShoeList) {
+  async function getShoeCollection(brandName, setShoeList) {
     try {
-      const data = await getDocs(shoeCollectionRef);
-      const filteredData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setShoeList(filteredData);
+      const cachedData = getCache(brandName);
+      if (cachedData) {
+        setShoeList(cachedData);
+      } else {
+        const shoeCollectionRef = getCollection(brandName);
+        const data = await getDocs(shoeCollectionRef);
+        const filteredData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setShoeList(filteredData);
+        setCache(brandName, filteredData);
+        console.log('scol');
+      }
     } catch (error) {
       console.error(error);
     }
@@ -72,14 +81,23 @@ export function FirebaseProvider({ children }) {
 
   async function getShoe(brandName, sneakerID, setSneaker, setError) {
     try {
-      const data = await doc(db, brandName, sneakerID);
-      const item = await getDoc(data);
-
-      if (item.exists()) {
-        setSneaker(item.data());
+      const cachedData = getCache(`sneakerCache-${brandName}-${sneakerID}`);
+      console.log('s');
+      if (cachedData) {
+        setSneaker(cachedData);
       } else {
-        console.error(`Sneaker with ID ${sneakerID} not found.`);
-        setError(true);
+        const data = await doc(db, brandName, sneakerID);
+        const item = await getDoc(data);
+
+        if (item.exists()) {
+          const sneakerData = item.data();
+          setSneaker(sneakerData);
+
+          setCache(`sneakerCache-${brandName}-${sneakerID}`, sneakerData);
+        } else {
+          console.error(`Sneaker with ID ${sneakerID} not found.`);
+          setError(true);
+        }
       }
     } catch (error) {
       console.error(error);
@@ -88,6 +106,7 @@ export function FirebaseProvider({ children }) {
 
   async function getCart(setCartItems) {
     try {
+      console.log('cart');
       const currentUserId = currentUser ? currentUser.uid : null;
       const userQuery = query(
         getCollection('users_cart'),
@@ -109,7 +128,6 @@ export function FirebaseProvider({ children }) {
       const userId = auth?.currentUser?.uid;
       const cartCollection = getCollection('users_cart');
 
-      // Check if the item already exists in the cart
       const querySnapshot = await getDocs(
         query(
           cartCollection,

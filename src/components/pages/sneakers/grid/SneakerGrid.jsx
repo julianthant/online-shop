@@ -13,16 +13,14 @@ export default function SneakerGrid() {
   const { brandName } = useParams();
   const [sneakers, setSneakers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { getCollection, getShoeCollection } = useAuth();
+  const { getShoeCollection } = useAuth();
   const sneakersPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [originalSneakers, setOriginalSneakers] = useState([]);
 
   useEffect(() => {
-    const collection = getCollection(brandName);
-
-    getShoeCollection(collection, (data) => {
+    getShoeCollection(brandName, (data) => {
       const filteredBestShoes = BestShoes.filter(
         (shoe) => shoe.brand.toLowerCase() === brandName.toLowerCase()
       );
@@ -36,7 +34,7 @@ export default function SneakerGrid() {
       setOriginalSneakers(mergedSneakers);
       setLoading(true);
     });
-  }, [brandName, getCollection, getShoeCollection]);
+  }, [brandName, getShoeCollection]);
 
   useEffect(() => {
     setFilteredSneakers(sneakers);

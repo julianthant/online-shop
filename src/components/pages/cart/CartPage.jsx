@@ -19,12 +19,15 @@ export default function CartPage() {
 
   useEffect(() => {
     getCart(setCartItems);
+    setRefresh(false);
+  }, [refresh, getCart]);
+
+  useEffect(() => {
     setAddCosts(
       (cartItems.length > 0 ? 5 : 0) +
         cartItems.reduce((total, item) => total + item.quantity, 0) * 1
     );
-    setRefresh(false);
-  }, [getCart, refresh, cartItems]);
+  }, [cartItems]);
 
   const handleDelete = (ID) => {
     removeCartItem(ID);

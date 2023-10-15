@@ -186,7 +186,7 @@ SneakerFilter.propTypes = {
   sneakers: PropTypes.arrayOf(
     PropTypes.shape({
       sizing: PropTypes.string,
-      price: PropTypes.string,
+      price: PropTypes.number,
     })
   ),
   setFilteredSneakers: PropTypes.func.isRequired,
