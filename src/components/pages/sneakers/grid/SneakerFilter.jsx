@@ -37,6 +37,8 @@ export default function SneakerFilter({
     const getSneakerPrice = (sneaker) => {
       if (sneaker.initialPrice !== null) {
         return parseInt(sneaker.initialPrice);
+      } else if (sneaker.price) {
+        return parseInt(sneaker.price);
       } else {
         return GeneratePrice(sneaker.id);
       }

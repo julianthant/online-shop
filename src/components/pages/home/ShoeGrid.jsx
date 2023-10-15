@@ -21,7 +21,7 @@ export default function ShoeGrid({ Heading, Subheading, Data, ID }) {
             brand={shoe.brand}
             name={shoe.name}
             price={shoe.price}
-            colors={shoe.color}
+            colors={shoe.colorway}
             description={shoe.description}
             image={shoe.image}
             tag={shoe.tag}

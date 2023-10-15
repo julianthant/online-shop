@@ -86,51 +86,6 @@ export function FirebaseProvider({ children }) {
     }
   }
 
-  async function addNewShoe(
-    shoeCollectionRef,
-    {
-      id,
-      name,
-      image,
-      releasedAt,
-      sizing,
-      initialPrice,
-      colorway,
-      sku,
-      createdAt,
-      updatedAt,
-      brand: { id: brandId, name: brandName },
-    }
-  ) {
-    try {
-      const querySnapshot = await getDocs(
-        query(shoeCollectionRef, where('name', '==', name))
-      );
-
-      if (querySnapshot.size === 0) {
-        await addDoc(shoeCollectionRef, {
-          id,
-          name,
-          image,
-          releasedAt,
-          sizing,
-          initialPrice,
-          colorway,
-          sku,
-          createdAt,
-          updatedAt,
-          brandId,
-          brandName,
-        });
-        console.log(`Added shoe with the name "${name}".`);
-      } else {
-        console.log(`A shoe with the name "${name}" already exists.`);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   async function getCart(setCartItems) {
     try {
       const currentUserId = currentUser ? currentUser.uid : null;
@@ -304,7 +259,6 @@ export function FirebaseProvider({ children }) {
     deleteAccount,
     confirmPasswordResetToken,
     setCurrentUser,
-    addNewShoe,
     getCollection,
     getShoeCollection,
     getShoe,

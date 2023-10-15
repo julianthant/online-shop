@@ -15,7 +15,8 @@ export default function ShoeCard({
   const { currentUser, addCart, setQuantity, quantity } = useAuth();
   const navigate = useNavigate();
 
-  function addToCart() {
+  function addToCart(e) {
+    e.stopPropagation();
     if (currentUser) {
       addCart(id, name, brand, price, image, colors, 1);
       setQuantity(quantity + 1);
@@ -28,7 +29,7 @@ export default function ShoeCard({
 
   return (
     <div
-      to="/shoe-details"
+      onClick={() => navigate(`/sneaker-grid/${brand}/${id}`)}
       className="bg-white overflow-hidden shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer flex flex-col"
     >
       <div className="relative flex-grow">

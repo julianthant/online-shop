@@ -7,6 +7,8 @@ import InvalidPage from './InvalidPage';
 import MinorDetails from './MinorDetails';
 import SizeControl from './SizeControl';
 import GeneratePrice from '../grid/GeneratePrice';
+import BestShoes from '../../../../data/BestShoes';
+import NewShoes from '../../../../data/NewShoes';
 
 export default function SneakerDetails() {
   const { brandName, sneakerID } = useParams();
@@ -20,7 +22,18 @@ export default function SneakerDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getShoe(brandName, sneakerID, setSneaker, setError);
+    const matchingSneaker = [...BestShoes, ...NewShoes].find(
+      (sneaker) => sneaker.id === sneakerID
+    );
+
+    if (matchingSneaker) {
+      // If there's a match, set the sneaker state to the matching sneaker
+      setSneaker(matchingSneaker);
+      setError(false); // Reset the error state
+    } else {
+      // If there's no match, fetch the sneaker details as before
+      getShoe(brandName, sneakerID, setSneaker, setError);
+    }
   }, [brandName, getShoe, sneakerID]);
 
   useEffect(() => {
@@ -28,6 +41,7 @@ export default function SneakerDetails() {
       setViewportWidth(window.innerWidth);
     };
     window.addEventListener('resize', handleResize);
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };

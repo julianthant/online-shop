@@ -6,6 +6,8 @@ import SneakerCard from './SneakerCard';
 import SneakerFilter from './SneakerFilter';
 import SneakerSort from './SneakerSort';
 import ShowPageResults from './ShowPageResults';
+import BestShoes from '../../../../data/BestShoes';
+import NewShoes from '../../../../data/NewShoes';
 
 export default function SneakerGrid() {
   const { brandName } = useParams();
@@ -19,9 +21,19 @@ export default function SneakerGrid() {
 
   useEffect(() => {
     const collection = getCollection(brandName);
+
     getShoeCollection(collection, (data) => {
-      setSneakers(data);
-      setOriginalSneakers(data);
+      const filteredBestShoes = BestShoes.filter(
+        (shoe) => shoe.brand.toLowerCase() === brandName.toLowerCase()
+      );
+      const filteredNewShoes = NewShoes.filter(
+        (shoe) => shoe.brand.toLowerCase() === brandName.toLowerCase()
+      );
+
+      const mergedSneakers = data.concat(filteredBestShoes, filteredNewShoes);
+
+      setSneakers(mergedSneakers);
+      setOriginalSneakers(mergedSneakers);
       setLoading(true);
     });
   }, [brandName, getCollection, getShoeCollection]);
@@ -77,7 +89,7 @@ export default function SneakerGrid() {
                   id={sneaker.id}
                   brand={brandName}
                   name={sneaker.name}
-                  price={sneaker.initialPrice}
+                  price={sneaker.price ? sneaker.price : sneaker.initialPrice}
                   image={sneaker.image}
                   colors={sneaker.colorway}
                 />

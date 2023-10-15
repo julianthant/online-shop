@@ -22,7 +22,11 @@ export default function MinorDetails({ value, setValue, ID }) {
       <h2 className="text-2xl font-bold">
         {fixName(value.name.toUpperCase())}
       </h2>
-      <PriceControl value={value} setValue={setValue} ID={ID} />
+      {value.price ? (
+        <p className="text-lg font-bold">${value.price}.00</p>
+      ) : (
+        <PriceControl value={value} setValue={setValue} ID={ID} />
+      )}
       <p className="text-gray-600">Gender: {formatSizing(value.sizing)}</p>
       <p className="text-gray-600">
         {GenerateDescriptions(fixName(value.name), value.id)}
@@ -36,6 +40,7 @@ MinorDetails.propTypes = {
     name: PropTypes.string,
     sizing: PropTypes.string,
     id: PropTypes.string,
+    price: PropTypes.number,
   }),
   setValue: PropTypes.func.isRequired,
   ID: PropTypes.string.isRequired,

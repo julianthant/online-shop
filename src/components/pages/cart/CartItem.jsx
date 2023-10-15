@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function CartItem({ item, onQuantityChange, onDelete }) {
   const [quantity, setQuantity] = useState(item.quantity);
@@ -21,13 +22,16 @@ export default function CartItem({ item, onQuantityChange, onDelete }) {
   return (
     <tr className="border-b-[1px] border-gray-400 text-center font-[Poppins]">
       <td className="flex items-center h-52 gap-6 lm:pr-10">
-        <div className="w-52 border-[20px] border-[#E5E5E5]">
+        <Link
+          to={`/sneaker-grid/${item.brand}/${item.shoeID}`}
+          className="w-52 border-[20px] border-[#E5E5E5]"
+        >
           <img
             className="brightness-90 bg-white"
             src={item.image}
             alt={item.name}
           />
-        </div>
+        </Link>
         <div className="flex flex-col product-container gap-4 text-left items-start">
           <p>{item.name}</p>
           <div className="lm:hidden max-xs:flex-col flex xs:justify-between xs:items-center w-full">
@@ -89,6 +93,7 @@ export default function CartItem({ item, onQuantityChange, onDelete }) {
 CartItem.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.string.isRequired,
+    shoeID: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number,
     image: PropTypes.string,
