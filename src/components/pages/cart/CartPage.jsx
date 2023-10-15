@@ -20,7 +20,8 @@ export default function CartPage() {
   useEffect(() => {
     getCart(setCartItems);
     setRefresh(false);
-  }, [refresh, getCart]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh]);
 
   useEffect(() => {
     setAddCosts(

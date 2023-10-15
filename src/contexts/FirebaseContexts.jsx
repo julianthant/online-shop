@@ -54,7 +54,6 @@ export function FirebaseProvider({ children }) {
   }, [currentUser]);
 
   function getCollection(subcollection) {
-    console.log('col');
     return collection(db, subcollection);
   }
 
@@ -106,12 +105,9 @@ export function FirebaseProvider({ children }) {
 
   async function getCart(setCartItems) {
     try {
-      console.log('cart');
       const currentUserId = currentUser ? currentUser.uid : null;
-      const userQuery = query(
-        getCollection('users_cart'),
-        where('userId', '==', currentUserId)
-      );
+      const collection = getCollection('users_cart');
+      const userQuery = query(collection, where('userId', '==', currentUserId));
       const data = await getDocs(userQuery);
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
