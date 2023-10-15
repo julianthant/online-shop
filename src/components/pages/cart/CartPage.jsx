@@ -33,6 +33,7 @@ export default function CartPage() {
   const handleDelete = (ID) => {
     removeCartItem(ID);
     setQuantity(quantity - 1);
+    setRefresh(true);
   };
 
   const handleQuantityChange = (item, newQuantity) => {
