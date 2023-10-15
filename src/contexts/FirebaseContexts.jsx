@@ -51,7 +51,7 @@ export function FirebaseProvider({ children }) {
     }
 
     getNumberOfItems();
-  });
+  }, [currentUser]);
 
   function getCollection(subcollection) {
     return collection(db, subcollection);

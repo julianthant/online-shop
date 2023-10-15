@@ -22,7 +22,11 @@ export default function CartItem({ item, onQuantityChange, onDelete }) {
     <tr className="border-b-[1px] border-gray-400 text-center font-[Poppins]">
       <td className="flex items-center h-52 gap-6 lm:pr-10">
         <div className="w-52 border-[20px] border-[#E5E5E5]">
-          <img className="brightness-90" src={item.image} alt={item.name} />
+          <img
+            className="brightness-90 bg-white"
+            src={item.image}
+            alt={item.name}
+          />
         </div>
         <div className="flex flex-col product-container gap-4 text-left items-start">
           <p>{item.name}</p>
