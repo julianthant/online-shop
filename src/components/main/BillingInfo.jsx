@@ -146,7 +146,7 @@ export default function BillingInfo({
                   placeholder={field.placeholder}
                   onChange={(e) => field.setValue(e.target.value)}
                   required
-                  className="bg-[#28282B] py-2 px-3 rounded-[0.25rem] mt-1 w-full disabled:brightness-100"
+                  className="bg-[#28282B] py-2 px-3 rounded-[0.25rem] mt-1 w-full"
                 />
               </label>
             </div>

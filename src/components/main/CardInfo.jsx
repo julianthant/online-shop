@@ -157,7 +157,7 @@ export default function CardInfo({
                   placeholder={field.placeholder}
                   onChange={(e) => field.setValue(e.target.value)}
                   required
-                  className="bg-[#28282B] w-full py-2 px-3 rounded-[0.25rem] mt-1 disabled:brightness-100"
+                  className="bg-[#28282B] w-full py-2 px-3 rounded-[0.25rem] mt-1"
                 />
               </label>
             </div>
