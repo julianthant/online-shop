@@ -61,6 +61,14 @@ body {
   border-top: 0.5px solid rgba(92, 89, 94, 0.405);
 }
 
+.border-left {
+  border-left: 0.5px solid rgba(92, 89, 94, 0.405);
+}
+
+.border-right {
+  border-right: 0.5px solid rgba(92, 89, 94, 0.405);
+}
+
 .auth-input {
   padding: 0.9rem 1rem;
   background-color: rgba(76, 86, 91, 0.76);
