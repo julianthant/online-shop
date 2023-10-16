@@ -185,8 +185,11 @@ export default function AccountSettings() {
   };
 
   return (
-    <>
-      <div className="pb-10 border-below">
+    <div className="lg:ml-28 lg:mt-[10rem] user-container mx-auto">
+      <h1 className="font-bold text-4xl text-slate-50 text-center pb-14 lg:hidden">
+        Account Settings
+      </h1>
+      <div className="pb-10 border-below ">
         {error && <p className="text-red-700 text-md mb-3">{error}</p>}
         {success && <p className="text-green-700 text-md mb-3">{success}</p>}
         <div
@@ -290,6 +293,6 @@ export default function AccountSettings() {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
