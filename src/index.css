@@ -43,12 +43,22 @@ body {
   width: min(var(--max-width), 100%);
 }
 
+.payment-container {
+  --max-width: 37rem;
+  max-width: var(--max-width);
+  width: min(var(--max-width), 100%);
+}
+
 .sidebar-border {
   border-right: 0.5px solid rgba(94, 89, 89, 0.177);
 }
 
 .border-below {
   border-bottom: 0.5px solid rgba(92, 89, 94, 0.405);
+}
+
+.border-above {
+  border-top: 0.5px solid rgba(92, 89, 94, 0.405);
 }
 
 .auth-input {
