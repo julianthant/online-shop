@@ -48,7 +48,6 @@ export default function PaymentSettings() {
       >
         Add Billing Address
       </button>
-
       {billingError && (
         <p className="text-red-700 text-md mb-3">{billingError}</p>
       )}
