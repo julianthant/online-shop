@@ -11,15 +11,15 @@ export default function CartPage() {
   const [totalPrice, setTotalPrice] = useState(0);
   const {
     currentUser,
-    removeCartItem,
+    removeItem,
     updateCartItem,
-    getCart,
+    getItem,
     setQuantity,
     quantity,
   } = useAuth();
 
   useEffect(() => {
-    getCart(setCartItems);
+    getItem(setCartItems, 'users_cart');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -41,7 +41,7 @@ export default function CartPage() {
   }, [cartItems]);
 
   const handleDelete = (ID) => {
-    removeCartItem(ID, setCartItems);
+    removeItem(ID, setCartItems, 'users_cart');
     setQuantity(quantity - 1);
   };
 

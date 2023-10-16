@@ -1,19 +1,46 @@
 import { useState } from 'react';
 import AccountSettings from './AccountSettings';
+import Orders from './Orders';
+import PaymentSettings from './PaymentSettings';
+import InvalidPage from '../authentication/InvalidPage';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Dashboard() {
-  const [settingsMode, setSettingsMode] = useState('Account');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const initialMode = queryParams.get('mode');
+  const [settingsMode, setSettingsMode] = useState(initialMode || 'Account');
+
+  const handleNavigation = (newMode) => {
+    // Update the query parameters without navigating to a new page
+    queryParams.set('mode', newMode);
+    navigate({ search: queryParams.toString() });
+    setSettingsMode(newMode);
+  };
+
+  function setPage() {
+    if (settingsMode === 'Account') {
+      return <AccountSettings />;
+    } else if (settingsMode === 'Payment') {
+      return <PaymentSettings />;
+    } else if (settingsMode === 'Order') {
+      return <Orders />;
+    } else {
+      return <InvalidPage />;
+    }
+  }
 
   return (
     <section className="bg-matte-black pt-36">
-      <div className="container mx-auto flex max-lg:hidden">
-        <div className="sidebar-container sidebar-border pr-8 text-slate-50">
+      <div className="container mx-auto flex">
+        <div className="sidebar-container sidebar-border pr-8 text-slate-50 max-lg:hidden">
           <h1 className="text-center text-5xl py-16 font-[Merriweather]">
             Settings
           </h1>
-          <nav className=" gap-5 flex flex-col items-center h-40">
+          <nav className="gap-5 flex flex-col items-center h-40">
             <button
-              onClick={() => setSettingsMode('Account')}
+              onClick={() => handleNavigation('Account')}
               className={`text-start w-44 font-medium ${
                 settingsMode === 'Account'
                   ? 'text-emerald-600'
@@ -23,7 +50,17 @@ export default function Dashboard() {
               Account Settings
             </button>
             <button
-              onClick={() => setSettingsMode('Order')}
+              onClick={() => handleNavigation('Payment')}
+              className={`text-start w-44 font-medium ${
+                settingsMode === 'Payment'
+                  ? 'text-emerald-600'
+                  : 'text-slate-50'
+              } hover:text-emerald-600 transition-all`}
+            >
+              Payment Settings
+            </button>
+            <button
+              onClick={() => handleNavigation('Order')}
               className={`text-start w-44 font-medium ${
                 settingsMode === 'Order' ? 'text-emerald-600' : 'text-slate-50'
               } hover:text-emerald-600 transition-all`}
@@ -32,15 +69,7 @@ export default function Dashboard() {
             </button>
           </nav>
         </div>
-        <div className="ml-28 user-container mt-[10rem]">
-          {settingsMode === 'Account' ? <AccountSettings /> : 'Order Page'}
-        </div>
-      </div>
-      <div className="lg:hidden container">
-        <h1 className="font-bold text-4xl text-slate-50 text-center pb-14">
-          Account Settings
-        </h1>
-        <AccountSettings />
+        {setPage()}
       </div>
     </section>
   );

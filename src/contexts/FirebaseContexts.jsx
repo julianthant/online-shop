@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { auth, db, setCache, getCache } from '../../database/firebase';
+import { showStatus } from '../constants/ShowStatus';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -81,7 +82,6 @@ export function FirebaseProvider({ children }) {
   async function getShoe(brandName, sneakerID, setSneaker, setError) {
     try {
       const cachedData = getCache(`sneakerCache-${brandName}-${sneakerID}`);
-      console.log('s');
       if (cachedData) {
         setSneaker(cachedData);
       } else {
@@ -103,17 +103,17 @@ export function FirebaseProvider({ children }) {
     }
   }
 
-  async function getCart(setCartItems) {
+  async function getItem(setItems, db) {
     try {
       const currentUserId = currentUser ? currentUser.uid : null;
-      const collection = getCollection('users_cart');
+      const collection = getCollection(db);
       const userQuery = query(collection, where('userId', '==', currentUserId));
       const data = await getDocs(userQuery);
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
-      setCartItems(filteredData);
+      setItems(filteredData);
     } catch (error) {
       console.error(error);
     }
@@ -161,25 +161,180 @@ export function FirebaseProvider({ children }) {
     }
   }
 
-  async function removeCartItem(ID, updatedList) {
+  async function updateCartItem(ID, newQuantity, updatedList) {
     try {
-      const cartCollection = getCollection('users_cart');
-      const cartItem = doc(cartCollection, ID);
-      await deleteDoc(cartItem);
-      getCart(updatedList);
+      const collection = getCollection('users_cart');
+      const cartItem = doc(collection, ID);
+      await updateDoc(cartItem, { quantity: newQuantity });
+      getItem(updatedList, db);
     } catch (error) {
-      console.error('Unable to delete item: ', error);
+      console.error(error);
     }
   }
 
-  async function updateCartItem(ID, newQuantity, updatedList) {
+  async function addCardInfo(
+    cardNumber,
+    cardName,
+    expiryDate,
+    cvv,
+    updatedList,
+    setError,
+    setSuccess
+  ) {
     try {
-      const cartCollection = getCollection('users_cart');
-      const cartItem = doc(cartCollection, ID);
-      await updateDoc(cartItem, { quantity: newQuantity });
-      getCart(updatedList);
+      const userId = currentUser ? currentUser.uid : null;
+      const cartCollection = getCollection('users_cards');
+
+      const querySnapshot = await getDocs(
+        query(
+          cartCollection,
+          where('cardNumber', '==', cardNumber),
+          where('userId', '==', userId)
+        )
+      );
+
+      if (querySnapshot.docs.length > 0) {
+        showStatus('Card already exists', setError);
+      } else {
+        await addDoc(cartCollection, {
+          cardNumber: cardNumber,
+          cardName: cardName,
+          expiryDate: expiryDate,
+          cvv: cvv,
+          userId,
+        });
+        showStatus('Card has been added successfully', setSuccess);
+      }
+
+      getItem(updatedList, 'users_cards');
     } catch (error) {
-      console.error(error);
+      showStatus('Error adding card', setError);
+      console.error('Error adding card:', error);
+      throw error;
+    }
+  }
+
+  async function updateCardInfo(
+    cardId,
+    cardNumber,
+    cardName,
+    expiryDate,
+    cvv,
+    updatedList,
+    setError,
+    setSuccess
+  ) {
+    try {
+      const cartCollection = getCollection('users_cards');
+      const cardRef = doc(cartCollection, cardId);
+      const cardDoc = await getDoc(cardRef);
+
+      if (cardDoc.exists()) {
+        await updateDoc(cardRef, {
+          cardNumber: cardNumber,
+          cardName: cardName,
+          expiryDate: expiryDate,
+          cvv: cvv,
+        });
+
+        showStatus('Card has been updated successfully', setSuccess);
+      } else {
+        showStatus('Card not found', setError);
+        throw new Error('Card not found');
+      }
+
+      getItem(updatedList, 'users_cards');
+    } catch (error) {
+      showStatus('Error updating card', setError);
+      console.error('Error updating card:', error);
+      throw error;
+    }
+  }
+
+  async function addBillingInfo(
+    address,
+    country,
+    city,
+    state,
+    postalCode,
+    updatedList,
+    setError,
+    setSuccess
+  ) {
+    try {
+      const userId = currentUser ? currentUser.uid : null;
+      const billingCollection = getCollection('users_billing');
+
+      await addDoc(billingCollection, {
+        address: address,
+        country: country,
+        city: city,
+        state: state,
+        postalCode: postalCode,
+        userId,
+      });
+      showStatus(
+        'Your billing information has been updated successfully',
+        setSuccess
+      );
+      getItem(updatedList, 'users_billing');
+    } catch (error) {
+      showStatus('Error adding billing info', setError);
+      console.error('Error adding billing info:', error);
+      throw error;
+    }
+  }
+
+  async function updateBillingInfo(
+    billingId,
+    address,
+    country,
+    city,
+    state,
+    postalCode,
+    updatedList,
+    setError,
+    setSuccess
+  ) {
+    try {
+      const billingCollection = getCollection('users_billing');
+      const billingRef = doc(billingCollection, billingId);
+      const billingDoc = await getDoc(billingRef);
+
+      if (billingDoc.exists()) {
+        await updateDoc(billingRef, {
+          aaddress: address,
+          country: country,
+          city: city,
+          state: state,
+          postalCode: postalCode,
+        });
+
+        showStatus(
+          'Your billing information has been added successfully',
+          setSuccess
+        );
+      } else {
+        showStatus('Billing information not found', setError);
+        throw new Error('Billing information not found');
+      }
+
+      getItem(updatedList, 'users_billing');
+    } catch (error) {
+      showStatus('Error updating billing info', setError);
+      console.error('Error updating billing info:', error);
+      throw error;
+    }
+  }
+
+  async function removeItem(ID, updatedList, db) {
+    try {
+      const collection = getCollection(db);
+      const cartItem = doc(collection, ID);
+      await deleteDoc(cartItem);
+      getItem(updatedList, db);
+    } catch (error) {
+      console.error('Unable to delete item: ', error);
     }
   }
 
@@ -278,10 +433,14 @@ export function FirebaseProvider({ children }) {
     getCollection,
     getShoeCollection,
     getShoe,
-    getCart,
+    getItem,
     addCart,
-    removeCartItem,
     updateCartItem,
+    addCardInfo,
+    updateCardInfo,
+    addBillingInfo,
+    updateBillingInfo,
+    removeItem,
     quantity,
     setQuantity,
   };
