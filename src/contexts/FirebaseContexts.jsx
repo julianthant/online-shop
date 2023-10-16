@@ -311,7 +311,7 @@ export function FirebaseProvider({ children }) {
         });
 
         showStatus(
-          'Your billing information has been added successfully',
+          'Your billing information has been updated successfully',
           setSuccess
         );
       } else {
