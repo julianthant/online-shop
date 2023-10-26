@@ -24,7 +24,7 @@ export default function CardInfo({
   const userEdit =
     'bg-dark-gray w-1/2 text-sm text-slate-50 rounded-[0.22rem] h-9 hover:bg-light-gray transition-all';
 
-  const handleSavePayment = (e) => {
+  function handleSavePayment(e) {
     e.preventDefault();
     if (addCard) {
       if (!ValidateCard(cardNumber)) {
@@ -74,7 +74,7 @@ export default function CardInfo({
         setSuccess
       );
     }
-  };
+  }
 
   function handleSave() {
     if (!addCard) {
@@ -95,6 +95,46 @@ export default function CardInfo({
     showStatus('Card has been deleted successfully', setSuccess);
   }
 
+  function handleCardNumberChange(e) {
+    const inputValue = e.target.value.replace(/[^0-9]/g, '');
+    setCardNumber(inputValue.substring(0, 19));
+  }
+
+  function handleExpiryDateChange(e) {
+    let inputValue = e.target.value.replace(/[^0-9/]/g, '');
+
+    const parts = inputValue.split('/');
+    let monthPart = parts[0] || '';
+    let yearPart = parts[1] || '';
+
+    if (monthPart[0] === '0' && monthPart[1] === '0') {
+      monthPart = 0;
+    } else if (monthPart[0] === '1' && /^[3-9]$/.test(monthPart[1])) {
+      monthPart = '12';
+      inputValue = monthPart + '/' + yearPart;
+    } else if (/^[2-9]$/.test(monthPart[0])) {
+      monthPart = '0' + monthPart[0];
+    }
+
+    monthPart = monthPart.substring(0, 2);
+    yearPart = yearPart.substring(0, 2);
+
+    if (monthPart.length > 1) {
+      inputValue = monthPart + '/' + yearPart;
+    }
+
+    setExpiryDate(inputValue.substring(0, 5));
+  }
+
+  function handleCVVChange(e) {
+    const inputValue = e.target.value.replace(/[^0-9]/g, '');
+    setCVV(inputValue.substring(0, 4));
+  }
+
+  function handleNameChange(e) {
+    setCardName(e.target.value);
+  }
+
   const userFields = [
     {
       id: 'cardNumber',
@@ -103,6 +143,7 @@ export default function CardInfo({
       setValue: setCardNumber,
       type: 'text',
       placeholder: 'Card Number',
+      onChange: handleCardNumberChange,
     },
     {
       id: 'expiryDate',
@@ -111,6 +152,7 @@ export default function CardInfo({
       setValue: setExpiryDate,
       type: 'text',
       placeholder: 'MM/YY',
+      onChange: handleExpiryDateChange,
     },
     {
       id: 'cvv',
@@ -119,6 +161,7 @@ export default function CardInfo({
       setValue: setCVV,
       type: 'text',
       placeholder: 'CVV',
+      onChange: handleCVVChange,
     },
     {
       id: 'cardName',
@@ -127,6 +170,7 @@ export default function CardInfo({
       setValue: setCardName,
       type: 'text',
       placeholder: 'Card Name',
+      onChange: handleNameChange,
     },
   ];
 
@@ -155,13 +199,14 @@ export default function CardInfo({
                   value={field.value}
                   disabled={!editState}
                   placeholder={field.placeholder}
-                  onChange={(e) => field.setValue(e.target.value)}
+                  onChange={field.onChange}
                   required
                   className="bg-[#28282B] w-full py-2 px-3 rounded-[0.25rem] mt-1"
                 />
               </label>
             </div>
           ))}
+
           {editState ? (
             <div className="flex w-full gap-3 pt-5 items-center">
               <button
