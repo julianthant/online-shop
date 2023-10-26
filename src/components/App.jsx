@@ -12,6 +12,7 @@ const Collections = lazy(() => import('./pages/collections/CollectionsPage'));
 
 const CartPage = lazy(() => import('./pages/cart/CartPage'));
 const ContactsPage = lazy(() => import('./pages/contacts/ContactsPage'));
+const CheckoutPage = lazy(() => import('./pages/cart/Checkout'));
 
 const Dashboard = lazy(() => import('./main/Dashboard'));
 const Login = lazy(() => import('./authentication/Login'));
@@ -49,6 +50,9 @@ function App() {
             <Route path="/lookbook" element={<Lookbook />} />
             <Route path="/collections" element={<Collections />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<PrivateRoute />}>
+              <Route index element={<CheckoutPage />} />
+            </Route>
             <Route path="/contacts" element={<ContactsPage />} />
             <Route path="/sneaker-grid/:brandName" element={<SneakerGrid />} />
             <Route
