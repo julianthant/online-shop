@@ -166,7 +166,7 @@ export function FirebaseProvider({ children }) {
       const collection = getCollection('users_cart');
       const cartItem = doc(collection, ID);
       await updateDoc(cartItem, { quantity: newQuantity });
-      getItem(updatedList, db);
+      getItem(updatedList, 'users_cart');
     } catch (error) {
       console.error(error);
     }
