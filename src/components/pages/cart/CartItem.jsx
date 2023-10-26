@@ -28,6 +28,7 @@ export default function CartItem({ item, onQuantityChange, onDelete }) {
         >
           <img
             className="brightness-90 bg-white"
+            loading="eager"
             src={item.image}
             alt={item.name}
           />
