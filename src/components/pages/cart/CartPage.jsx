@@ -2,10 +2,15 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../../hooks/useAuth';
 import ToLogin from './ToLogin';
 import CartItem from './CartItem';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { showStatus } from '../../../constants/ShowStatus';
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
+  const [cards, setCards] = useState([]);
+  const [billing, setBilling] = useState([]);
+  const [error, setError] = useState(false);
+
   const [addCosts, setAddCosts] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -18,8 +23,12 @@ export default function CartPage() {
     quantity,
   } = useAuth();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     getItem(setCartItems, 'users_cart');
+    getItem(setCards, 'users_cards');
+    getItem(setBilling, 'users_billing');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -48,6 +57,42 @@ export default function CartPage() {
   const handleQuantityChange = (item, newQuantity) => {
     updateCartItem(item.id, newQuantity, setCartItems);
   };
+
+  function handleCheckout() {
+    if (cards.length === 0) {
+      showStatus(
+        <span>
+          Please add{' '}
+          <Link
+            className="text-red-500 underline underline-offset-1"
+            to="/dashboard?mode=Payment"
+          >
+            card
+          </Link>{' '}
+          information to purchase.
+        </span>,
+        setError
+      );
+    } else if (billing.length === 0) {
+      showStatus(
+        <span>
+          Please add{' '}
+          <Link
+            className="text-red-500 underline underline-offset-1"
+            to="/dashboard?mode=Payment"
+          >
+            billing
+          </Link>{' '}
+          information to purchase.
+        </span>,
+        setError
+      );
+    } else if (cartItems.length === 0) {
+      showStatus('Please add items into the cart.', setError);
+    } else {
+      navigate('/checkout');
+    }
+  }
 
   return (
     <section className="bg-matte-black pt-8 text-white">
@@ -120,7 +165,11 @@ export default function CartPage() {
                     ${totalPrice + addCosts}.00 USD
                   </h4>
                 </div>
-                <button className="text-center py-2 w-full mb-4 bg-emerald-700 hover:bg-emerald-600 text-white font-bold rounded-full">
+                <p className="text-red-700 text-md mb-3">{error}</p>
+                <button
+                  onClick={handleCheckout}
+                  className="text-center py-2 w-full mb-4 bg-emerald-700 hover:bg-emerald-600 text-white font-bold rounded-full"
+                >
                   Proceed To Checkout
                 </button>
                 <Link
