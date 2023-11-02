@@ -43,10 +43,20 @@ body {
   width: min(var(--max-width), 100%);
 }
 
+.order-container {
+  --max-width: 55rem;
+  max-width: var(--max-width);
+  width: min(var(--max-width), 100%);
+}
+
 .payment-container {
   --max-width: 37rem;
   max-width: var(--max-width);
   width: min(var(--max-width), 100%);
+}
+
+.mobile-order:nth-child(odd) {
+  background-color: #1b1b1bc9;
 }
 
 .sidebar-border {
