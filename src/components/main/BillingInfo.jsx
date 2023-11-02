@@ -142,7 +142,7 @@ export default function BillingInfo({
                   id={field.id}
                   type={field.type}
                   value={field.value}
-                  disabled={!editState}
+                  readOnly={!editState}
                   placeholder={field.placeholder}
                   onChange={(e) => field.setValue(e.target.value)}
                   required
