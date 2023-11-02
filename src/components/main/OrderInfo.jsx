@@ -50,16 +50,6 @@ export default function OrderInfo() {
                 <h4 className="text-base font-bold">{item.brand}</h4>
               </div>
               <div className="flex items-center justify-between h-10 px-5">
-                <h4 className="text-base font-bold">ORDERED DATE</h4>
-                <h4 className="text-base font-bold">
-                  {date && date.toDateString()}
-                </h4>
-              </div>
-              <div className="flex items-center justify-between h-10 px-5 bg-[#1b1b1b]">
-                <h4 className="text-base font-bold">ETA</h4>
-                <h4 className="text-base font-bold">2 to 3 weeks</h4>
-              </div>
-              <div className="flex items-center justify-between h-10 px-5">
                 <h4 className="text-base font-bold">PRICE</h4>
                 <h4 className="text-base font-bold">${item.price}.00 USD</h4>
               </div>
