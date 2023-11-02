@@ -21,7 +21,7 @@ export default function CartItem({ item, onQuantityChange, onDelete }) {
 
   return (
     <tr className="border-b-[1px] border-gray-400 text-center font-[Poppins]">
-      <td className="flex items-center h-52 gap-6 lm:pr-10">
+      <td className="flex items-center h-52 gap-6 lm:pr-10 pl-4">
         <Link
           to={`/sneaker-grid/${item.brand}/${item.shoeID}`}
           className="w-52 border-[20px] border-[#E5E5E5]"
@@ -81,7 +81,7 @@ export default function CartItem({ item, onQuantityChange, onDelete }) {
           </button>
         </div>
       </td>
-      <td className="text-right w-28 max-lm:hidden">
+      <td className="text-right w-28 max-lm:hidden pr-4">
         ${item.price * quantity}.00 USD
       </td>
     </tr>

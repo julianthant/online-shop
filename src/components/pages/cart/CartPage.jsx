@@ -100,20 +100,20 @@ export default function CartPage() {
         <div className="flex justify-center xl:gap-28 gap-16 xl:pl-16 max-xl:grid max-xl:container">
           <div className="pt-[5rem] w-2/3 max-xl:w-full">
             <div className="flex items-center justify-between border-b-[1px] border-gray-400 py-4 mb-6">
-              <h2 className="text-slate-50 text-3xl font-semibold font-[Poppins]">
+              <h2 className="text-slate-50 text-3xl font-semibold font-[Poppins] pl-4">
                 Shopping Cart
               </h2>
-              <h2 className="text-slate-50  text-3xl font-semibold font-[Poppins] max-lm:hidden">
+              <h2 className="text-slate-50  text-3xl font-semibold font-[Poppins] max-lm:hidden pr-4">
                 {quantity} {quantity > 1 ? 'Items' : 'Item'}
               </h2>
             </div>
             <table className="w-full">
               <thead className="h-14 max-lm:hidden">
-                <tr>
-                  <th className="text-left">PRODUCTS</th>
+                <tr className="bg-[#1B1B1B]">
+                  <th className="text-left pl-4">PRODUCTS</th>
                   <th className="text-right">PRICE</th>
                   <th className="text-center">QUANTITY</th>
-                  <th className="text-right">TOTAL</th>
+                  <th className="text-right pr-4">TOTAL</th>
                 </tr>
               </thead>
               <tbody>
@@ -165,7 +165,7 @@ export default function CartPage() {
                     ${totalPrice + addCosts}.00 USD
                   </h4>
                 </div>
-                <p className="text-red-700 text-md mb-3">{error}</p>
+                {error && <p className="text-red-700 text-md mb-3">{error}</p>}
                 <button
                   onClick={handleCheckout}
                   className="text-center py-2 w-full mb-4 bg-emerald-700 hover:bg-emerald-600 text-white font-bold rounded-full"
