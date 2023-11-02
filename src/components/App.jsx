@@ -6,6 +6,7 @@ import { FirebaseProvider } from '../contexts/FirebaseContexts';
 import Navbar from './main/Navbar';
 import SneakerDetails from './pages/sneakers/details/SneakerDetails';
 import SneakerGrid from './pages/sneakers/grid/SneakerGrid';
+import OrderInfo from './main/OrderInfo';
 
 const Lookbook = lazy(() => import('./pages/lookbook/LookbookPage'));
 const Collections = lazy(() => import('./pages/collections/CollectionsPage'));
@@ -52,6 +53,9 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<PrivateRoute />}>
               <Route index element={<CheckoutPage />} />
+            </Route>
+            <Route path="/order/:orderID" element={<PrivateRoute />}>
+              <Route index element={<OrderInfo />} />
             </Route>
             <Route path="/contacts" element={<ContactsPage />} />
             <Route path="/sneaker-grid/:brandName" element={<SneakerGrid />} />
