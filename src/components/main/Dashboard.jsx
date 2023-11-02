@@ -33,7 +33,7 @@ export default function Dashboard() {
 
   return (
     <section className="bg-matte-black pt-36">
-      <div className="container mx-auto flex pb-10">
+      <div className="container mx-auto flex pb-12">
         <div className="sidebar-container sidebar-border pr-8 text-slate-50 max-lg:hidden">
           <h1 className="text-center text-5xl py-16 font-[Merriweather]">
             Settings
@@ -71,22 +71,28 @@ export default function Dashboard() {
         </div>
         {setPage()}
       </div>
-      <footer className="lg:hidden fixed flex justify-evenly bottom-0 inset-x-0 backdrop-blur-lg h-14 border-above">
+      <footer className="lg:hidden fixed flex justify-evenly bottom-0 inset-x-0 bg-[#323233] h-14 border-above">
         <button
           onClick={() => setSettingsMode('Account')}
-          className={`bg-transparent w-1/3 text-sm text-slate-50 h-full border-right hover:bg-[#242425] transition-all`}
+          className={`bg-transparent w-1/3 text-sm text-slate-50 h-full border-right hover:bg-[#242425] transition-all ${
+            settingsMode === 'Account' ? 'bg-[#242425]' : 'text-slate-50'
+          }`}
         >
           Account
         </button>
         <button
           onClick={() => setSettingsMode('Payment')}
-          className={`bg-transparent w-1/3 text-sm text-slate-50 h-full hover:bg-[#242425] transition-all`}
+          className={`bg-transparent w-1/3 text-sm text-slate-50 h-full border-right hover:bg-[#242425] transition-all ${
+            settingsMode === 'Payment' ? 'bg-[#242425]' : 'text-slate-50'
+          }`}
         >
           Payment
         </button>
         <button
           onClick={() => setSettingsMode('Order')}
-          className={`bg-transparent w-1/3 text-sm text-slate-50 h-full border-left hover:bg-[#242425] transition-all`}
+          className={`bg-transparent w-1/3 text-sm text-slate-50 h-full border-right hover:bg-[#242425] transition-all ${
+            settingsMode === 'Order' ? 'bg-[#242425]' : 'text-slate-50'
+          }`}
         >
           Orders
         </button>
