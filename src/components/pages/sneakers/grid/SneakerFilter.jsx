@@ -7,6 +7,8 @@ import SearchFilter from './SearchFilter';
 import CloseMenu from '../../../../assets/close_menu_dark.svg';
 import { motion, AnimatePresence } from 'framer-motion';
 import OpenMenu from '../../../../assets/menu.svg';
+import BrandFilter from './BrandFilter';
+import BrandsList from '../../../../data/BrandsList';
 
 export default function SneakerFilter({
   sneakers,
@@ -21,6 +23,8 @@ export default function SneakerFilter({
     women: false,
     unisex: false,
   });
+  const [brandFilters, setBrandFilters] = useState([]);
+  const [localFilter, setLocalFilter] = useState([]);
 
   const modalRef = useRef(null);
 
@@ -33,6 +37,7 @@ export default function SneakerFilter({
       genderFilters.men || genderFilters.women || genderFilters.unisex;
     const isPriceFilterSelected = priceRange[0] !== 0 || priceRange[1] !== 100;
     const isSearchFilterSelected = searchValue.length > 0;
+    const isBrandFilterSelected = brandFilters.length > 0;
 
     const getSneakerPrice = (sneaker) => {
       if (sneaker.initialPrice !== null) {
@@ -45,6 +50,24 @@ export default function SneakerFilter({
     };
 
     let filteredSneakers = sneakers;
+
+    if (isBrandFilterSelected) {
+      const modifiedBrandFilters = brandFilters.map((brand) => {
+        return brand === 'Reebok' ? 'Reebook' : brand;
+      });
+
+      filteredSneakers = filteredSneakers.filter((sneaker) => {
+        return modifiedBrandFilters.some((brand) => {
+          // Make sure both sneaker.brandName and brand are defined
+          if (sneaker.brandName && brand) {
+            return sneaker.brandName
+              .toLowerCase()
+              .includes(brand.toLowerCase());
+          }
+          return false;
+        });
+      });
+    }
 
     if (isGenderFilterSelected) {
       filteredSneakers = filteredSneakers.filter((sneaker) => {
@@ -73,6 +96,7 @@ export default function SneakerFilter({
 
     setFilteredSneakers(filteredSneakers);
     setOriginalSneakers(filteredSneakers);
+    setLocalFilter(filteredSneakers);
   }, [
     genderFilters.men,
     genderFilters.women,
@@ -82,6 +106,7 @@ export default function SneakerFilter({
     setFilteredSneakers,
     sneakers,
     setOriginalSneakers,
+    brandFilters,
   ]);
 
   const customOverlayStyle = {
@@ -109,6 +134,14 @@ export default function SneakerFilter({
 
   function handleReset() {
     setFilteredSneakers(sneakers);
+
+    const initialBrandFilters = BrandsList.map((brand) => brand.name);
+    setBrandFilters(initialBrandFilters);
+
+    setGenderFilters({ men: false, women: false, unisex: false });
+
+    setPriceRange([0, 100]);
+
     closeModal();
   }
 
@@ -129,7 +162,7 @@ export default function SneakerFilter({
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ duration: 0.25 }}
-              className="fixed left-0 top-0 w-[22rem] h-full bg-white shadow-lg p-4"
+              className="fixed left-0 top-0 w-[22rem] h-full bg-white shadow-lg p-4 overflow-auto"
               ref={modalRef}
             >
               <div className="flex flex-col">
@@ -159,8 +192,13 @@ export default function SneakerFilter({
                     <GenderFilter
                       genderFilters={genderFilters}
                       setGenderFilters={setGenderFilters}
-                      sneakers={sneakers}
+                      sneakers={localFilter}
                       priceRange={priceRange}
+                      brandFilters={brandFilters}
+                    />
+                    <BrandFilter
+                      brandFilters={brandFilters}
+                      setBrandFilters={setBrandFilters}
                     />
                   </>
                 )}
@@ -186,7 +224,7 @@ SneakerFilter.propTypes = {
   sneakers: PropTypes.arrayOf(
     PropTypes.shape({
       sizing: PropTypes.string,
-      price: PropTypes.number,
+      price: PropTypes.string,
     })
   ),
   setFilteredSneakers: PropTypes.func.isRequired,
