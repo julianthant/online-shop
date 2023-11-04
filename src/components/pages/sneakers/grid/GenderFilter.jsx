@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import GeneratePrice from './GeneratePrice';
 
 export default function GenderFilter({
   genderFilters,
@@ -22,7 +23,27 @@ export default function GenderFilter({
         unisex: 0,
       };
 
-      sneakers.forEach((sneaker) => {
+      const filteredSneakers = sneakers.filter((sneaker) => {
+        // Apply brand filter
+
+        const modifiedBrandFilters = brandFilters.map((brand) => {
+          return brand === 'Reebok' ? 'Reebook' : brand;
+        });
+        const brandFilterPassed =
+          !modifiedBrandFilters.length ||
+          modifiedBrandFilters.includes(sneaker.brandName);
+
+        // Apply price range filter
+        const sneakerPrice = parseInt(
+          sneaker.initialPrice || GeneratePrice(sneaker.id)
+        );
+        const priceFilterPassed =
+          sneakerPrice >= priceRange[0] && sneakerPrice <= priceRange[1];
+
+        return brandFilterPassed && priceFilterPassed;
+      });
+
+      filteredSneakers.forEach((sneaker) => {
         if (sneaker.sizing === 'man') {
           counts.men++;
         } else if (sneaker.sizing === 'woman') {
@@ -31,6 +52,7 @@ export default function GenderFilter({
           counts.unisex++;
         }
       });
+
       setGenderCounts(counts);
     };
 
@@ -89,6 +111,15 @@ GenderFilter.propTypes = {
   sneakers: PropTypes.arrayOf(
     PropTypes.shape({
       sizing: PropTypes.string.isRequired,
+      brandName: PropTypes.string.isRequired,
+      initialPrice: PropTypes.number,
+    })
+  ).isRequired,
+  sneakers: PropTypes.arrayOf(
+    PropTypes.shape({
+      sizing: PropTypes.string.isRequired,
+      brandName: PropTypes.string.isRequired,
+      initialPrice: PropTypes.number,
     })
   ).isRequired,
   priceRange: PropTypes.arrayOf(PropTypes.number).isRequired,
