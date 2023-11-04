@@ -120,7 +120,16 @@ export function FirebaseProvider({ children }) {
     }
   }
 
-  async function addCart(shoeID, name, brand, price, image, colors, quantity) {
+  async function addCart(
+    shoeID,
+    name,
+    brand,
+    price,
+    image,
+    quantity,
+    size,
+    color
+  ) {
     try {
       const userId = auth?.currentUser?.uid;
       const cartCollection = getCollection('users_cart');
@@ -152,8 +161,9 @@ export function FirebaseProvider({ children }) {
           name,
           price,
           image,
-          colors,
           quantity,
+          size,
+          color,
           userId,
         });
       }
@@ -362,7 +372,7 @@ export function FirebaseProvider({ children }) {
 
   async function getOrder(orderID, setOrder, setDate, setError) {
     try {
-      const data = await doc(db, 'users_orders', orderID);
+      const data = doc(db, 'users_orders', orderID);
       const item = await getDoc(data);
 
       if (item.exists()) {
@@ -383,10 +393,9 @@ export function FirebaseProvider({ children }) {
     }
   }
 
-  async function removeItem(ID, updatedList, db) {
+  async function removeItem(ID, updatedList, path) {
     try {
-      const collection = getCollection(db);
-      const cartItem = doc(collection, ID);
+      const cartItem = doc(db, path, ID);
       await deleteDoc(cartItem);
       getItem(updatedList, db);
     } catch (error) {
