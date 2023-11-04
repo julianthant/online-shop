@@ -7,7 +7,6 @@ import Navbar from './main/Navbar';
 import SneakerDetails from './pages/sneakers/details/SneakerDetails';
 import OrderInfo from './main/OrderInfo';
 
-const Lookbook = lazy(() => import('./pages/lookbook/LookbookPage'));
 const Collections = lazy(() => import('./pages/collections/CollectionsPage'));
 
 const CartPage = lazy(() => import('./pages/cart/CartPage'));
@@ -47,7 +46,6 @@ function App() {
             <Route path="/action-center" element={<PrivateRoute />}>
               <Route index element={<AccountCenter />} />
             </Route>
-            <Route path="/lookbook" element={<Lookbook />} />
             <Route path="/collections" element={<Collections />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<PrivateRoute />}>

@@ -101,13 +101,6 @@ export default function Navbar({ fallbackClass }) {
           </Link>
           <Link
             className={navLinks}
-            to="/lookbook"
-            onClick={handleMenuItemClick}
-          >
-            Lookbook
-          </Link>
-          <Link
-            className={navLinks}
             to="/contacts"
             onClick={handleMenuItemClick}
           >
