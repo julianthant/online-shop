@@ -71,7 +71,7 @@ PriceSlider.propTypes = {
   setPriceRange: PropTypes.func.isRequired,
   sneakers: PropTypes.arrayOf(
     PropTypes.shape({
-      price: PropTypes.string,
+      price: PropTypes.number,
       id: PropTypes.string.isRequired,
     })
   ).isRequired,
