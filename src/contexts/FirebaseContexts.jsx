@@ -86,7 +86,7 @@ export function FirebaseProvider({ children }) {
       if (cachedData) {
         setSneaker(cachedData);
       } else {
-        const data = await doc(db, brandName, sneakerID);
+        const data = doc(db, brandName, sneakerID);
         const item = await getDoc(data);
 
         if (item.exists()) {
@@ -115,6 +115,26 @@ export function FirebaseProvider({ children }) {
         id: doc.id,
       }));
       setItems(filteredData);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function newGetItem(brandName) {
+    try {
+      const cachedData = getCache(brandName);
+      if (cachedData) {
+        return cachedData;
+      } else {
+        const shoeCollectionRef = getCollection(brandName);
+        const data = await getDocs(shoeCollectionRef);
+        const filteredData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setCache(brandName, filteredData);
+        return filteredData;
+      }
     } catch (error) {
       console.error(error);
     }
@@ -397,7 +417,7 @@ export function FirebaseProvider({ children }) {
     try {
       const cartItem = doc(db, path, ID);
       await deleteDoc(cartItem);
-      getItem(updatedList, db);
+      getItem(updatedList, path);
     } catch (error) {
       console.error('Unable to delete item: ', error);
     }
@@ -510,6 +530,7 @@ export function FirebaseProvider({ children }) {
     setQuantity,
     addOrderInfo,
     getOrder,
+    newGetItem,
   };
 
   return (
