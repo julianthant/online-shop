@@ -1,19 +1,25 @@
 import { useAuth } from '../../hooks/useAuth';
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 export default function OrderInfo() {
   const [order, setOrder] = useState();
   const [error, setError] = useState('');
   const [date, setDate] = useState(null);
 
-  const { currentUser, getOrder } = useAuth();
+  const { currentUser, getOrder, removeItem } = useAuth();
   const { orderID } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getOrder(orderID, setOrder, setDate, setError);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function deleteOrder() {
+    removeItem(orderID, null, 'users_orders');
+    navigate('/dashboard?mode=Order');
+  }
 
   return (
     currentUser &&
@@ -28,7 +34,7 @@ export default function OrderInfo() {
             PRODUCTS
           </h3>
           {order.cartItems.map((item, index) => (
-            <div
+            <ul
               key={item.id}
               className={`pt-4 grid gap-2 ${
                 index !== order.cartItems.length - 1
@@ -36,36 +42,44 @@ export default function OrderInfo() {
                   : 'pb-4'
               }`}
             >
-              <div className="flex items-center justify-between h-10 px-5">
-                <h4 className="text-base font-bold">NAME</h4>
+              <li className="flex items-center justify-between max-s:justify-center h-10 px-5 gap-5">
+                <h4 className="text-base font-bold max-s:hidden">NAME</h4>
                 <Link
                   to={`/sneaker-grid/${item.brand}/${item.id}`}
-                  className="text-base font-bold text-blue-700 underline"
+                  className="text-base font-bold text-blue-700 underline s:text-right text-center"
                 >
                   {item.name}
                 </Link>
-              </div>
-              <div className="flex items-center justify-between h-10 px-5 bg-[#1b1b1b]">
+              </li>
+              <li className="flex items-center justify-between h-10 px-5 bg-[#1b1b1b]">
                 <h4 className="text-base font-bold">BRAND</h4>
                 <h4 className="text-base font-bold">{item.brand}</h4>
-              </div>
-              <div className="flex items-center justify-between h-10 px-5">
+              </li>
+              <li className="flex items-center justify-between h-10 px-5">
+                <h4 className="text-base font-bold">SIZE</h4>
+                <h4 className="text-base font-bold">US {item.size}</h4>
+              </li>
+              <li className="flex items-center justify-between h-10 px-5 bg-[#242424]">
+                <h4 className="text-base font-bold">COLOR</h4>
+                <h4 className="text-base font-bold">{item.color}</h4>
+              </li>
+              <li className="flex items-center justify-between h-10 px-5">
                 <h4 className="text-base font-bold">PRICE</h4>
                 <h4 className="text-base font-bold">${item.price}.00 USD</h4>
-              </div>
-              <div className="flex items-center justify-between h-10 px-5 bg-[#1b1b1b]">
+              </li>
+              <li className="flex items-center justify-between h-10 px-5 bg-[#1b1b1b]">
                 <h4 className="text-base font-bold">QUANTITY</h4>
                 <h4 className="text-base font-bold">
                   {item.quantity} {item.quantity > 1 ? 'Items' : 'Item'}
                 </h4>
-              </div>
-              <div className="flex items-center justify-between h-10 px-5">
+              </li>
+              <li className="flex items-center justify-between h-10 px-5">
                 <h4 className="text-base font-bold">TOTAL</h4>
                 <h4 className="text-base font-bold">
                   ${item.price * item.quantity}.00 USD
                 </h4>
-              </div>
-            </div>
+              </li>
+            </ul>
           ))}
           <h3 className="text-lg px-5 font-bold border-b-[1px] border-gray-400 border-opacity-70 h-8">
             ADDITIONAL INFO
@@ -119,8 +133,14 @@ export default function OrderInfo() {
               ${order.totalPrice + order.addCosts}.00 USD
             </h4>
           </div>
-          {error && <p className="text-red-700 text-md mb-3">{error}</p>}
+          <button
+            onClick={deleteOrder}
+            className="px-4 py-2 text-white bg-red-700 rounded-md w-36 ml-auto hover:bg-red-600"
+          >
+            Remove Order
+          </button>
         </div>
+        {error && <p className="text-red-700 text-md mb-3">{error}</p>}
       </section>
     )
   );
