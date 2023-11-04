@@ -30,15 +30,53 @@ export default function CheckoutItems({
   }, [cartItems]);
 
   return (
-    <div className="pt-10">
-      {cartItems.map((item) => (
-        <div key={item.id} className="flex justify-between items-center pb-12">
-          <h4 className="text-base font-bold">{item.name}</h4>
-          <h4 className="text-base font-bold px-8">{item.quantity}</h4>
-          <h4 className="text-base font-bold whitespace-nowrap">
-            ${item.price * item.quantity}.00 USD
-          </h4>
-        </div>
+    <div>
+      {cartItems.map((item, index) => (
+        <ul
+          key={item.id}
+          className={`pt-8 grid gap-2 ${
+            index !== cartItems.length - 1
+              ? 'border-b-[1px] border-gray-400 pb-12 border-opacity-40'
+              : 'pb-8'
+          }`}
+        >
+          <li className="flex items-center justify-center pb-3">
+            <Link
+              to={`/sneaker-grid/${item.brand}/${item.id}`}
+              className="text-base font-bold text-blue-700 underline s:text-right text-center"
+            >
+              {item.name}
+            </Link>
+          </li>
+          <li className="flex items-center justify-between h-10 px-5">
+            <h4 className="text-base font-bold">BRAND</h4>
+            <h4 className="text-base font-bold">{item.brand}</h4>
+          </li>
+          <li className="flex items-center justify-between h-10 px-5 bg-[#242424]">
+            <h4 className="text-base font-bold">SIZE</h4>
+            <h4 className="text-base font-bold">US {item.size}</h4>
+          </li>
+          <li className="flex items-center justify-between h-10 px-5">
+            <h4 className="text-base font-bold">COLOR</h4>
+            <h4 className="text-base font-bold">{item.color}</h4>
+          </li>
+          <li className="flex items-center justify-between h-10 px-5 bg-[#242424]">
+            <h4 className="text-base font-bold">PRICE</h4>
+            <h4 className="text-base font-bold">${item.price}.00 USD</h4>
+          </li>
+          <li className="flex items-center justify-between h-10 px-5">
+            <h4 className="text-base font-bold">QUANTITY</h4>
+            <h4 className="text-base font-bold">
+              {item.quantity} {item.quantity > 1 ? 'Items' : 'Item'}
+            </h4>
+          </li>
+          <li className="flex items-center justify-between h-10 px-5 bg-[#242424]">
+            <h4 className="text-base font-bold">TOTAL</h4>
+            <h4 className="text-base font-bold">
+              ${item.price * item.quantity}.00 USD
+            </h4>
+          </li>
+        </ul>
       ))}
       <h3 className="text-lg font-bold border-b-[1px] border-gray-400">
         ADDITIONAL COSTS
