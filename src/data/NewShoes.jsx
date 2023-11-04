@@ -8,9 +8,9 @@ import ChuckTaylorAllStar from '../assets/NewShoes/ChuckTaylorAllStar.webp';
 let NewShoes = [
   {
     id: '92AB',
-    brand: 'Jordan',
+    brandName: 'Jordan',
     name: 'AJ 4 Dior',
-    price: 130.0,
+    initialPrice: 130.0,
     sizing: 'Unisex',
     description:
       'The Nike AJ 4 is a classic sneaker known for its iconic design and high-flying style.',
@@ -20,9 +20,9 @@ let NewShoes = [
   },
   {
     id: '63AB',
-    brand: 'Adidas',
+    brandName: 'Adidas',
     name: 'Ultra Boost',
-    price: 160.0,
+    initialPrice: 160.0,
     sizing: 'Unisex',
     description:
       'The Adidas Ultra Boost offers unmatched energy return and a sleek, modern look.',
@@ -32,9 +32,9 @@ let NewShoes = [
   },
   {
     id: '54AB',
-    brand: 'Vans',
+    brandName: 'Vans',
     name: 'Lowland CC',
-    price: 165.0,
+    initialPrice: 165.0,
     sizing: 'Unisex',
     description:
       'The Vans Lowland CC is a classic skate shoe with a timeless design.',
@@ -44,9 +44,9 @@ let NewShoes = [
   },
   {
     id: '85AB',
-    brand: 'New balance',
+    brandName: 'New balance',
     name: '550',
-    price: 175.0,
+    initialPrice: 175.0,
     sizing: 'Unisex',
     description:
       'The New Balance 550 is a premium shoe known for its comfort and stability.',
@@ -56,9 +56,9 @@ let NewShoes = [
   },
   {
     id: '69AB',
-    brand: 'Converse',
+    brandName: 'Converse',
     name: 'Chuck Taylor All Star',
-    price: 150.0,
+    initialPrice: 150.0,
     sizing: 'Unisex',
     description:
       'The Converse Chuck Taylor All Star is an iconic and versatile canvas sneaker.',
@@ -68,9 +68,9 @@ let NewShoes = [
   },
   {
     id: '88AB',
-    brand: 'Nike',
+    brandName: 'Nike',
     name: 'Air Max 90',
-    price: 200.0,
+    initialPrice: 200.0,
     sizing: 'Unisex',
     description:
       'The Nike Air Max 90 is a classic sneaker known for its comfort and iconic design.',

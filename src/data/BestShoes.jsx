@@ -8,9 +8,9 @@ import NB5740 from '../assets/TopSneakers/NB5740.webp';
 let BestShoes = [
   {
     id: '11EF',
-    brand: 'New balance',
+    brandName: 'New balance',
     name: '990v3',
-    price: 200.0,
+    initialPrice: 200.0,
     sizing: 'Unisex',
     description:
       'The New Balance 990v3 is a classic and comfortable running shoe.',
@@ -19,9 +19,9 @@ let BestShoes = [
   },
   {
     id: '22EF',
-    brand: 'Jordan',
+    brandName: 'Jordan',
     name: 'Air Jordan 1',
-    price: 150.0,
+    initialPrice: 150.0,
     sizing: 'Unisex',
     description:
       'The Nike Air Jordan 1 is an iconic and timeless basketball shoe.',
@@ -30,9 +30,9 @@ let BestShoes = [
   },
   {
     id: '33EF',
-    brand: 'Converse',
+    brandName: 'Converse',
     name: 'Chuck 70 Vintage Canvas',
-    price: 130.0,
+    initialPrice: 130.0,
     sizing: 'Unisex',
     description:
       'The Converse Chuck 70 Vintage Canvas offers a retro look and feel.',
@@ -41,9 +41,9 @@ let BestShoes = [
   },
   {
     id: '44EF',
-    brand: 'Vans',
+    brandName: 'Vans',
     name: 'Authentic',
-    price: 60.0,
+    initialPrice: 60.0,
     sizing: 'Unisex',
     description:
       'The Vans Authentic is a classic and versatile canvas sneaker.',
@@ -52,9 +52,9 @@ let BestShoes = [
   },
   {
     id: '55EF',
-    brand: 'Adidas',
+    brandName: 'Adidas',
     name: 'EQT-CSG-91',
-    price: 170.0,
+    initialPrice: 170.0,
     sizing: 'Unisex',
     description: 'The Adidas EQT-CSG-91 combines style and performance.',
     image: AdidasEQTCSG91,
@@ -62,9 +62,9 @@ let BestShoes = [
   },
   {
     id: '66EF',
-    brand: 'New balance',
+    brandName: 'New balance',
     name: '5740',
-    price: 140.0,
+    initialPrice: 140.0,
     sizing: 'Unisex',
     description:
       'The New Balance 5740 offers comfort and style for everyday wear.',
