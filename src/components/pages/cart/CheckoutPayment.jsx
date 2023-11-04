@@ -22,7 +22,9 @@ export default function CheckoutPayment({ setCardUsed, setBillingUsed }) {
     if (cards) {
       const newCardOptions = cards.map((card) => ({
         value: card.id,
-        label: `**** **** **** ${card.cardNumber.toString().slice(-4)}`,
+        label: `**** **** **** ${card.cardNumber.toString().slice(-4)} - ${
+          card.cardName
+        }`,
       }));
       setCardOptions(newCardOptions);
     }
