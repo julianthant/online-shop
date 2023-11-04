@@ -87,9 +87,7 @@ export default function SneakerGrid() {
                   id={sneaker.id}
                   brand={brandName}
                   name={sneaker.name}
-                  price={sneaker.price ? sneaker.price : sneaker.initialPrice}
                   image={sneaker.image}
-                  colors={sneaker.colorway}
                 />
               </li>
             ))
