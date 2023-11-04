@@ -15,7 +15,7 @@ export default function Orders() {
 
   return (
     <div className="bg-matte-black lg:mt-[10rem] text-white order-container px-5">
-      {currentUser && orders && (
+      {currentUser && orders.length > 0 && (
         <div className="xl:gap-28 gap-16 xl:pl-16 max-xl:grid">
           <table className="w-full max-md:hidden">
             <thead>
@@ -63,7 +63,7 @@ export default function Orders() {
                 <li className="flex items-center justify-between h-10 px-5 bg-[#1B1B1B]">
                   <h4 className="text-base font-bold">DATE</h4>
                   <h4 className="text-base font-bold">
-                    {formatDate(item.createdAt.toDate())}
+                    {orderDate(item.createdAt)}
                   </h4>
                 </li>
                 <li className="flex items-center justify-between h-10 px-5">
@@ -91,23 +91,33 @@ export default function Orders() {
   );
 }
 
-function formatDate(date) {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  }).format(date);
+function orderDate(timestamp) {
+  if (timestamp) {
+    let date = timestamp.toDate();
+
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(date);
+  } else {
+    let date = new Date();
+
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(date);
+  }
 }
 
 function OrderItem({ item }) {
-  let date = item.createdAt.toDate();
-
   return (
     <tr className="font-[Poppins] h-10 tex5-left text-sm mobile-order">
       <td className="text-left pl-4 text-blue-700 underline">
         #<Link to={`/order/${item.id}`}>{item.id}</Link>
       </td>
-      <td>{date ? formatDate(date) : ''}</td>
+      <td>{orderDate(item.createdAt)}</td>
       <td>
         {item.totalItems} {item.totalItems > 1 ? 'Items' : 'Item'}
       </td>
