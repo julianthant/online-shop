@@ -13,6 +13,31 @@ export default function PaginationInfo({
     (_, index) => index + 1
   );
 
+  const maxPageButtons = 5; // Maximum number of page buttons to display
+
+  const getPageButtonsToDisplay = () => {
+    if (totalPageCount <= maxPageButtons) {
+      return pageNumbers;
+    }
+
+    // Calculate the start and end page numbers to display
+    const halfMaxButtons = Math.floor(maxPageButtons / 2);
+    let start = currentPage - halfMaxButtons;
+    let end = currentPage + halfMaxButtons;
+
+    if (start < 1) {
+      start = 1;
+      end = maxPageButtons;
+    } else if (end > totalPageCount) {
+      end = totalPageCount;
+      start = totalPageCount - maxPageButtons + 1;
+    }
+
+    return Array.from({ length: end - start + 1 }, (_, index) => start + index);
+  };
+
+  const pageButtonsToDisplay = getPageButtonsToDisplay();
+
   return (
     <div className="flex justify-center items-center mt-8">
       <div className="flex gap-2">
@@ -23,7 +48,7 @@ export default function PaginationInfo({
         >
           BACK
         </button>
-        {pageNumbers.map((pageNumber) => (
+        {pageButtonsToDisplay.map((pageNumber) => (
           <button
             key={pageNumber}
             onClick={() => setCurrentPage(pageNumber)}
@@ -36,9 +61,8 @@ export default function PaginationInfo({
             {pageNumber}
           </button>
         ))}
-
         <button
-          disabled={currentPage > totalPageCount - 1}
+          disabled={currentPage >= totalPageCount}
           onClick={() => setCurrentPage(currentPage + 1)}
           className="text-gray-300 disabled:hover:opacity-60 hover:opacity-70 font-bold py-2 pl-10 max-sm:pl-3 text-sm tracking-widest opacity-50 font-[Montserrat]"
         >
