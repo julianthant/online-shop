@@ -115,13 +115,6 @@ GenderFilter.propTypes = {
       initialPrice: PropTypes.number,
     })
   ).isRequired,
-  sneakers: PropTypes.arrayOf(
-    PropTypes.shape({
-      sizing: PropTypes.string.isRequired,
-      brandName: PropTypes.string.isRequired,
-      initialPrice: PropTypes.number,
-    })
-  ).isRequired,
   priceRange: PropTypes.arrayOf(PropTypes.number).isRequired,
   brandFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
