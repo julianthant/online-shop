@@ -36,6 +36,8 @@ export default function Checkout() {
         name: item.name,
         price: item.price,
         quantity: item.quantity,
+        color: item.color,
+        size: item.size,
       })
     );
 
