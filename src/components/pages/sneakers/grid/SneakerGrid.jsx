@@ -1,40 +1,40 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { useAuth } from '../../../../hooks/useAuth';
 import PaginationInfo from './PaginationInfo';
 import SneakerCard from './SneakerCard';
 import SneakerFilter from './SneakerFilter';
 import SneakerSort from './SneakerSort';
 import ShowPageResults from './ShowPageResults';
+import BrandsList from '../../../../data/BrandsList';
 import BestShoes from '../../../../data/BestShoes';
 import NewShoes from '../../../../data/NewShoes';
 
 export default function SneakerGrid() {
-  const { brandName } = useParams();
   const [sneakers, setSneakers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { getShoeCollection } = useAuth();
+  const { newGetItem } = useAuth();
   const sneakersPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [originalSneakers, setOriginalSneakers] = useState([]);
 
   useEffect(() => {
-    getShoeCollection(brandName, (data) => {
-      const filteredBestShoes = BestShoes.filter(
-        (shoe) => shoe.brand.toLowerCase() === brandName.toLowerCase()
-      );
-      const filteredNewShoes = NewShoes.filter(
-        (shoe) => shoe.brand.toLowerCase() === brandName.toLowerCase()
-      );
+    const brandPromises = BrandsList.map((brand) => newGetItem(brand.name));
+    Promise.all(brandPromises)
+      .then((brandData) => {
+        const mergedSneakers = brandData.concat(BestShoes, NewShoes);
+        const combinedToOne = mergedSneakers.flat();
 
-      const mergedSneakers = data.concat(filteredBestShoes, filteredNewShoes);
-
-      setSneakers(mergedSneakers);
-      setOriginalSneakers(mergedSneakers);
-      setLoading(true);
-    });
-  }, [brandName, getShoeCollection]);
+        setSneakers(combinedToOne);
+        setOriginalSneakers(combinedToOne); // Set originalSneakers with the fetched data
+        setLoading(true);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(true); // Handle loading state even if there's an error
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setFilteredSneakers(sneakers);
@@ -45,33 +45,32 @@ export default function SneakerGrid() {
   const sneakersToDisplay = filteredSneakers.slice(startIndex, endIndex);
 
   return (
-    <section className="pb-8 pt-24 bg-matte-black">
+    <section className="pb-8 bg-matte-black">
       <div className="container">
-        <h2 className="text-slate-50 text-center pt-[5rem] text-5xl font-[Poppins]">
-          {brandName} Collection
-        </h2>
-        <div className="flex lm:items-center pt-14 justify-between max-lm:flex-col max-lm:gap-3">
-          <div className="flex gap-3 items-center">
-            <div className="flex flex-grow">
-              <SneakerFilter
-                sneakers={sneakers}
-                setFilteredSneakers={setFilteredSneakers}
-                filteredSneakers={filteredSneakers}
-                setOriginalSneakers={setOriginalSneakers}
+        {sneakers && (
+          <div className="flex lm:items-center pt-14 justify-between max-lm:flex-col max-lm:gap-3">
+            <div className="flex gap-3 items-center">
+              <div className="flex flex-grow">
+                <SneakerFilter
+                  sneakers={sneakers}
+                  setFilteredSneakers={setFilteredSneakers}
+                  filteredSneakers={filteredSneakers}
+                  setOriginalSneakers={setOriginalSneakers}
+                />
+              </div>
+              <ShowPageResults
+                startIndex={startIndex}
+                endIndex={endIndex}
+                totalItems={filteredSneakers.length}
               />
             </div>
-            <ShowPageResults
-              startIndex={startIndex}
-              endIndex={endIndex}
-              totalItems={filteredSneakers.length}
+            <SneakerSort
+              filteredSneakers={filteredSneakers}
+              setFilteredSneakers={setFilteredSneakers}
+              originalSneakers={originalSneakers}
             />
           </div>
-          <SneakerSort
-            filteredSneakers={filteredSneakers}
-            setFilteredSneakers={setFilteredSneakers}
-            originalSneakers={originalSneakers}
-          />
-        </div>
+        )}
         <ul className="pt-10 sneaker-grid">
           {!loading ? (
             <h1 className="text-slate-50 text-4xl font-bold font-[Montserrat] py-3 text-center">
@@ -85,7 +84,7 @@ export default function SneakerGrid() {
               <li key={sneaker.id}>
                 <SneakerCard
                   id={sneaker.id}
-                  brand={brandName}
+                  brand={sneaker.brandName}
                   name={sneaker.name}
                   image={sneaker.image}
                 />
