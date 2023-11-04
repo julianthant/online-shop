@@ -9,16 +9,26 @@ import SizeControl from './SizeControl';
 import GeneratePrice from '../grid/GeneratePrice';
 import BestShoes from '../../../../data/BestShoes';
 import NewShoes from '../../../../data/NewShoes';
+import { showStatus } from '../../../../constants/ShowStatus';
 
 export default function SneakerDetails() {
-  const { brandName, sneakerID } = useParams();
-  const { getShoe, currentUser, addCart, setQuantity, quantity } = useAuth();
   const [sneaker, setSneaker] = useState(null);
+
+  const [size, setSize] = useState('');
+  const [color, setColor] = useState('');
+  const [invalid, setInvalid] = useState('');
+  const [success, setSuccess] = useState('');
+
   const [value, setValue] = useState(1);
+  const [items, setItems] = useState(0);
+
   const [error, setError] = useState(false);
   const [enabled, setEnabled] = useState(false);
-  const [items, setItems] = useState(0);
+
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+
+  const { brandName, sneakerID } = useParams();
+  const { getShoe, currentUser, addCart, setQuantity, quantity } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +44,8 @@ export default function SneakerDetails() {
       // If there's no match, fetch the sneaker details as before
       getShoe(brandName, sneakerID, setSneaker, setError);
     }
-  }, [brandName, getShoe, sneakerID]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [brandName, sneakerID]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -47,19 +58,28 @@ export default function SneakerDetails() {
     };
   }, []);
 
-  function addToCart(name, price, image, colors) {
+  function addToCart(name, price, image) {
     if (currentUser) {
-      const cleanedName = name.replace(/\([^()]*\)/g, '');
-      addCart(
-        sneakerID,
-        cleanedName,
-        brandName,
-        price ? price : GeneratePrice(sneakerID),
-        image,
-        colors,
-        value
-      );
-      setQuantity(quantity + 1);
+      if (size && color) {
+        const cleanedName = name.replace(/\([^()]*\)/g, '');
+        addCart(
+          sneakerID,
+          cleanedName,
+          brandName,
+          price ? price : GeneratePrice(sneakerID),
+          image,
+          value,
+          size,
+          color
+        );
+        setQuantity(quantity + 1);
+        showStatus('Item has been added to cart.', setSuccess);
+      } else {
+        showStatus(
+          'You need to select both the size and color to add to cart.',
+          setInvalid
+        );
+      }
     } else {
       navigate(
         '/login?Message=Please%20login%20to%20add%20items%20into%20cart'
@@ -83,9 +103,9 @@ export default function SneakerDetails() {
     >
       {sneaker ? (
         <div className="container">
-          <div className="bg-white shadow-md container rounded-lg p-6">
+          <div className="bg-white shadow-md container  p-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className=" flex justify-center items-center border-[2rem] border-gray-100">
+              <div className=" flex justify-center items-center lg:border-r-[1px] border-gray-200 p-6">
                 <img
                   src={sneaker.image}
                   alt={sneaker.name}
@@ -98,25 +118,31 @@ export default function SneakerDetails() {
                   setValue={setSneaker}
                   ID={sneakerID}
                 />
-                <div className="flex flex-col gap-5 mt-3">
+                <div className="flex flex-col gap-5 mt-3 mb-4">
                   <QuantityControl value={value} setValue={setValue} />
-                  <SizeControl ID={sneaker.id} sizing={sneaker.sizing} />
+                  <SizeControl
+                    ID={sneaker.id}
+                    sizing={sneaker.sizing}
+                    setSize={setSize}
+                  />
                   <SelectColors
                     value={sneaker}
                     setClick={setEnabled}
                     setItems={setItems}
+                    setColor={setColor}
                   />
                 </div>
+                {invalid && (
+                  <p className="text-red-700 text-md mb-3">{invalid}</p>
+                )}
+                {success && (
+                  <p className="text-green-700 text-md mb-3">{success}</p>
+                )}
                 <button
                   onClick={() =>
-                    addToCart(
-                      sneaker.name,
-                      sneaker.price,
-                      sneaker.image,
-                      sneaker.colorway
-                    )
+                    addToCart(sneaker.name, sneaker.price, sneaker.image)
                   }
-                  className="bg-gray-800 text-white px-4 py-2 rounded-md mt-4"
+                  className="bg-gray-800 text-white px-4 py-2 rounded-md"
                 >
                   Add to Cart
                 </button>

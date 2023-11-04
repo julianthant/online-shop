@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-export default function SelectColors({ value, setClick, setItems }) {
+export default function SelectColors({ value, setClick, setItems, setColor }) {
   const [selectedColor, setSelectedColor] = useState('');
   const [colorDropdownVisible, setColorDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
@@ -14,6 +14,7 @@ export default function SelectColors({ value, setClick, setItems }) {
   const handleColorSelect = (color) => {
     setSelectedColor(color);
     setColorDropdownVisible(false);
+    setColor(color);
     setClick(false);
   };
 
@@ -82,4 +83,5 @@ SelectColors.propTypes = {
   }),
   setClick: PropTypes.func,
   setItems: PropTypes.func,
+  setColor: PropTypes.func,
 };

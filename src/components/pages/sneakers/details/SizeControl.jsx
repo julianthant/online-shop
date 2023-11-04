@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-export default function SizeControl({ ID, sizing }) {
+export default function SizeControl({ ID, sizing, setSize }) {
   const firstFourChars = ID.substring(0, 4);
   const dropdownRef = useRef(null);
   const sizes = [];
@@ -33,6 +33,7 @@ export default function SizeControl({ ID, sizing }) {
 
   const handleSizeSelect = (size) => {
     setSelectedSize(size);
+    setSize(size);
     setSizeDropdownVisible(false);
   };
 
@@ -136,4 +137,5 @@ export default function SizeControl({ ID, sizing }) {
 SizeControl.propTypes = {
   ID: PropTypes.string.isRequired,
   sizing: PropTypes.string.isRequired,
+  setSize: PropTypes.func,
 };
