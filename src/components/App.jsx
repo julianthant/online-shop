@@ -5,7 +5,6 @@ import PrivateRoute from '../hooks/PrivateRoute';
 import { FirebaseProvider } from '../contexts/FirebaseContexts';
 import Navbar from './main/Navbar';
 import SneakerDetails from './pages/sneakers/details/SneakerDetails';
-import SneakerGrid from './pages/sneakers/grid/SneakerGrid';
 import OrderInfo from './main/OrderInfo';
 
 const Lookbook = lazy(() => import('./pages/lookbook/LookbookPage'));
@@ -58,7 +57,6 @@ function App() {
               <Route index element={<OrderInfo />} />
             </Route>
             <Route path="/contacts" element={<ContactsPage />} />
-            <Route path="/sneaker-grid/:brandName" element={<SneakerGrid />} />
             <Route
               path="/sneaker-grid/:brandName/:sneakerID"
               element={<SneakerDetails />}
