@@ -24,7 +24,6 @@ export default function SneakerFilter({
     unisex: false,
   });
   const [brandFilters, setBrandFilters] = useState([]);
-  const [localFilter, setLocalFilter] = useState([]);
 
   const modalRef = useRef(null);
 
@@ -96,7 +95,6 @@ export default function SneakerFilter({
 
     setFilteredSneakers(filteredSneakers);
     setOriginalSneakers(filteredSneakers);
-    setLocalFilter(filteredSneakers);
   }, [
     genderFilters.men,
     genderFilters.women,
@@ -192,7 +190,7 @@ export default function SneakerFilter({
                     <GenderFilter
                       genderFilters={genderFilters}
                       setGenderFilters={setGenderFilters}
-                      sneakers={localFilter}
+                      sneakers={sneakers}
                       priceRange={priceRange}
                       brandFilters={brandFilters}
                     />
