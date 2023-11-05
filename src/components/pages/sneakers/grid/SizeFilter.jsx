@@ -3,33 +3,44 @@ import PropTypes from 'prop-types';
 
 export default function SizeFilter({ sizes, setSizes, sneakers }) {
   const [tempSize, setTempSize] = useState(sizes);
+  const [first, setFirst] = useState(true);
 
   useEffect(() => {
     const tempSizes = sneakers
       .flatMap((sneaker) => sneaker.sizes)
       .filter((size) => typeof size === 'number');
 
-    // Use a Set to remove duplicates
-    setSizes([...new Set(tempSizes)].sort((a, b) => a - b));
+    if (!sizes) {
+      // Use a Set to remove duplicates
+      setSizes([...new Set(tempSizes)].sort((a, b) => a - b));
+    }
     setTempSize([...new Set(tempSizes)].sort((a, b) => a - b));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const isAllSizesIncluded = tempSize.every((size) => sizes.includes(size));
+
   const toggleSizeFilter = (size) => {
-    // Create a copy of the existing brandFilters array
+    setFirst(false);
+    // Create a copy of the existing sizes array
     const updatedSizeFilters = [...sizes];
 
-    if (updatedSizeFilters.includes(size)) {
-      // If the brand is already in filters, remove it
-      const index = updatedSizeFilters.indexOf(size);
-      updatedSizeFilters.splice(index, 1);
+    if (isAllSizesIncluded) {
+      // If all sizes are included, only keep the selected size
+      setSizes([size]);
     } else {
-      // If the brand is not in filters, add it
-      updatedSizeFilters.push(size);
-    }
+      if (updatedSizeFilters.includes(size)) {
+        // If the size is already in filters, remove it
+        const index = updatedSizeFilters.indexOf(size);
+        updatedSizeFilters.splice(index, 1);
+      } else {
+        // If the size is not in filters, add it
+        updatedSizeFilters.push(size);
+      }
 
-    // Update the brand filters
-    setSizes(updatedSizeFilters);
+      // Update the sizes filters
+      setSizes(updatedSizeFilters);
+    }
   };
 
   return (
@@ -41,7 +52,9 @@ export default function SizeFilter({ sizes, setSizes, sneakers }) {
             <button
               key={index}
               className={`px-3 py-2 rounded-md w-full ${
-                sizes.includes(size)
+                isAllSizesIncluded && first
+                  ? 'bg-gray-200 text-gray-700'
+                  : sizes.includes(size)
                   ? 'bg-emerald-500 text-white'
                   : 'bg-gray-200 text-gray-700'
               }`}
