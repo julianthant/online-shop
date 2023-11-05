@@ -67,6 +67,7 @@ export default function SneakerSort({
       ...provided,
       backgroundColor: state.isSelected ? '#059669' : 'transparent',
       borderRadius: '0px',
+      width: '16rem',
       color: 'black',
       '&:hover': {
         backgroundColor: state.isSelected ? '#059669' : '#34d39930',
@@ -76,6 +77,7 @@ export default function SneakerSort({
     menu: (provided) => ({
       ...provided,
       borderRadius: '0px',
+      width: '16rem',
     }),
     singleValue: (provided) => ({
       ...provided,
