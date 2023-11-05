@@ -120,11 +120,7 @@ export default function SneakerDetails() {
                 />
                 <div className="flex flex-col gap-5 mt-3 mb-4">
                   <QuantityControl value={value} setValue={setValue} />
-                  <SizeControl
-                    ID={sneaker.id}
-                    sizing={sneaker.sizing}
-                    setSize={setSize}
-                  />
+                  <SizeControl sizes={sneaker.sizes} setSize={setSize} />
                   <SelectColors
                     value={sneaker}
                     setClick={setEnabled}

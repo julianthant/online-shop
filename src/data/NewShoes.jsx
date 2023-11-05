@@ -16,6 +16,7 @@ let NewShoes = [
       'The Nike AJ 4 is a classic sneaker known for its iconic design and high-flying style.',
     image: AJ4,
     tag: true,
+    sizes: [8, 9, 10, 11, 12],
     colorway: 'White/Gray',
   },
   {
@@ -28,6 +29,7 @@ let NewShoes = [
       'The Adidas Ultra Boost offers unmatched energy return and a sleek, modern look.',
     image: Ultraboost,
     tag: true,
+    sizes: [6, 7, 8, 9],
     colorway: 'Black/White',
   },
   {
@@ -40,6 +42,7 @@ let NewShoes = [
       'The Vans Lowland CC is a classic skate shoe with a timeless design.',
     image: LowlandCC,
     tag: true,
+    sizes: [6, 7, 8, 9],
     colorway: 'Blue/White',
   },
   {
@@ -52,6 +55,7 @@ let NewShoes = [
       'The New Balance 550 is a premium shoe known for its comfort and stability.',
     image: NB550,
     tag: true,
+    sizes: [7, 8, 9, 10],
     colorway: 'Black/Red',
   },
   {
@@ -64,6 +68,7 @@ let NewShoes = [
       'The Converse Chuck Taylor All Star is an iconic and versatile canvas sneaker.',
     image: ChuckTaylorAllStar,
     tag: true,
+    sizes: [6, 7, 8, 9],
     colorway: 'Red/White',
   },
   {
@@ -76,6 +81,7 @@ let NewShoes = [
       'The Nike Air Max 90 is a classic sneaker known for its comfort and iconic design.',
     image: AirMax90,
     tag: true,
+    sizes: [6, 7, 8, 9, 10],
     colorway: 'Black/Gray',
   },
 ];

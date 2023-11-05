@@ -8,6 +8,7 @@ export default function GenderFilter({
   sneakers,
   priceRange,
   brandFilters,
+  sizeFilters,
 }) {
   const [genderCounts, setGenderCounts] = useState({
     men: 0,
@@ -40,7 +41,12 @@ export default function GenderFilter({
         const priceFilterPassed =
           sneakerPrice >= priceRange[0] && sneakerPrice <= priceRange[1];
 
-        return brandFilterPassed && priceFilterPassed;
+        // Apply size filter
+        const sizeFilterPassed =
+          !sizeFilters.length ||
+          sizeFilters.some((size) => sneaker.sizes.includes(size));
+
+        return brandFilterPassed && priceFilterPassed && sizeFilterPassed;
       });
 
       filteredSneakers.forEach((sneaker) => {
@@ -57,7 +63,7 @@ export default function GenderFilter({
     };
 
     calculateGenderCounts();
-  }, [sneakers, priceRange, brandFilters]);
+  }, [sneakers, priceRange, brandFilters, sizeFilters]);
 
   const handleGenderFilterChange = (gender) => {
     setGenderFilters((prevFilters) => ({
@@ -71,6 +77,7 @@ export default function GenderFilter({
       <label className="text-2xl font-medium">Gender</label>
       <div className="flex flex-wrap justify-between gap-y-3 pt-4">
         <button
+          disabled={genderCounts.men === 0}
           onClick={() => handleGenderFilterChange('men')}
           className={`${
             genderFilters.men
@@ -81,6 +88,7 @@ export default function GenderFilter({
           Men ({genderCounts.men})
         </button>
         <button
+          disabled={genderCounts.women === 0}
           onClick={() => handleGenderFilterChange('women')}
           className={`${
             genderFilters.women
@@ -91,6 +99,7 @@ export default function GenderFilter({
           Women ({genderCounts.women})
         </button>
         <button
+          disabled={genderCounts.unisex === 0}
           onClick={() => handleGenderFilterChange('unisex')}
           className={`${
             genderFilters.unisex
@@ -117,4 +126,5 @@ GenderFilter.propTypes = {
   ).isRequired,
   priceRange: PropTypes.arrayOf(PropTypes.number).isRequired,
   brandFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
+  sizeFilters: PropTypes.arrayOf(PropTypes.number).isRequired,
 };

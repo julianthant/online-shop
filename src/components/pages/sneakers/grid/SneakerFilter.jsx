@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import OpenMenu from '../../../../assets/menu.svg';
 import BrandFilter from './BrandFilter';
 import BrandsList from '../../../../data/BrandsList';
+import SizeFilter from './SizeFilter';
 
 export default function SneakerFilter({
   sneakers,
@@ -24,6 +25,7 @@ export default function SneakerFilter({
     unisex: false,
   });
   const [brandFilters, setBrandFilters] = useState([]);
+  const [sizeFilters, setSizeFilters] = useState([]);
 
   const modalRef = useRef(null);
 
@@ -37,6 +39,7 @@ export default function SneakerFilter({
     const isPriceFilterSelected = priceRange[0] !== 0 || priceRange[1] !== 100;
     const isSearchFilterSelected = searchValue.length > 0;
     const isBrandFilterSelected = brandFilters.length > 0;
+    const isSizeFilterSelected = sizeFilters.length > 0;
 
     const getSneakerPrice = (sneaker) => {
       if (sneaker.initialPrice !== null) {
@@ -64,6 +67,16 @@ export default function SneakerFilter({
               .includes(brand.toLowerCase());
           }
           return false;
+        });
+      });
+    }
+
+    if (isSizeFilterSelected) {
+      filteredSneakers = filteredSneakers.filter((sneaker) => {
+        return sizeFilters.some((size) => {
+          if (sneaker.sizes && size) {
+            return sneaker.sizes.includes(size);
+          }
         });
       });
     }
@@ -105,6 +118,7 @@ export default function SneakerFilter({
     sneakers,
     setOriginalSneakers,
     brandFilters,
+    sizeFilters,
   ]);
 
   const customOverlayStyle = {
@@ -193,10 +207,16 @@ export default function SneakerFilter({
                       sneakers={sneakers}
                       priceRange={priceRange}
                       brandFilters={brandFilters}
+                      sizeFilters={sizeFilters}
                     />
                     <BrandFilter
                       brandFilters={brandFilters}
                       setBrandFilters={setBrandFilters}
+                    />
+                    <SizeFilter
+                      sizes={sizeFilters}
+                      setSizes={setSizeFilters}
+                      sneakers={sneakers}
                     />
                   </>
                 )}

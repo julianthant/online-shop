@@ -15,6 +15,7 @@ let BestShoes = [
     description:
       'The New Balance 990v3 is a classic and comfortable running shoe.',
     image: NB990v3,
+    sizes: [7, 8, 9, 10],
     colorway: 'Grey',
   },
   {
@@ -26,6 +27,7 @@ let BestShoes = [
     description:
       'The Nike Air Jordan 1 is an iconic and timeless basketball shoe.',
     image: AJ1,
+    sizes: [7, 8, 9, 10, 11],
     colorway: 'Red/Black',
   },
   {
@@ -37,6 +39,7 @@ let BestShoes = [
     description:
       'The Converse Chuck 70 Vintage Canvas offers a retro look and feel.',
     image: Chuck70VintageCanvas,
+    sizes: [7, 7.5, 8, 8.5],
     colorway: 'Blue',
   },
   {
@@ -48,6 +51,7 @@ let BestShoes = [
     description:
       'The Vans Authentic is a classic and versatile canvas sneaker.',
     image: VansAuthentic,
+    sizes: [7, 8, 8.5, 9],
     colorway: 'Black/White',
   },
   {
@@ -58,6 +62,7 @@ let BestShoes = [
     sizing: 'Unisex',
     description: 'The Adidas EQT-CSG-91 combines style and performance.',
     image: AdidasEQTCSG91,
+    sizes: [7, 8, 9],
     colorway: 'Green/White',
   },
   {
@@ -69,6 +74,7 @@ let BestShoes = [
     description:
       'The New Balance 5740 offers comfort and style for everyday wear.',
     image: NB5740,
+    sizes: [7, 8, 9, 10],
     colorway: 'Navy/Grey',
   },
 ];

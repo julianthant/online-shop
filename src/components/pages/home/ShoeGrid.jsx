@@ -18,11 +18,12 @@ export default function ShoeGrid({ Heading, Subheading, Data, ID }) {
           <ShoeCard
             key={index}
             id={shoe.id}
-            brand={shoe.brand}
+            brand={shoe.brandName}
             name={shoe.name}
-            price={shoe.price}
+            price={shoe.initialPrice}
             colors={shoe.colorway}
             description={shoe.description}
+            size={shoe.sizes}
             image={shoe.image}
             tag={shoe.tag}
           />
@@ -37,9 +38,9 @@ ShoeGrid.propTypes = {
   Subheading: PropTypes.string.isRequired,
   Data: PropTypes.arrayOf(
     PropTypes.shape({
-      brand: PropTypes.string.isRequired,
+      brandName: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
+      initialPrice: PropTypes.number.isRequired,
       description: PropTypes.string.isRequired,
       image: PropTypes.string.isRequired,
       tag: PropTypes.bool,

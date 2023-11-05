@@ -82,18 +82,23 @@ export function FirebaseProvider({ children }) {
 
   async function getShoe(brandName, sneakerID, setSneaker, setError) {
     try {
-      const cachedData = getCache(`sneakerCache-${brandName}-${sneakerID}`);
-      if (cachedData) {
+      const cacheKey = `sneakerCache-${brandName}-${sneakerID}`;
+      const cachedData = getCache(cacheKey);
+
+      // Check if 'sizes' key exists in cached data and it's not an empty array
+      if (cachedData && 'sizes' in cachedData && cachedData.sizes.length > 0) {
         setSneaker(cachedData);
       } else {
+        // 'sizes' key doesn't exist or it's an empty array, so we need to fetch and update the data
         const data = doc(db, brandName, sneakerID);
         const item = await getDoc(data);
 
         if (item.exists()) {
           const sneakerData = item.data();
-          setSneaker(sneakerData);
 
-          setCache(`sneakerCache-${brandName}-${sneakerID}`, sneakerData);
+          // Update the cached data with the fetched data
+          setCache(cacheKey, sneakerData);
+          setSneaker(sneakerData);
         } else {
           console.error(`Sneaker with ID ${sneakerID} not found.`);
           setError(true);
@@ -123,7 +128,8 @@ export function FirebaseProvider({ children }) {
   async function newGetItem(brandName) {
     try {
       const cachedData = getCache(brandName);
-      if (cachedData) {
+      // Check if 'sizes' key exists in cached data and it's not an empty array
+      if (cachedData && 'sizes' in cachedData && cachedData.sizes.length > 0) {
         return cachedData;
       } else {
         const shoeCollectionRef = getCollection(brandName);
@@ -334,7 +340,7 @@ export function FirebaseProvider({ children }) {
 
       if (billingDoc.exists()) {
         await updateDoc(billingRef, {
-          aaddress: address,
+          address: address,
           country: country,
           city: city,
           state: state,
