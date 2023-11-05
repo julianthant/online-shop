@@ -154,6 +154,12 @@ export default function SneakerFilter({
 
     setPriceRange([0, 100]);
 
+    const initialSizeFilters = sneakers
+      .flatMap((sneaker) => sneaker.sizes)
+      .filter((size) => typeof size === 'number');
+
+    setSizeFilters([...new Set(initialSizeFilters)].sort((a, b) => a - b));
+
     closeModal();
   }
 
