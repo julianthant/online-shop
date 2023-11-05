@@ -9,7 +9,8 @@ export default function BrandFilter({ brandFilters, setBrandFilters }) {
       const initialBrandFilters = BrandsList.map((brand) => brand.name);
       setBrandFilters(initialBrandFilters);
     }
-  }, [brandFilters, setBrandFilters]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const toggleBrandFilter = (brandName) => {
     // Create a copy of the existing brandFilters array
