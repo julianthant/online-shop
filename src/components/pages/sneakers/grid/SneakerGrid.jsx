@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../../../hooks/useAuth';
 import PaginationInfo from './PaginationInfo';
 import SneakerCard from './SneakerCard';
@@ -11,14 +11,13 @@ import NewShoes from '../../../../data/NewShoes';
 
 export default function SneakerGrid() {
   const [sneakers, setSneakers] = useState([]);
-  const [loading, setLoading] = useState(false);
   const { newGetItem } = useAuth();
   const sneakersPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [originalSneakers, setOriginalSneakers] = useState([]);
 
-  useMemo(() => {
+  useEffect(() => {
     const brandPromises = BrandsList.map((brand) => newGetItem(brand.name));
     Promise.all(brandPromises)
       .then((brandData) => {
@@ -26,19 +25,14 @@ export default function SneakerGrid() {
         const combinedToOne = mergedSneakers.flat();
 
         setSneakers(combinedToOne);
-        setOriginalSneakers(combinedToOne); // Set originalSneakers with the fetched data
-        setLoading(true);
+        setOriginalSneakers(combinedToOne);
+        setFilteredSneakers(sneakers);
       })
       .catch((error) => {
         console.error(error);
-        setLoading(true); // Handle loading state even if there's an error
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useMemo(() => {
-    setFilteredSneakers(sneakers);
-  }, [sneakers]);
 
   const startIndex = (currentPage - 1) * sneakersPerPage;
   const endIndex = startIndex + sneakersPerPage;
@@ -72,7 +66,7 @@ export default function SneakerGrid() {
           </div>
         )}
         <ul className="pt-10 sneaker-grid">
-          {!loading ? (
+          {sneakers.length === 0 ? (
             <h1 className="text-slate-50 text-4xl font-bold font-[Montserrat] py-3 text-center">
               Loading Sneakers
               <span className="text-emerald-900 pl-[0.35rem] tracking-[0.3rem]">
