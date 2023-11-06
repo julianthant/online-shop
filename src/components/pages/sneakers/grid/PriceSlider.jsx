@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ReactSlider from 'react-slider';
 import PropTypes from 'prop-types';
 import GeneratePrice from './GeneratePrice';
@@ -6,7 +6,7 @@ import GeneratePrice from './GeneratePrice';
 export default function PriceSlider({ priceRange, setPriceRange, sneakers }) {
   const [localPriceRange, setLocalPriceRange] = useState(priceRange);
 
-  useEffect(() => {
+  useMemo(() => {
     if (sneakers.length > 0) {
       const priceOrIds = sneakers.map((sneaker) => {
         if (sneaker.initialPrice !== null) {
@@ -31,7 +31,8 @@ export default function PriceSlider({ priceRange, setPriceRange, sneakers }) {
         setLocalPriceRange([minPrice, maxPrice]);
       }
     }
-  }, [sneakers]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (

@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import BrandsList from '../../../../data/BrandsList';
 import PropTypes from 'prop-types';
 
 export default function BrandFilter({ brandFilters, setBrandFilters }) {
   const [first, setFirst] = useState(true);
 
-  useEffect(() => {
+  useMemo(() => {
     // Initialize the brandFilters with an empty array or some initial values
     if (brandFilters.length === 0) {
       const initialBrandFilters = BrandsList.map((brand) => brand.name);

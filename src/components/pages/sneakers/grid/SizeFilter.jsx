@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 export default function SizeFilter({ sizes, setSizes, sneakers }) {
   const [tempSize, setTempSize] = useState(sizes);
   const [first, setFirst] = useState(true);
 
-  useEffect(() => {
+  useMemo(() => {
     const tempSizes = sneakers
       .flatMap((sneaker) => sneaker.sizes)
       .filter((size) => typeof size === 'number');

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import GeneratePrice from './GeneratePrice';
 
@@ -16,7 +16,7 @@ export default function GenderFilter({
     unisex: 0,
   });
 
-  useEffect(() => {
+  useMemo(() => {
     const calculateGenderCounts = () => {
       const counts = {
         men: 0,
