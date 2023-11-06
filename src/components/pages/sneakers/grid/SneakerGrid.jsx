@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { useAuth } from '../../../../hooks/useAuth';
 import PaginationInfo from './PaginationInfo';
 import SneakerCard from './SneakerCard';
@@ -18,7 +18,7 @@ export default function SneakerGrid() {
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [originalSneakers, setOriginalSneakers] = useState([]);
 
-  useEffect(() => {
+  useMemo(() => {
     const brandPromises = BrandsList.map((brand) => newGetItem(brand.name));
     Promise.all(brandPromises)
       .then((brandData) => {
@@ -36,7 +36,7 @@ export default function SneakerGrid() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
+  useMemo(() => {
     setFilteredSneakers(sneakers);
   }, [sneakers]);
 
