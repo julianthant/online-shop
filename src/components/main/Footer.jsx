@@ -1,19 +1,8 @@
-import FacebookIcon from '../../assets/SocialsIcons/facebookIcon';
-import InstagramIcon from '../../assets/SocialsIcons/instagramIcon';
-import TwitterIcon from '../../assets/SocialsIcons/twitterIcon';
-import TiktokIcon from '../../assets/SocialsIcons/tiktokIcon';
-
+import SocialIcons from '../../data/SocialIcons';
 import { Link } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
 
 export default function Footer() {
-  const socialIcons = 'text-black transition-colors';
-  const socialLinks = [
-    { id: 'instagram-link', icon: <InstagramIcon /> },
-    { id: 'facebook-link', icon: <FacebookIcon /> },
-    { id: 'twitter-link', icon: <TwitterIcon /> },
-    { id: 'tiktok-link', icon: <TiktokIcon /> },
-  ];
   const sections = [
     { id: 'heading', label: 'Heading', duration: 1000 },
     { id: 'featured-brands', label: 'Featured Brands', duration: 900 },
@@ -38,19 +27,7 @@ export default function Footer() {
             exists in this world along with excellent customer service. Feel
             free to naviage to any part of our store to search for sneakers.
           </p>
-          <div className="flex gap-8 items-center max-s:justify-center">
-            {socialLinks.map((link) => (
-              <a
-                key={link.id}
-                href={`#${link.id}`}
-                className={`${socialIcons} inline-block`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {link.icon}
-              </a>
-            ))}
-          </div>
+          <SocialIcons />
         </div>
         <div className="flex flex-col gap-10 max-s:items-center">
           <h2 className="text-2xl text-slate-50 font-medium max-s:text-center">
