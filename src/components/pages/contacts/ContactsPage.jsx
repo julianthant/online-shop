@@ -1,6 +1,19 @@
 import SocialIcons from '../../../data/SocialIcons';
 
 export default function ContactsPage() {
+  const listIcon = (
+    <span className="w-6 h-6 text-gray-400 mr-2">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M9 19l-7-7 7-7 7 7-7 7zm0 0v-14"
+        ></path>
+      </svg>
+    </span>
+  );
+
   return (
     <section className="pt-[6rem] bg-matte-black">
       <div className="container mx-auto px-4">
@@ -16,58 +29,19 @@ export default function ContactsPage() {
                 <h2 className="text-xl font-semibold">Contact Details</h2>
                 <ul className="mt-4">
                   <li className="flex items-start text-gray-500 mb-4">
-                    <span className="w-6 h-6 text-gray-400 mr-2">
-                      <svg
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M9 19l-7-7 7-7 7 7-7 7zm0 0v-14"
-                        ></path>
-                      </svg>
-                    </span>
+                    {listIcon}
                     <div>
                       <strong>Email:</strong> info@yourshoestore.com
                     </div>
                   </li>
                   <li className="flex items-start text-gray-500 mb-4">
-                    <span className="w-6 h-6 text-gray-400 mr-2">
-                      <svg
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M9 19l-7-7 7-7 7 7-7 7zm0 0v-14"
-                        ></path>
-                      </svg>
-                    </span>
+                    {listIcon}
                     <div>
                       <strong>Phone:</strong> +1 (123) 456-7890
                     </div>
                   </li>
                   <li className="flex items-start text-gray-500">
-                    <span className="w-6 h-6 text-gray-400 mr-2">
-                      <svg
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M9 19l-7-7 7-7 7 7-7 7zm0 0v-14"
-                        ></path>
-                      </svg>
-                    </span>
+                    {listIcon}
                     <div>
                       <strong>Address:</strong> 123 Shoe Street, City, Country
                     </div>
@@ -83,7 +57,7 @@ export default function ContactsPage() {
                   <div className="mb-4">
                     <label
                       htmlFor="name"
-                      className="block text-gray-600 font-medium"
+                      className="block text-gray-600 font-medium mb-1"
                     >
                       Name
                     </label>
@@ -91,14 +65,14 @@ export default function ContactsPage() {
                       type="text"
                       id="name"
                       name="name"
-                      className="w-full px-4 py-2 border rounded-lg outline-none bg-[#28282B]"
+                      className="w-full px-4 py-2 rounded-lg outline-none bg-[#28282B]"
                       required
                     />
                   </div>
                   <div className="mb-4">
                     <label
                       htmlFor="email"
-                      className="block text-gray-600 font-medium"
+                      className="block text-gray-600 font-medium mb-1"
                     >
                       Email
                     </label>
@@ -106,14 +80,14 @@ export default function ContactsPage() {
                       type="email"
                       id="email"
                       name="email"
-                      className="w-full px-4 py-2 border rounded-lg outline-none bg-[#28282B]"
+                      className="w-full px-4 py-2 rounded-lg outline-none bg-[#28282B]"
                       required
                     />
                   </div>
                   <div className="mb-4">
                     <label
                       htmlFor="message"
-                      className="block text-gray-600 font-medium"
+                      className="block text-gray-600 font-medium mb-1"
                     >
                       Message
                     </label>
@@ -121,7 +95,7 @@ export default function ContactsPage() {
                       id="message"
                       name="message"
                       rows="5"
-                      className="w-full px-4 py-2 border rounded-lg outline-none bg-[#28282B]"
+                      className="w-full px-4 py-2 rounded-lg outline-none bg-[#28282B]"
                       required
                     ></textarea>
                   </div>
