@@ -139,8 +139,8 @@ export default function AccountSettings() {
       editState: editEmail,
       setEditState: setEditEmail,
       value: editEmail ? newEmailAddress : emailAddress,
-      setValue: editEmail ? setNewEmailAddress : null,
-      type: 'email',
+      setValue: editEmail ? setNewEmailAddress : setEditEmail,
+      type: 'text',
       buttonName: 'Edit',
       buttonClass: userEdit,
       placeholder: emailAddress,
@@ -206,8 +206,32 @@ export default function AccountSettings() {
             >
               <div>
                 <p className={userStyles}>{field.label}</p>
-                {(field.editState && field.id !== 'accountStatus') ||
-                isBelowBreakpoint() ? (
+                {field.editState &&
+                field.id !== 'accountStatus' &&
+                !isBelowBreakpoint() ? (
+                  <label htmlFor={field.id}>
+                    <input
+                      id={field.id}
+                      type={field.type}
+                      value={!field.editState ? null : field.value}
+                      placeholder={!field.editState ? null : field.placeholder}
+                      onChange={
+                        !field.editState
+                          ? null
+                          : (e) => field.setValue(e.target.value)
+                      }
+                      required
+                      className="bg-[#28282B] max-sm:w-full py-2 px-3 rounded-[0.25rem] mt-1 w-60"
+                    />
+                  </label>
+                ) : isBelowBreakpoint() && !field.editState ? (
+                  <label htmlFor={field.id}>
+                    <input
+                      value={field.value}
+                      className="bg-[#28282B] max-sm:w-full py-2 px-3 rounded-[0.25rem] mt-1 w-60"
+                    />
+                  </label>
+                ) : isBelowBreakpoint() && field.editState ? (
                   <label htmlFor={field.id}>
                     <input
                       id={field.id}
@@ -217,12 +241,11 @@ export default function AccountSettings() {
                           ? null
                           : field.value
                       }
-                      defaultValue={
+                      placeholder={
                         isBelowBreakpoint() && !field.editState
-                          ? field.value
-                          : null
+                          ? null
+                          : field.placeholder
                       }
-                      placeholder={field.placeholder}
                       onChange={
                         isBelowBreakpoint() && !field.editState
                           ? null
