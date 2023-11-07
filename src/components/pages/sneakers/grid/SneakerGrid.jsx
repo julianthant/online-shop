@@ -66,7 +66,7 @@ export default function SneakerGrid() {
           </div>
         )}
         <ul className="pt-10 sneaker-grid">
-          {sneakers.length === 0 ? (
+          {!sneakers ? (
             <h1 className="text-slate-50 text-4xl font-bold font-[Montserrat] py-3 text-center">
               Loading Sneakers
               <span className="text-emerald-900 pl-[0.35rem] tracking-[0.3rem]">
