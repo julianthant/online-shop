@@ -1,7 +1,10 @@
 import menShoes from '../../../assets/men-shoes.webp';
 import womenShoes from '../../../assets/women-shoes.webp';
+import { useNavigate } from 'react-router-dom';
 
 export default function PickShoesByGender() {
+  const navigate = useNavigate();
+
   const imageContainer =
     'w-1/2 md:w-[48%] h-[38rem] max-s:h-60 max-s:w-full crop-image-container relative';
   const imageClass = 'w-full h-full object-cover object-bottom';
@@ -17,7 +20,12 @@ export default function PickShoesByGender() {
             <p className="text-white font-[Poppins] text-[2.5rem] font-medium tracking-wider">
               Men
             </p>
-            <button className={`${imageButton} w-[9.5rem]`}>SHOP MEN</button>
+            <button
+              onClick={() => navigate('/collections?gender=men')}
+              className={`${imageButton} w-[9.5rem]`}
+            >
+              SHOP MEN
+            </button>
           </div>
         </div>
         <div className={imageContainer}>
@@ -26,7 +34,12 @@ export default function PickShoesByGender() {
             <p className="text-white font-[Poppins] text-[2.5rem] font-medium tracking-wider">
               Women
             </p>
-            <button className={`${imageButton} w-[11.5rem]`}>SHOP WOMEN</button>
+            <button
+              onClick={() => navigate('/collections?gender=women')}
+              className={`${imageButton} w-[11.5rem]`}
+            >
+              SHOP WOMEN
+            </button>
           </div>
         </div>
       </div>
