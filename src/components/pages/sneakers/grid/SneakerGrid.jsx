@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../../../hooks/useAuth';
+import { useLocation } from 'react-router-dom';
 import PaginationInfo from './PaginationInfo';
 import SneakerCard from './SneakerCard';
 import SneakerFilter from './SneakerFilter';
@@ -16,6 +17,14 @@ export default function SneakerGrid() {
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [originalSneakers, setOriginalSneakers] = useState([]);
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const gender = queryParams.get('gender');
+
+  useEffect(() => {
+    window.scrollTo(top);
+  }, []);
 
   useEffect(() => {
     const brandPromises = BrandsList.map((brand) => newGetItem(brand.name));
@@ -48,8 +57,8 @@ export default function SneakerGrid() {
                 <SneakerFilter
                   sneakers={sneakers}
                   setFilteredSneakers={setFilteredSneakers}
-                  filteredSneakers={filteredSneakers}
                   setOriginalSneakers={setOriginalSneakers}
+                  gender={gender}
                 />
               </div>
               <ShowPageResults

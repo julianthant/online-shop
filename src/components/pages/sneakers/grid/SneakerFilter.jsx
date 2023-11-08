@@ -15,6 +15,7 @@ export default function SneakerFilter({
   sneakers,
   setFilteredSneakers,
   setOriginalSneakers,
+  gender,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -32,6 +33,25 @@ export default function SneakerFilter({
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    if (gender === 'men') {
+      setGenderFilters({
+        men: true,
+        women: false,
+        unisex: false,
+      });
+    }
+
+    if (gender === 'women') {
+      setGenderFilters({
+        men: false,
+        women: true,
+        unisex: false,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const isGenderFilterSelected =
@@ -214,6 +234,7 @@ export default function SneakerFilter({
                       priceRange={priceRange}
                       brandFilters={brandFilters}
                       sizeFilters={sizeFilters}
+                      gender={gender}
                     />
                     <BrandFilter
                       brandFilters={brandFilters}
@@ -253,4 +274,5 @@ SneakerFilter.propTypes = {
   ),
   setFilteredSneakers: PropTypes.func.isRequired,
   setOriginalSneakers: PropTypes.func.isRequired,
+  gender: PropTypes.string,
 };
