@@ -27,19 +27,30 @@ export default function SneakerGrid() {
   }, []);
 
   useEffect(() => {
-    const brandPromises = BrandsList.map((brand) => newGetItem(brand.name));
-    Promise.all(brandPromises)
-      .then((brandData) => {
-        const mergedSneakers = brandData.concat(BestShoes, NewShoes);
-        const combinedToOne = mergedSneakers.flat();
+    let cachedSneakers = localStorage.getItem('cachedSneakers');
+    if (cachedSneakers) {
+      cachedSneakers = JSON.parse(cachedSneakers);
+      setSneakers(cachedSneakers);
+      setOriginalSneakers(cachedSneakers);
+      setFilteredSneakers(cachedSneakers);
+    } else {
+      const brandPromises = BrandsList.map((brand) => newGetItem(brand.name));
+      Promise.all(brandPromises)
+        .then((brandData) => {
+          const mergedSneakers = brandData.concat(BestShoes, NewShoes);
+          const combinedToOne = mergedSneakers.flat();
 
-        setSneakers(combinedToOne);
-        setOriginalSneakers(combinedToOne);
-        setFilteredSneakers(sneakers);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+          setSneakers(combinedToOne);
+          setOriginalSneakers(combinedToOne);
+          setFilteredSneakers(combinedToOne);
+
+          // Cache the data in localStorage for future use
+          localStorage.setItem('cachedSneakers', JSON.stringify(combinedToOne));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
