@@ -1,15 +1,17 @@
 import { useAuth } from '../../hooks/useAuth';
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { removeItem } from '../../constants/ObjectDisplay';
+import { getOrder } from '../../constants/OrderFunctions';
 
 export default function OrderInfo() {
   const [order, setOrder] = useState();
   const [error, setError] = useState('');
   const [date, setDate] = useState(null);
 
-  const { currentUser, getOrder, removeItem } = useAuth();
-  const { orderID } = useParams();
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
+  const { orderID } = useParams();
 
   useEffect(() => {
     getOrder(orderID, setOrder, setDate, setError);

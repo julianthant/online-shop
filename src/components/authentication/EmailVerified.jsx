@@ -16,7 +16,7 @@ export default function EmailVerified({ oobCode }) {
     try {
       setLoading(true);
       await applyCode(oobCode);
-      setStatus(true);
+      setStatus(currentUser.emailVerified);
       showStatus('Your email address was successfully verified', setSuccess);
     } catch (error) {
       showStatus('Unable to verify email', setError);
@@ -48,12 +48,12 @@ export default function EmailVerified({ oobCode }) {
                 your email address. Thank you.
               </p>
             )}
-            <Link className="text-blue-700" to="/login">
-              Back to Login
+            <Link className="text-blue-700" to="/dashboard">
+              Back to Dashboard
             </Link>
             <div className="flex justify-center">
               <button
-                disabled={loading || currentUser.emailVerified}
+                disabled={loading || status}
                 onClick={handleEmailVerification}
                 className="bg-emerald-900 py-[0.9rem] rounded-full w-[14rem] my-3 font-bold text-slate-50 transition-all duration-300 hover:bg-emerald-800 hover:w-[15rem]"
               >

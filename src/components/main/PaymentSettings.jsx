@@ -1,6 +1,7 @@
 import CardInfo from './CardInfo';
 import BillingInfo from './BillingInfo';
 import { useState, useEffect, useRef } from 'react';
+import { getItem } from '../../constants/ObjectDisplay';
 import { useAuth } from '../../hooks/useAuth';
 
 export default function PaymentSettings() {
@@ -9,16 +10,17 @@ export default function PaymentSettings() {
   const [addCard, setAddCard] = useState(false);
   const [cardError, setCardError] = useState('');
   const [cardSuccess, setCardSuccess] = useState('');
-  const { getItem } = useAuth();
 
   const [billing, setBilling] = useState([]);
   const [addBilling, setAddBilling] = useState(false);
   const [billingError, setBillingError] = useState('');
   const [billingSuccess, setBillingSuccess] = useState('');
 
+  const { currentUser } = useAuth();
+
   useEffect(() => {
-    getItem(setCards, 'users_cards');
-    getItem(setBilling, 'users_billing');
+    getItem('users_cards', currentUser, setCards);
+    getItem('users_billing', currentUser, setBilling);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -63,15 +65,16 @@ export default function PaymentSettings() {
           setError={setBillingError}
         />
       )}
-      {billing.map((info) => (
-        <BillingInfo
-          key={info.id}
-          billing={info}
-          setBilling={setBilling}
-          setSuccess={setBillingSuccess}
-          setError={setBillingError}
-        />
-      ))}
+      {billing &&
+        billing.map((info) => (
+          <BillingInfo
+            key={info.id}
+            billing={info}
+            setBilling={setBilling}
+            setSuccess={setBillingSuccess}
+            setError={setBillingError}
+          />
+        ))}
       <div className="border-above">
         <h1 className="font-bold text-4xl text-slate-50 text-center py-10">
           Card Settings
@@ -98,15 +101,16 @@ export default function PaymentSettings() {
         />
       )}
       <div ref={addCardRef} />
-      {cards.map((card) => (
-        <CardInfo
-          card={card}
-          setCards={setCards}
-          key={card.id}
-          setSuccess={setCardSuccess}
-          setError={setCardError}
-        />
-      ))}
+      {cards &&
+        cards.map((card) => (
+          <CardInfo
+            card={card}
+            setCards={setCards}
+            key={card.id}
+            setSuccess={setCardSuccess}
+            setError={setCardError}
+          />
+        ))}
     </div>
   );
 }

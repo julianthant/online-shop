@@ -3,52 +3,63 @@ import { useAuth } from '../../hooks/useAuth';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Timestamp } from 'firebase/firestore';
+import { getItem } from '../../constants/ObjectDisplay';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
-  const { currentUser, getItem } = useAuth();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
-    getItem(setOrders, 'users_orders');
+    getItem('users_orders', currentUser, setOrders);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="bg-matte-black lg:mt-[10rem] text-white order-container px-5">
-      {currentUser && orders.length > 0 && (
-        <div className="xl:gap-28 gap-16 xl:pl-16 max-xl:grid">
-          <table className="w-full max-md:hidden">
-            <thead>
-              <tr className="border-b-[1px] border-gray-400 lm:py-4 h-10 text-left text-slate-50 text-lg">
-                <th className="max-lm:text-4xl max-lm:text-center font-semibold font-[Poppins] pl-4">
-                  Order
-                </th>
-                <th className="font-semibold font-[Poppins] max-lm:hidden">
-                  Date
-                </th>
-                <th className="font-semibold font-[Poppins] max-lm:hidden">
-                  Quantity
-                </th>
-                <th className="font-semibold font-[Poppins] max-lm:hidden">
-                  Status
-                </th>
-                <th className="font-semibold text-right font-[Poppins] max-lm:hidden pr-4">
-                  Total
-                </th>
-              </tr>
-            </thead>
+      <div className="xl:gap-28 gap-16 xl:pl-16 max-xl:grid">
+        <table className="w-full max-md:hidden">
+          <thead>
+            <tr className="border-b-[1px] border-gray-400 lm:py-4 h-10 text-left text-slate-50 text-lg">
+              <th className="max-lm:text-4xl max-lm:text-center font-semibold font-[Poppins] pl-4">
+                Order
+              </th>
+              <th className="font-semibold font-[Poppins] max-lm:hidden">
+                Date
+              </th>
+              <th className="font-semibold font-[Poppins] max-lm:hidden">
+                Quantity
+              </th>
+              <th className="font-semibold font-[Poppins] max-lm:hidden">
+                Status
+              </th>
+              <th className="font-semibold text-right font-[Poppins] max-lm:hidden pr-4">
+                Total
+              </th>
+            </tr>
+          </thead>
+          {currentUser && orders > 0 ? (
             <tbody>
               <tr className="h-3"></tr>
               {orders.map((item) => (
                 <OrderItem key={item.id} item={item} />
               ))}
             </tbody>
-          </table>
-          <div className="md:hidden">
-            <h1 className="font-bold text-4xl text-slate-50 text-center mb-2">
-              Orders
-            </h1>
-            {orders.map((item) => (
+          ) : (
+            <tr className="font-[Poppins] h-10 tex5-left text-sm mobile-order">
+              <td className="text-left pl-4 text-blue-700 underline">##</td>
+              <td>##</td>
+              <td>##</td>
+              <td>##</td>
+              <td className="text-right w-28 pr-4">##</td>
+            </tr>
+          )}
+        </table>
+        <div className="md:hidden">
+          <h1 className="font-bold text-4xl text-slate-50 text-center mb-2">
+            Orders
+          </h1>
+          {orders ? (
+            orders.map((item) => (
               <ul
                 key={item.id}
                 className="py-8 grid gap-2 border-b-[1px] border-gray-400"
@@ -83,10 +94,36 @@ export default function Orders() {
                   </h4>
                 </li>
               </ul>
-            ))}
-          </div>
+            ))
+          ) : (
+            <ul className="py-8 grid gap-2 border-b-[1px] border-gray-400">
+              <li className="flex items-center justify-between h-10 px-5">
+                <h4 className="text-base font-bold">Order ID</h4>
+                <h4 className="text-base font-bold text-blue-700 underline">
+                  ##
+                </h4>
+              </li>
+
+              <li className="flex items-center justify-between h-10 px-5 bg-[#1B1B1B]">
+                <h4 className="text-base font-bold">DATE</h4>
+                <h4 className="text-base font-bold">##</h4>
+              </li>
+              <li className="flex items-center justify-between h-10 px-5">
+                <h4 className="text-base font-bold">QUANTITY</h4>
+                <h4 className="text-base font-bold">##</h4>
+              </li>
+              <li className="flex items-center justify-between h-10 px-5 bg-[#1B1B1B]">
+                <h4 className="text-base font-bold">STATUS</h4>
+                <h4 className="text-base font-bold">##</h4>
+              </li>
+              <li className="flex items-center justify-between h-10 px-5">
+                <h4 className="text-base font-bold">TOTAL</h4>
+                <h4 className="text-base font-bold">##</h4>
+              </li>
+            </ul>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

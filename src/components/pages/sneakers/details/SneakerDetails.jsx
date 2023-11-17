@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../hooks/useAuth';
+import { showStatus } from '../../../../constants/ShowStatus';
+import { useQuantity } from '../../../../hooks/UseQuantity';
+import { getShoe } from '../../../../constants/ShoeDisplay';
+import { addCart } from '../../../../constants/CartFunctions';
+
 import QuantityControl from './QuantityControl';
 import SelectColors from './SelectColors';
 import InvalidPage from './InvalidPage';
@@ -9,7 +14,6 @@ import SizeControl from './SizeControl';
 import GeneratePrice from '../grid/GeneratePrice';
 import BestShoes from '../../../../data/BestShoes';
 import NewShoes from '../../../../data/NewShoes';
-import { showStatus } from '../../../../constants/ShowStatus';
 
 export default function SneakerDetails() {
   const [sneaker, setSneaker] = useState(null);
@@ -28,7 +32,8 @@ export default function SneakerDetails() {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
   const { brandName, sneakerID } = useParams();
-  const { getShoe, currentUser, addCart, setQuantity, quantity } = useAuth();
+  const { currentUser } = useAuth();
+  const { setQuantity, quantity } = useQuantity();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -70,7 +75,8 @@ export default function SneakerDetails() {
           image,
           value,
           size,
-          color
+          color,
+          currentUser
         );
         setQuantity(quantity + 1);
         showStatus('Item has been added to cart.', setSuccess);

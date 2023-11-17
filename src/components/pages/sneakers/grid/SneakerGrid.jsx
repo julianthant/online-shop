@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../../../hooks/useAuth';
 import { useLocation } from 'react-router-dom';
+
 import PaginationInfo from './PaginationInfo';
 import SneakerCard from './SneakerCard';
 import SneakerFilter from './SneakerFilter';
 import SneakerSort from './SneakerSort';
 import ShowPageResults from './ShowPageResults';
 import BrandsList from '../../../../data/BrandsList';
-import BestShoes from '../../../../data/BestShoes';
 import NewShoes from '../../../../data/NewShoes';
+import BestShoes from '../../../../data/BestShoes';
 
 export default function SneakerGrid() {
   const [sneakers, setSneakers] = useState([]);

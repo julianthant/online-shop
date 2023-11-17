@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useAuth } from '../../hooks/useAuth';
+import { addBillingInfo } from '../../constants/PaymentFunctions';
+import { updateBillingInfo } from '../../constants/PaymentFunctions';
+import { removeItem } from '../../constants/ObjectDisplay';
 import { showStatus } from '../../constants/ShowStatus';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function BillingInfo({
   addBilling,
@@ -11,7 +14,6 @@ export default function BillingInfo({
   setSuccess,
   setError,
 }) {
-  const { addBillingInfo, updateBillingInfo, removeItem } = useAuth();
   const [editState, setEditState] = useState(addBilling ? true : false);
 
   const [address, setAddress] = useState(addBilling ? '' : billing.address);
@@ -26,6 +28,8 @@ export default function BillingInfo({
   const userEdit =
     'bg-dark-gray w-1/2 text-sm text-slate-50 rounded-[0.22rem] h-9 hover:bg-light-gray transition-all';
 
+  const { currentUser } = useAuth();
+
   const handleSaveBilling = (e) => {
     e.preventDefault();
     if (addBilling) {
@@ -37,7 +41,8 @@ export default function BillingInfo({
         postalCode,
         setBilling,
         setError,
-        setSuccess
+        setSuccess,
+        currentUser
       );
 
       setAddBilling(false);
@@ -51,7 +56,8 @@ export default function BillingInfo({
         postalCode,
         setBilling,
         setError,
-        setSuccess
+        setSuccess,
+        currentUser
       );
     }
   };

@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../../hooks/useAuth';
-import ToLogin from './ToLogin';
-import CartItem from './CartItem';
 import { Link, useNavigate } from 'react-router-dom';
 import { showStatus } from '../../../constants/ShowStatus';
+import { getItem } from '../../../constants/ObjectDisplay';
+import { useQuantity } from '../../../hooks/UseQuantity';
+import { removeItem } from '../../../constants/ObjectDisplay';
+import { updateCartItem } from '../../../constants/CartFunctions';
+
+import ToLogin from './ToLogin';
+import CartItem from './CartItem';
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
@@ -14,23 +19,23 @@ export default function CartPage() {
   const [addCosts, setAddCosts] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  const {
-    currentUser,
-    removeItem,
-    updateCartItem,
-    getItem,
-    setQuantity,
-    quantity,
-  } = useAuth();
 
   const navigate = useNavigate();
 
+  const { quantity, setQuantity } = useQuantity();
+  const { currentUser } = useAuth();
+
   useEffect(() => {
-    getItem(setCartItems, 'users_cart');
-    getItem(setCards, 'users_cards');
-    getItem(setBilling, 'users_billing');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const fetchUserData = async () => {
+      getItem('users_cart', currentUser, setCartItems);
+      getItem('users_cards', currentUser, setCards);
+      getItem('users_billing', currentUser, setBilling);
+    };
+
+    if (currentUser) {
+      fetchUserData();
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     setAddCosts(
@@ -51,11 +56,11 @@ export default function CartPage() {
 
   const handleDelete = (ID) => {
     removeItem(ID, setCartItems, 'users_cart');
-    setQuantity(quantity - 1);
+    setQuantity((prevQuantity) => prevQuantity - 1);
   };
 
   const handleQuantityChange = (item, newQuantity) => {
-    updateCartItem(item.id, newQuantity, setCartItems);
+    updateCartItem(item.id, newQuantity, setCartItems, currentUser);
   };
 
   function handleCheckout() {
@@ -117,14 +122,15 @@ export default function CartPage() {
                 </tr>
               </thead>
               <tbody>
-                {cartItems.map((item) => (
-                  <CartItem
-                    key={item.id}
-                    item={item}
-                    onQuantityChange={handleQuantityChange}
-                    onDelete={handleDelete}
-                  />
-                ))}
+                {cartItems &&
+                  cartItems.map((item) => (
+                    <CartItem
+                      key={item.id}
+                      item={item}
+                      onQuantityChange={handleQuantityChange}
+                      onDelete={handleDelete}
+                    />
+                  ))}
               </tbody>
             </table>
           </div>

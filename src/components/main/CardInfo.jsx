@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useAuth } from '../../hooks/useAuth';
 import { ValidateCard, isDateValid, isCVVValid } from './ValidateCard';
 import { showStatus } from '../../constants/ShowStatus';
+import { addCardInfo } from '../../constants/PaymentFunctions';
+import { removeItem } from '../../constants/ObjectDisplay';
+import { updateCardInfo } from '../../constants/PaymentFunctions';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function CardInfo({
   card,
@@ -12,9 +15,7 @@ export default function CardInfo({
   setSuccess,
   setError,
 }) {
-  const { addCardInfo, removeItem, updateCardInfo } = useAuth();
   const [editState, setEditState] = useState(addCard ? true : false);
-
   const [cardNumber, setCardNumber] = useState(addCard ? '' : card.cardNumber);
   const [cardName, setCardName] = useState(addCard ? '' : card.cardName);
   const [expiryDate, setExpiryDate] = useState(addCard ? '' : card.expiryDate);
@@ -23,6 +24,8 @@ export default function CardInfo({
   const userStyles = 'font-bold text-[0.75rem] pb-1 text-light-gray';
   const userEdit =
     'bg-dark-gray w-1/2 text-sm text-slate-50 rounded-[0.22rem] h-9 hover:bg-light-gray transition-all';
+
+  const { currentUser } = useAuth();
 
   function handleSavePayment(e) {
     e.preventDefault();
@@ -46,7 +49,8 @@ export default function CardInfo({
         cvv,
         setCards,
         setError,
-        setSuccess
+        setSuccess,
+        currentUser
       );
 
       setAddCard(false);
@@ -71,7 +75,8 @@ export default function CardInfo({
         cvv,
         setCards,
         setError,
-        setSuccess
+        setSuccess,
+        currentUser
       );
     }
   }

@@ -1,6 +1,7 @@
 import Select from 'react-select';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../hooks/useAuth';
+import { getItem } from '../../../constants/ObjectDisplay';
 import PropTypes from 'prop-types';
 
 export default function CheckoutPayment({ setCardUsed, setBillingUsed }) {
@@ -10,11 +11,11 @@ export default function CheckoutPayment({ setCardUsed, setBillingUsed }) {
   const [cardOptions, setCardOptions] = useState([]);
   const [billingOptions, setBillingOptions] = useState([]);
 
-  const { getItem } = useAuth();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
-    getItem(setCards, 'users_cards');
-    getItem(setBilling, 'users_billing');
+    getItem('users_cards', currentUser, setCards);
+    getItem('users_billing', currentUser, setBilling);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

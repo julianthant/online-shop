@@ -5,6 +5,10 @@ import { showStatus } from '../../../constants/ShowStatus';
 
 import CheckoutItems from './CheckoutItems';
 import CheckoutPayment from './CheckoutPayment';
+import { useQuantity } from '../../../hooks/UseQuantity';
+import { addOrderInfo } from '../../../constants/OrderFunctions';
+import { removeItem } from '../../../constants/ObjectDisplay';
+import { getItem } from '../../../constants/ObjectDisplay';
 
 export default function Checkout() {
   const [cartItems, setCartItems] = useState([]);
@@ -15,13 +19,13 @@ export default function Checkout() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const { currentUser, getItem, addOrderInfo, removeItem, setQuantity } =
-    useAuth();
+  const { currentUser } = useAuth();
+  const { setQuantity } = useQuantity();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    getItem(setCartItems, 'users_cart');
+    getItem('users_cart', currentUser, setCartItems);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -8,6 +8,7 @@ import menu_icon from '../../assets/menu.svg';
 import close_menu_icon from '../../assets/close_menu.svg';
 import profile_icon from '../../assets/profile-icon.svg';
 import cart_icon from '../../assets/cart-icon.svg';
+import { useQuantity } from '../../hooks/UseQuantity';
 
 export default function Navbar({ fallbackClass }) {
   const [menu, setMenu] = useState(false);
@@ -15,7 +16,8 @@ export default function Navbar({ fallbackClass }) {
   const [signedIn, setSignedIn] = useState(false);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const { currentUser, quantity } = useAuth();
+  const { currentUser } = useAuth();
+  const { quantity } = useQuantity();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -140,7 +142,7 @@ export default function Navbar({ fallbackClass }) {
               <div className="flex gap-4 items-center">
                 <button className="relative" onClick={() => navigate('/cart')}>
                   <div className="bg-red-600 w-5 h-5 absolute cart-circle rounded-full">
-                    <p className="text-sm pr-[0.05rem]">{quantity}</p>
+                    <p className="text-sm pr-[0.05rem]">{quantity || 0}</p>
                   </div>
                   <img className="w-7" src={cart_icon} alt="cart" />
                 </button>
