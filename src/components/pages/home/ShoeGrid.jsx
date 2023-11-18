@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import ShoeCard from './ShoeCard';
 import PropTypes from 'prop-types';
 
@@ -6,9 +7,12 @@ export default function ShoeGrid({ Heading, Subheading, Data, ID }) {
     <div id={ID} className="container py-8">
       <div className="flex justify-between items-center">
         <h2 className="font-[Poppins] text-2xl text-slate-50">{Heading}</h2>
-        <a className="underline underline-offset-[6px] max-s:hidden decoration-emerald-600 text-slate-50 hover:decoration-slate-50 transition-300 text-md tracking-[0.2rem] cursor-pointer">
+        <Link
+          to={'/collections'}
+          className="underline underline-offset-[6px] max-s:hidden decoration-emerald-600 text-slate-50 hover:decoration-slate-50 transition-300 text-md tracking-[0.2rem] cursor-pointer"
+        >
           {Subheading}
-        </a>
+        </Link>
         <a className="underline underline-offset-[6px] s:hidden decoration-emerald-600 text-slate-50 hover:decoration-slate-50 transition-300 text-md tracking-[0.2rem] cursor-pointer">
           VIEW ALL
         </a>
