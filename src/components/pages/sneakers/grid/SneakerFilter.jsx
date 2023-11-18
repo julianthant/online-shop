@@ -135,6 +135,8 @@ export default function SneakerFilter({
     genderFilters.unisex,
     priceRange,
     searchValue,
+    setFilteredSneakers,
+    setOriginalSneakers,
     brandFilters,
     sizeFilters,
   ]);
