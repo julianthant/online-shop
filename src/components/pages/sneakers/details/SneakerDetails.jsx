@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../hooks/useAuth';
 import { showStatus } from '../../../../constants/ShowStatus';
-import { useQuantity } from '../../../../hooks/UseQuantity';
+import { useQuantity } from '../../../../hooks/useQuantity';
 import { getShoe } from '../../../../constants/ShoeDisplay';
 import { addCart } from '../../../../constants/CartFunctions';
 

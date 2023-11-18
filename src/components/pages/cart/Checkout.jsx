@@ -5,7 +5,7 @@ import { showStatus } from '../../../constants/ShowStatus';
 
 import CheckoutItems from './CheckoutItems';
 import CheckoutPayment from './CheckoutPayment';
-import { useQuantity } from '../../../hooks/UseQuantity';
+import { useQuantity } from '../../../hooks/useQuantity';
 import { addOrderInfo } from '../../../constants/OrderFunctions';
 import { removeItem } from '../../../constants/ObjectDisplay';
 import { getItem } from '../../../constants/ObjectDisplay';

@@ -8,7 +8,7 @@ import menu_icon from '../../assets/menu.svg';
 import close_menu_icon from '../../assets/close_menu.svg';
 import profile_icon from '../../assets/profile-icon.svg';
 import cart_icon from '../../assets/cart-icon.svg';
-import { useQuantity } from '../../hooks/UseQuantity';
+import { useQuantity } from '../../hooks/useQuantity';
 
 export default function Navbar({ fallbackClass }) {
   const [menu, setMenu] = useState(false);

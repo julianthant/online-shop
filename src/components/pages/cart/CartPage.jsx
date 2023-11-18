@@ -3,7 +3,7 @@ import { useAuth } from '../../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import { showStatus } from '../../../constants/ShowStatus';
 import { getItem } from '../../../constants/ObjectDisplay';
-import { useQuantity } from '../../../hooks/UseQuantity';
+import { useQuantity } from '../../../hooks/useQuantity';
 import { removeItem } from '../../../constants/ObjectDisplay';
 import { updateCartItem } from '../../../constants/CartFunctions';
 
