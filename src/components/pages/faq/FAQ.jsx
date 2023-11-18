@@ -55,8 +55,8 @@ export default function FAQ() {
   };
 
   return (
-    <section className="flex items-center justify-center min-h-screen bg-matte-black text-white">
-      <div className="container mx-auto">
+    <section className="flex justify-center min-h-screen bg-matte-black text-white">
+      <div className="container mx-auto mt-[9rem]">
         <h1 className="text-slate-50 text-5xl font-bold font-[Montserrat] py-5 mb-10 text-center">
           Frequently Asked Questions<span className="text-emerald-900">.</span>
         </h1>
