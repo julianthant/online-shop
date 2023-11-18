@@ -10,7 +10,7 @@ import OpenMenu from '../../../../assets/menu.svg';
 import BrandFilter from './BrandFilter';
 import BrandsList from '../../../../data/BrandsList';
 import SizeFilter from './SizeFilter';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function SneakerFilter({
   sneakers,
@@ -30,6 +30,7 @@ export default function SneakerFilter({
 
   const modalRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const gender = queryParams.get('gender');
 
@@ -150,9 +151,6 @@ export default function SneakerFilter({
     setOriginalSneakers,
     brandFilters,
     sizeFilters,
-    location.search,
-    queryParams,
-    gender,
   ]);
 
   const customOverlayStyle = {
@@ -171,11 +169,15 @@ export default function SneakerFilter({
 
     if (isModalOpen) {
       document.addEventListener('mousedown', handleOutsideClick);
+      if (gender) {
+        navigate('/collections');
+      }
     }
 
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalOpen]);
 
   function handleReset() {
