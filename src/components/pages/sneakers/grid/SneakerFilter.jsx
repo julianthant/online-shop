@@ -128,15 +128,13 @@ export default function SneakerFilter({
 
     setFilteredSneakers(filteredSneakers);
     setOriginalSneakers(filteredSneakers);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     genderFilters.men,
     genderFilters.women,
     genderFilters.unisex,
     priceRange,
     searchValue,
-    setFilteredSneakers,
-    sneakers,
-    setOriginalSneakers,
     brandFilters,
     sizeFilters,
   ]);

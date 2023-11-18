@@ -77,7 +77,7 @@ export default function BillingInfo({
   }
 
   function handleDelete() {
-    removeItem(billing.id, setBilling, 'users_billing');
+    removeItem(billing.id, setBilling, 'users_billing', currentUser);
     showStatus('Billing info has been deleted successfully', setSuccess);
   }
 

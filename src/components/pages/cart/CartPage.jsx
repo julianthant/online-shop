@@ -55,7 +55,7 @@ export default function CartPage() {
   }, [cartItems]);
 
   const handleDelete = (ID) => {
-    removeItem(ID, setCartItems, 'users_cart');
+    removeItem(ID, setCartItems, 'users_cart', currentUser);
     setQuantity((prevQuantity) => prevQuantity - 1);
   };
 

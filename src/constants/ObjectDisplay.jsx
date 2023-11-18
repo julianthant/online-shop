@@ -49,11 +49,11 @@ export async function newGetItem(brandName) {
   }
 }
 
-export async function removeItem(ID, updatedList, path) {
+export async function removeItem(ID, updatedList, path, currentUser) {
   try {
     const cartItem = doc(db, path, ID);
     await deleteDoc(cartItem);
-    getItem(updatedList, path);
+    getItem(path, currentUser, updatedList);
   } catch (error) {
     console.error('Unable to delete item: ', error);
   }

@@ -96,7 +96,7 @@ export default function CardInfo({
   }
 
   function handleDelete() {
-    removeItem(card.id, setCards, 'users_cards');
+    removeItem(card.id, setCards, 'users_cards', currentUser);
     showStatus('Card has been deleted successfully', setSuccess);
   }
 

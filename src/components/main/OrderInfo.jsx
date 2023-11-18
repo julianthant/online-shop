@@ -19,7 +19,7 @@ export default function OrderInfo() {
   }, []);
 
   function deleteOrder() {
-    removeItem(orderID, null, 'users_orders');
+    removeItem(orderID, null, 'users_orders', currentUser);
     navigate('/dashboard?mode=Order');
   }
 

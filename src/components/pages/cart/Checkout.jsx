@@ -66,7 +66,9 @@ export default function Checkout() {
       );
     }
 
-    cartItems.forEach((item) => removeItem(item.id, null, 'users_cart'));
+    cartItems.forEach((item) =>
+      removeItem(item.id, null, 'users_cart', currentUser)
+    );
   }
 
   return (
