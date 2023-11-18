@@ -1,6 +1,9 @@
 import background from '../../../assets/shoe-footer.jpg';
+import { useNavigate } from 'react-router-dom';
+import { scroller } from 'react-scroll';
 
 export default function ShoeBanner() {
+  const navigate = useNavigate();
   const imageButton =
     'tracking-widest bg-slate-50 text-sm w-full text-black py-4 max-s:py-3 transition-300 hover:text-slate-50 font-[Inter] hover:bg-matte-black';
 
@@ -26,10 +29,21 @@ export default function ShoeBanner() {
             you can find one that suits you.
           </p>
           <div className="flex justify-center gap-5 max-s:flex-col items-center">
-            <button className={`s:w-[11.5rem] ${imageButton}`}>
+            <button
+              onClick={() =>
+                scroller.scrollTo('best-sellers', {
+                  duration: 500,
+                  smooth: true,
+                })
+              }
+              className={`s:w-[11.5rem] ${imageButton}`}
+            >
               SHOP FEATURED
             </button>
-            <button className={`s:w-[13.5rem] ${imageButton}`}>
+            <button
+              onClick={() => navigate('/collections')}
+              className={`s:w-[13.5rem] ${imageButton}`}
+            >
               SHOP COLLECTIONS
             </button>
           </div>

@@ -1,17 +1,9 @@
 import SocialIcons from '../../data/SocialIcons';
 import { Link } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
+import PropTypes from 'prop-types';
 
-export default function Footer() {
-  const sections = [
-    { id: 'heading', label: 'Heading', duration: 1000 },
-    { id: 'featured-brands', label: 'Featured Brands', duration: 900 },
-    { id: 'shoe-display', label: 'Shoes Display', duration: 800 },
-    { id: 'new-arrivals', label: 'New Arrivals', duration: 700 },
-    { id: 'best-sellers', label: 'Best Sellers', duration: 600 },
-    { id: 'shoe-banner', label: 'Shoe Banner', duration: 500 },
-  ];
-
+export default function Footer({ sections, type }) {
   const linkClass =
     'hover:text-emerald-600 transition-300 max-s:text-center cursor-pointer';
 
@@ -37,34 +29,57 @@ export default function Footer() {
             className="grid text-light-gray gap-2 font-light text-lg"
             aria-label="footer-navigation"
           >
-            <Link className={linkClass}>Shop Men</Link>
-            <Link className={linkClass}>Shop Women</Link>
-            <Link className={linkClass}>Featured</Link>
-            <Link className={linkClass}>Collections</Link>
-            <Link className={linkClass}>Search</Link>
+            <Link to={'/collections?gender=men'} className={linkClass}>
+              Shop Men
+            </Link>
+            <Link to={'/collections?gender=women'} className={linkClass}>
+              Shop Women
+            </Link>
+            <Link to={'/collections?gender=unisex'} className={linkClass}>
+              Shop Unisex
+            </Link>
           </nav>
         </div>
-        <div className="flex flex-col gap-10 max-s:items-center">
-          <h2 className="text-2xl text-slate-50 font-medium max-s:text-center">
-            Homepage
-          </h2>
-          <nav
-            className="grid text-light-gray gap-2 font-light text-lg"
-            aria-label="footer-navigation"
-          >
-            {sections.map((section) => (
-              <ScrollLink
-                key={section.id}
-                to={section.id}
-                smooth={true}
-                duration={section.duration}
-                className={linkClass}
-              >
-                {section.label}
-              </ScrollLink>
-            ))}
-          </nav>
-        </div>
+        {type === 'homepage' && (
+          <div className="flex flex-col gap-10 max-s:items-center">
+            <h2 className="text-2xl text-slate-50 font-medium max-s:text-center">
+              Homepage
+            </h2>
+            <nav
+              className="grid text-light-gray gap-2 font-light text-lg"
+              aria-label="footer-navigation"
+            >
+              {sections.map((section) => (
+                <ScrollLink
+                  key={section.id}
+                  to={section.id}
+                  smooth={true}
+                  duration={section.duration}
+                  className={linkClass}
+                >
+                  {section.label}
+                </ScrollLink>
+              ))}
+            </nav>
+          </div>
+        )}
+        {type === 'others' && (
+          <div className="flex flex-col gap-10 max-s:items-center">
+            <h2 className="text-2xl text-slate-50 font-medium max-s:text-center">
+              Navigation
+            </h2>
+            <nav
+              className="grid text-light-gray gap-2 font-light text-lg"
+              aria-label="footer-navigation"
+            >
+              {sections.map((section) => (
+                <Link key={section.id} to={section.id} className={linkClass}>
+                  {section.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        )}
         <div className="flex flex-col gap-10 max-s:items-center">
           <h2 className="text-2xl text-slate-50 font-medium max-s:text-center">
             Need Help?
@@ -73,11 +88,18 @@ export default function Footer() {
             className="grid text-[#909090] gap-2 font-light text-lg"
             aria-label="footer-navigation"
           >
-            <Link className={linkClass}>FAQs</Link>
-            <Link className={linkClass}>Shipping & Returns</Link>
-            <Link className={linkClass}>Shoe Care</Link>
-            <Link className={linkClass}>Size Chart</Link>
-            <Link className={linkClass}>Contact Us</Link>
+            <Link to={'/faq'} className={linkClass}>
+              FAQs
+            </Link>
+            <Link to={'/faq?question=returns'} className={linkClass}>
+              Shipping & Returns
+            </Link>
+            <Link to={'/faq?question=size_chart'} className={linkClass}>
+              Size Chart
+            </Link>
+            <Link to={'/contacts'} className={linkClass}>
+              Contact Us
+            </Link>
           </nav>
         </div>
       </div>
@@ -89,3 +111,14 @@ export default function Footer() {
     </footer>
   );
 }
+
+Footer.propTypes = {
+  sections: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      duration: PropTypes.number,
+    })
+  ).isRequired,
+  type: PropTypes.string.isRequired,
+};

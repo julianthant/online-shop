@@ -10,12 +10,12 @@ import OpenMenu from '../../../../assets/menu.svg';
 import BrandFilter from './BrandFilter';
 import BrandsList from '../../../../data/BrandsList';
 import SizeFilter from './SizeFilter';
+import { useLocation } from 'react-router-dom';
 
 export default function SneakerFilter({
   sneakers,
   setFilteredSneakers,
   setOriginalSneakers,
-  gender,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -29,6 +29,9 @@ export default function SneakerFilter({
   const [sizeFilters, setSizeFilters] = useState([]);
 
   const modalRef = useRef(null);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const gender = queryParams.get('gender');
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -50,8 +53,16 @@ export default function SneakerFilter({
         unisex: false,
       });
     }
+
+    if (gender === 'unisex') {
+      setGenderFilters({
+        men: false,
+        women: false,
+        unisex: true,
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [gender]);
 
   useEffect(() => {
     const isGenderFilterSelected =
@@ -139,6 +150,9 @@ export default function SneakerFilter({
     setOriginalSneakers,
     brandFilters,
     sizeFilters,
+    location.search,
+    queryParams,
+    gender,
   ]);
 
   const customOverlayStyle = {
@@ -274,5 +288,4 @@ SneakerFilter.propTypes = {
   ),
   setFilteredSneakers: PropTypes.func.isRequired,
   setOriginalSneakers: PropTypes.func.isRequired,
-  gender: PropTypes.string,
 };

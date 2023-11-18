@@ -11,6 +11,15 @@ import StoreServices from './StoreServices';
 import Footer from '../../main/Footer';
 
 export default function Homepage() {
+  const homepage_sections = [
+    { id: 'heading', label: 'Heading', duration: 1000 },
+    { id: 'featured-brands', label: 'Featured Brands', duration: 900 },
+    { id: 'shoe-display', label: 'Shoes Display', duration: 800 },
+    { id: 'new-arrivals', label: 'New Arrivals', duration: 700 },
+    { id: 'best-sellers', label: 'Best Sellers', duration: 600 },
+    { id: 'shoe-banner', label: 'Shoe Banner', duration: 500 },
+  ];
+
   return (
     <section className="bg-matte-black">
       <Heading />
@@ -31,7 +40,7 @@ export default function Homepage() {
       />
       <ShoeBanner />
       <StoreServices />
-      <Footer />
+      <Footer sections={homepage_sections} type="homepage" />
     </section>
   );
 }

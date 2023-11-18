@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../../../hooks/useAuth';
-import { useLocation } from 'react-router-dom';
 
 import PaginationInfo from './PaginationInfo';
 import SneakerCard from './SneakerCard';
@@ -18,10 +17,6 @@ export default function SneakerGrid() {
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   const [originalSneakers, setOriginalSneakers] = useState([]);
-
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const gender = queryParams.get('gender');
 
   useEffect(() => {
     window.scrollTo(top);
@@ -70,7 +65,6 @@ export default function SneakerGrid() {
                   sneakers={sneakers}
                   setFilteredSneakers={setFilteredSneakers}
                   setOriginalSneakers={setOriginalSneakers}
-                  gender={gender}
                 />
               </div>
               <ShowPageResults

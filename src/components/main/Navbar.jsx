@@ -108,6 +108,9 @@ export default function Navbar({ fallbackClass }) {
           >
             Contact
           </Link>
+          <Link className={navLinks} to="/faq" onClick={handleMenuItemClick}>
+            FAQ
+          </Link>
           {signedIn && (
             <Link
               className={`${navLinks} xs:hidden`}
