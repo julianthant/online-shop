@@ -32,7 +32,8 @@ const ResponsiveImage = ({ src, alt, className, height }) => {
       sizes={sizes}
       srcSet={srcSet}
       aspectRatio="16:9"
-      imgProps={{
+      disableQualityByDPR
+      htmlAttributes={{
         alt,
         loading: 'lazy',
         width: '100%',
