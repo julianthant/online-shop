@@ -35,36 +35,35 @@ export default function ShoeCarousel() {
           )
         }
       >
-        <div className="h-[680px]">
-          <ResponsiveImages
-            src="https://i.ibb.co/M8LJRTs/Nike-Carousel.jpg"
-            alt="Nike-Carousel"
-          />
-        </div>
-        <div className="h-[680px]">
-          <ResponsiveImages
-            src="https://i.ibb.co/RhzV65y/Converse-Carousel.webp"
-            alt="Converse-Carousel"
-          />
-        </div>
-        <div className="h-[680px]">
-          <ResponsiveImages
-            src="https://i.ibb.co/1LB8M4m/Adidas-Carousel.webp"
-            alt="Adidas-Carousel"
-          />
-        </div>
-        <div className="h-[680px]">
-          <ResponsiveImages
-            src="https://i.ibb.co/GR9CJgW/NBCarousel.webp"
-            alt="NBCarousel"
-          />
-        </div>
-        <div className="h-[680px]">
-          <ResponsiveImages
-            src="https://i.ibb.co/Gt6V0PG/Vans-Carousel.webp"
-            alt="Vans-Carousel"
-          />
-        </div>
+        <ResponsiveImages
+          src="https://i.ibb.co/M8LJRTs/Nike-Carousel.jpg"
+          alt="Nike-Carousel"
+          height="680px"
+        />
+
+        <ResponsiveImages
+          src="https://i.ibb.co/RhzV65y/Converse-Carousel.webp"
+          alt="Converse-Carousel"
+          height="680px"
+        />
+
+        <ResponsiveImages
+          src="https://i.ibb.co/1LB8M4m/Adidas-Carousel.webp"
+          alt="Adidas-Carousel"
+          height="680px"
+        />
+
+        <ResponsiveImages
+          src="https://i.ibb.co/GR9CJgW/NBCarousel.webp"
+          alt="NBCarousel"
+          height="680px"
+        />
+
+        <ResponsiveImages
+          src="https://i.ibb.co/Gt6V0PG/Vans-Carousel.webp"
+          alt="Vans-Carousel"
+          height="680px"
+        />
       </Carousel>
     </div>
   );

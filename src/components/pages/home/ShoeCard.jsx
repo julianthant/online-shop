@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import ResponsiveImages from '../../../utilities/ResponsiveImages';
 
 export default function ShoeCard({
   id,
@@ -20,8 +21,7 @@ export default function ShoeCard({
     >
       <div className="relative flex-grow">
         <div className="bg-gray-200 h-[20rem] flex items-center">
-          <img
-            loading="lazy"
+          <ResponsiveImages
             className="w-full h-auto px-4"
             src={image}
             alt="New Balance 550"
