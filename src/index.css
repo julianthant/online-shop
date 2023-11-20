@@ -6,6 +6,25 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+.size-chart {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.size-row {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+}
+
+.size-cell {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+}
+
 .page-container {
   --max-width: 1200px;
   max-width: var(--max-width);

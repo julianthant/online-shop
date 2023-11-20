@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import sizeChart from '../../../assets/ShoeSizeChart.webp';
 
 export default function FAQ() {
   const faqs = useMemo(() => {
@@ -20,7 +19,6 @@ export default function FAQ() {
       {
         id: 'size_chart',
         question: 'Can you show me a shoe size chart?',
-        answer: sizeChart,
       },
       {
         id: 'buy',
@@ -76,7 +74,43 @@ export default function FAQ() {
               {openQuestion === index && (
                 <div className="mt-4">
                   {faq.id === 'size_chart' ? (
-                    <img src={faq.answer} alt="shoe size chart" />
+                    <div className="mt-8">
+                      <h2 className="text-2xl font-semibold mb-3">
+                        Men&apos;s Shoe Size Chart
+                      </h2>
+                      <div className="size-chart">
+                        <div className="size-row">
+                          <div className="size-cell">US</div>
+                          <div className="size-cell">UK</div>
+                          <div className="size-cell">EU</div>
+                        </div>
+                        {[...Array(15).keys()].map((size) => (
+                          <div key={size} className="size-row">
+                            <div className="size-cell">{size + 6}</div>
+                            <div className="size-cell">{size + 5.5}</div>
+                            <div className="size-cell">{size + 39}</div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <h2 className="text-2xl font-semibold mt-6 mb-3">
+                        Women&apos;s Shoe Size Chart
+                      </h2>
+                      <div className="size-chart">
+                        <div className="size-row">
+                          <div className="size-cell">US</div>
+                          <div className="size-cell">UK</div>
+                          <div className="size-cell">EU</div>
+                        </div>
+                        {[...Array(15).keys()].map((size) => (
+                          <div key={size} className="size-row">
+                            <div className="size-cell">{size + 5}</div>
+                            <div className="size-cell">{size + 3.5}</div>
+                            <div className="size-cell">{size + 36}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   ) : (
                     <p>{faq.answer}</p>
                   )}
