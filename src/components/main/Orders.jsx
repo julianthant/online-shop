@@ -3,7 +3,7 @@ import { useAuth } from '../../hooks/useAuth';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Timestamp } from 'firebase/firestore';
-import { getItem } from '../../constants/ObjectDisplay';
+import { getItem } from '../../utilities/ObjectDisplay';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);

@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { showStatus } from '../../constants/ShowStatus';
+import { showStatus } from '../../utilities/ShowStatus';
 
 export default function NewSignup() {
   const emailRef = useRef();

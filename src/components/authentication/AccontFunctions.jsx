@@ -1,4 +1,4 @@
-import { showStatus } from '../../constants/ShowStatus';
+import { showStatus } from '../../utilities/ShowStatus';
 
 export async function HandleNameChange(
   currentUser,

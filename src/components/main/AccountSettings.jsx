@@ -8,7 +8,7 @@ import {
   HandleLogout,
   HandleDeleteUser,
 } from '../authentication/AccontFunctions';
-import { showStatus } from '../../constants/ShowStatus';
+import { showStatus } from '../../utilities/ShowStatus';
 
 export default function AccountSettings() {
   const {

@@ -1,8 +1,8 @@
 import { useAuth } from '../../hooks/useAuth';
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { removeItem } from '../../constants/ObjectDisplay';
-import { getOrder } from '../../constants/OrderFunctions';
+import { removeItem } from '../../utilities/ObjectDisplay';
+import { getOrder } from '../../utilities/OrderFunctions';
 
 export default function OrderInfo() {
   const [order, setOrder] = useState();

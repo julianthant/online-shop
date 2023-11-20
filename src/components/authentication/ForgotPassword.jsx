@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
-import { showStatus } from '../../constants/ShowStatus';
+import { showStatus } from '../../utilities/ShowStatus';
 
 function ForgotPassword() {
   const [error, setError] = useState('');

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import PropTypes from 'prop-types';
-import { showStatus } from '../../constants/ShowStatus';
+import { showStatus } from '../../utilities/ShowStatus';
 import { useState } from 'react';
 
 export default function EmailVerified({ oobCode }) {

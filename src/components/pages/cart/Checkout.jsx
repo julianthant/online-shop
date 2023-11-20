@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { showStatus } from '../../../constants/ShowStatus';
+import { showStatus } from '../../../utilities/ShowStatus';
 
 import CheckoutItems from './CheckoutItems';
 import CheckoutPayment from './CheckoutPayment';
 import { useQuantity } from '../../../hooks/useQuantity';
-import { addOrderInfo } from '../../../constants/OrderFunctions';
-import { removeItem } from '../../../constants/ObjectDisplay';
-import { getItem } from '../../../constants/ObjectDisplay';
+import { addOrderInfo } from '../../../utilities/OrderFunctions';
+import { removeItem } from '../../../utilities/ObjectDisplay';
+import { getItem } from '../../../utilities/ObjectDisplay';
 
 export default function Checkout() {
   const [cartItems, setCartItems] = useState([]);

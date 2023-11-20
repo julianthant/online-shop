@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addBillingInfo } from '../../constants/PaymentFunctions';
-import { updateBillingInfo } from '../../constants/PaymentFunctions';
-import { removeItem } from '../../constants/ObjectDisplay';
-import { showStatus } from '../../constants/ShowStatus';
+import { addBillingInfo } from '../../utilities/PaymentFunctions';
+import { updateBillingInfo } from '../../utilities/PaymentFunctions';
+import { removeItem } from '../../utilities/ObjectDisplay';
+import { showStatus } from '../../utilities/ShowStatus';
 import { useAuth } from '../../hooks/useAuth';
 
 export default function BillingInfo({

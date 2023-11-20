@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { newGetItem } from '../../../../constants/ObjectDisplay';
+import { newGetItem } from '../../../../utilities/ObjectDisplay';
 
 import PaginationInfo from './PaginationInfo';
 import SneakerCard from './SneakerCard';

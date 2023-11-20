@@ -1,7 +1,7 @@
 import CardInfo from './CardInfo';
 import BillingInfo from './BillingInfo';
 import { useState, useEffect, useRef } from 'react';
-import { getItem } from '../../constants/ObjectDisplay';
+import { getItem } from '../../utilities/ObjectDisplay';
 import { useAuth } from '../../hooks/useAuth';
 
 export default function PaymentSettings() {

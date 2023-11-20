@@ -1,7 +1,7 @@
 import Select from 'react-select';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../hooks/useAuth';
-import { getItem } from '../../../constants/ObjectDisplay';
+import { getItem } from '../../../utilities/ObjectDisplay';
 import PropTypes from 'prop-types';
 
 export default function CheckoutPayment({ setCardUsed, setBillingUsed }) {

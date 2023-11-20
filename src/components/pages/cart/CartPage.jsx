@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
-import { showStatus } from '../../../constants/ShowStatus';
-import { getItem } from '../../../constants/ObjectDisplay';
+import { showStatus } from '../../../utilities/ShowStatus';
+import { getItem } from '../../../utilities/ObjectDisplay';
 import { useQuantity } from '../../../hooks/useQuantity';
-import { removeItem } from '../../../constants/ObjectDisplay';
-import { updateCartItem } from '../../../constants/CartFunctions';
+import { removeItem } from '../../../utilities/ObjectDisplay';
+import { updateCartItem } from '../../../utilities/CartFunctions';
 
 import ToLogin from './ToLogin';
 import CartItem from './CartItem';

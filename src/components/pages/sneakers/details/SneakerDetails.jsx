@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../hooks/useAuth';
-import { showStatus } from '../../../../constants/ShowStatus';
+import { showStatus } from '../../../../utilities/ShowStatus';
 import { useQuantity } from '../../../../hooks/useQuantity';
-import { getShoe } from '../../../../constants/ShoeDisplay';
-import { addCart } from '../../../../constants/CartFunctions';
+import { getShoe } from '../../../../utilities/ShoeDisplay';
+import { addCart } from '../../../../utilities/CartFunctions';
 
 import QuantityControl from './QuantityControl';
 import SelectColors from './SelectColors';
@@ -14,6 +14,7 @@ import SizeControl from './SizeControl';
 import GeneratePrice from '../grid/GeneratePrice';
 import BestShoes from '../../../../data/BestShoes';
 import NewShoes from '../../../../data/NewShoes';
+import ResponsiveImage from '../../../../utilities/ResponsiveImages';
 
 export default function SneakerDetails() {
   const [sneaker, setSneaker] = useState(null);
@@ -112,7 +113,7 @@ export default function SneakerDetails() {
           <div className="bg-white shadow-md container  p-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className=" flex justify-center items-center lg:border-r-[1px] border-gray-200 p-6">
-                <img
+                <ResponsiveImage
                   src={sneaker.image}
                   alt={sneaker.name}
                   className="mx-auto p-5 max-lg:h-[65%] max-[1023.2px]:h-[100%]"
