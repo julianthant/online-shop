@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import ResponsiveImage from '../../../../utilities/ResponsiveImages';
 
 export default function SneakerCard({ id, brand, name, image }) {
   const navigate = useNavigate();
@@ -14,11 +13,7 @@ export default function SneakerCard({ id, brand, name, image }) {
       >
         <div className="bg-white h-[18rem] flex items-center justify-center">
           {image ? (
-            <ResponsiveImage
-              src={image}
-              alt={`${cleanedName}`}
-              className={'px-4'}
-            />
+            <img src={image} alt={`${cleanedName}`} className={'px-4'} />
           ) : (
             <img src={image} alt={`${cleanedName}`} className="px-4" />
           )}
