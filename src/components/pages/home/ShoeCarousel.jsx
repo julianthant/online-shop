@@ -36,7 +36,7 @@ export default function ShoeCarousel() {
         }
       >
         <ResponsiveImages
-          src="https://i.ibb.co/M8LJRTs/Nike-Carousel.jpg"
+          src="https://i.ibb.co/fY8HLzN/Nike-Carousel.webp"
           alt="Nike-Carousel"
           height="680px"
         />

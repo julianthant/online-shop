@@ -13,11 +13,15 @@ export default function SneakerCard({ id, brand, name, image }) {
         onClick={() => navigate(`/sneaker-grid/${brand}/${id}`)}
       >
         <div className="bg-white h-[18rem] flex items-center justify-center">
-          <ResponsiveImage
-            src={image}
-            alt={`${cleanedName}`}
-            className={'px-4'}
-          />
+          {image ? (
+            <ResponsiveImage
+              src={image}
+              alt={`${cleanedName}`}
+              className={'px-4'}
+            />
+          ) : (
+            <img src={image} alt={`${cleanedName}`} className="px-4" />
+          )}
         </div>
       </div>
       <div className="py-4 font-[montserrat]">

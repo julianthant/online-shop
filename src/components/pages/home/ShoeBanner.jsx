@@ -1,4 +1,4 @@
-import background from '../../../assets/shoe-footer.jpg';
+import background from '../../../assets/shoe-footer.webp';
 import { useNavigate } from 'react-router-dom';
 import { scroller } from 'react-scroll';
 
