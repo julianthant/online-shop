@@ -1,10 +1,3 @@
-import NB990v3 from '../assets/TopSneakers/NB990V3.webp';
-import AJ1 from '../assets/TopSneakers/AJ1.webp';
-import Chuck70VintageCanvas from '../assets/TopSneakers/Chuck70VintageCanvas.webp';
-import VansAuthentic from '../assets/TopSneakers/VansAuthentic.webp';
-import AdidasEQTCSG91 from '../assets/TopSneakers/EQT-CSG-91.webp';
-import NB5740 from '../assets/TopSneakers/NB5740.webp';
-
 let BestShoes = [
   {
     id: '11EF',
@@ -14,7 +7,7 @@ let BestShoes = [
     sizing: 'Unisex',
     description:
       'The New Balance 990v3 is a classic and comfortable running shoe.',
-    image: NB990v3,
+    image: 'https://i.ibb.co/4M5sMLz/NB990V3.webp',
     sizes: [7, 8, 9, 10],
     colorway: 'Grey',
   },
@@ -26,7 +19,7 @@ let BestShoes = [
     sizing: 'Unisex',
     description:
       'The Nike Air Jordan 1 is an iconic and timeless basketball shoe.',
-    image: AJ1,
+    image: 'https://i.ibb.co/sC2vzt7/AJ1.webp',
     sizes: [7, 8, 9, 10, 11],
     colorway: 'Red/Black',
   },
@@ -38,7 +31,7 @@ let BestShoes = [
     sizing: 'Unisex',
     description:
       'The Converse Chuck 70 Vintage Canvas offers a retro look and feel.',
-    image: Chuck70VintageCanvas,
+    image: 'https://i.ibb.co/MpfvCPd/Chuck70-Vintage-Canvas.webp',
     sizes: [7, 7.5, 8, 8.5],
     colorway: 'Blue',
   },
@@ -50,7 +43,7 @@ let BestShoes = [
     sizing: 'Unisex',
     description:
       'The Vans Authentic is a classic and versatile canvas sneaker.',
-    image: VansAuthentic,
+    image: 'https://i.ibb.co/gJKC4xg/Vans-Authentic.webp',
     sizes: [7, 8, 8.5, 9],
     colorway: 'Black/White',
   },
@@ -61,7 +54,7 @@ let BestShoes = [
     initialPrice: 170.0,
     sizing: 'Unisex',
     description: 'The Adidas EQT-CSG-91 combines style and performance.',
-    image: AdidasEQTCSG91,
+    image: 'https://i.ibb.co/XVp9BsG/EQT-CSG-91.webp',
     sizes: [7, 8, 9],
     colorway: 'Green/White',
   },
@@ -73,7 +66,7 @@ let BestShoes = [
     sizing: 'Unisex',
     description:
       'The New Balance 5740 offers comfort and style for everyday wear.',
-    image: NB5740,
+    image: 'https://i.ibb.co/y6Xnzb4/NB5740.webp',
     sizes: [7, 8, 9, 10],
     colorway: 'Navy/Grey',
   },
