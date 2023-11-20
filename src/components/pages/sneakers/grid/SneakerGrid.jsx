@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../../../../hooks/useAuth';
+import { newGetItem } from '../../../../constants/ObjectDisplay';
 
 import PaginationInfo from './PaginationInfo';
 import SneakerCard from './SneakerCard';
@@ -12,7 +12,6 @@ import BestShoes from '../../../../data/BestShoes';
 
 export default function SneakerGrid() {
   const [sneakers, setSneakers] = useState([]);
-  const { newGetItem } = useAuth();
   const sneakersPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredSneakers, setFilteredSneakers] = useState([]);
