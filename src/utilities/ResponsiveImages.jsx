@@ -6,18 +6,22 @@ const ResponsiveImage = ({ src, alt, className, height }) => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
 
-  // Define the sizes attribute based on screen size
+  // Adjust these sizes based on your content and design
+  const mobileSizes = [320, 480, 640];
+  const tabletSizes = [768, 1024, 1280];
+  const desktopSizes = [1024, 1280, 1920, 2560];
+
   const sizes = isMobile
-    ? '(max-width: 767px) 100vw'
+    ? `(max-width: 767px) ${mobileSizes.join('px, ')}px, 100vw`
     : isTablet
-    ? '(min-width: 768px) and (max-width: 1023px) 100vw'
-    : '100vw';
+    ? `(min-width: 768px) and (max-width: 1023px) ${tabletSizes.join(
+        'px, '
+      )}px, 100vw`
+    : `${desktopSizes.join('px, ')}px, 100vw`;
 
-  // Specify widths and breakpoints for responsive images
-  const widths = [320, 640, 1024, 2048]; // Add more as needed
-
-  // Generate the srcSet attribute for responsive images
-  const srcSet = widths
+  const srcSet = (
+    isMobile ? mobileSizes : isTablet ? tabletSizes : desktopSizes
+  )
     .map((width) => `${src}?w=${width} ${width}w`)
     .join(', ');
 
