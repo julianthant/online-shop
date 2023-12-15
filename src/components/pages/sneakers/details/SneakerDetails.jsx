@@ -143,7 +143,9 @@ export default function SneakerDetails() {
                   <p className="text-green-700 text-md mb-3">{success}</p>
                 )}
                 <button
-                  onClick={() => s}
+                  onClick={() =>
+                    addToCart(sneaker.name, sneaker.price, sneaker.image)
+                  }
                   className="bg-gray-800 text-white px-4 py-2 rounded-md"
                 >
                   Add to Cart
