@@ -81,6 +81,7 @@ export default function SneakerDetails() {
         );
         setQuantity(quantity + 1);
         showStatus('Item has been added to cart.', setSuccess);
+        navigate('/collections');
       } else {
         showStatus(
           'You need to select both the size and color to add to cart.',
@@ -142,9 +143,7 @@ export default function SneakerDetails() {
                   <p className="text-green-700 text-md mb-3">{success}</p>
                 )}
                 <button
-                  onClick={() =>
-                    addToCart(sneaker.name, sneaker.price, sneaker.image)
-                  }
+                  onClick={() => s}
                   className="bg-gray-800 text-white px-4 py-2 rounded-md"
                 >
                   Add to Cart
