@@ -15,7 +15,6 @@ export async function getShoeCollection(brandName, setShoeList) {
       }));
       setShoeList(filteredData);
       setCache(brandName, filteredData);
-      console.log('scol');
     }
   } catch (error) {
     console.error(error);
