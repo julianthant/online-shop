@@ -21,23 +21,22 @@ export default function CartItem({ item, onQuantityChange, onDelete }) {
 
   return (
     <tr className="border-b-[1px] border-gray-400 text-center font-[Poppins]">
-      <td className="flex items-center h-52 gap-6 lm:pr-10 pl-4">
+      <td className="flex items-center ms:h-52 gap-6 max-ms:py-8 pl-4 max-ms:block">
         <Link
           to={`/sneaker-grid/${item.brand}/${item.shoeID}`}
-          className="w-52 border-[20px] border-[#E5E5E5]"
+          className="w-52 ms:border-[20px] ms:border-[#E5E5E5]"
         >
           <img
-            className="brightness-90 bg-white"
+            className="brightness-90 bg-white max-ms:rounded-lg max-ms:p-6"
             loading="eager"
             src={item.image}
             alt={item.name}
           />
         </Link>
-        <div className="flex flex-col product-container gap-4 text-left items-start">
-          <p>{item.name}</p>
-          <div className="lm:hidden max-xs:flex-col flex xs:justify-between xs:items-center w-full">
-            <p>${item.price * quantity}.00 USD</p>
-            <div className="flex items-center xs:justify-center max-xs:pt-3">
+        <div className="flex flex-col ms:product-container gap-4 text-left items-start pt-8">
+          <p className="ms:w-60">{item.name}</p>
+          <div className="lm:hidden flex ms:justify-between ms:items-center gap-20">
+            <div className="flex items-center">
               <button
                 className="p-1 text-2xl w-9 flex items-center justify-center pb-[0.4rem]"
                 onClick={handleDecrement}
@@ -54,11 +53,12 @@ export default function CartItem({ item, onQuantityChange, onDelete }) {
                 +
               </button>
             </div>
+            <button className="text-red-600 " onClick={() => onDelete(item.id)}>
+              Remove
+            </button>
           </div>
           <p className="max-lm:hidden">{item.brand.toUpperCase()}</p>
-          <button className="text-red-600" onClick={() => onDelete(item.id)}>
-            Remove
-          </button>
+          <p>${item.price * quantity}.00 USD</p>
         </div>
       </td>
       <td className="text-right w-28 max-lm:hidden">${item.price}.00 USD</td>
