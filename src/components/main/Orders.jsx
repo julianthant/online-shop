@@ -17,7 +17,7 @@ export default function Orders() {
   return (
     <div className="bg-matte-black lg:mt-[10rem] text-white order-container px-5">
       <div className="xl:gap-28 gap-16 xl:pl-16 max-xl:grid">
-        <table className="w-full max-md:hidden">
+        <table className="w-full max-lg:hidden">
           <thead>
             <tr className="border-b-[1px] border-gray-400 lm:py-4 h-10 text-left text-slate-50 text-lg">
               <th className="max-lm:text-4xl max-lm:text-center font-semibold font-[Poppins] pl-4">
@@ -54,11 +54,11 @@ export default function Orders() {
             </tr>
           )}
         </table>
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <h1 className="font-bold text-4xl text-slate-50 text-center mb-2">
             Orders
           </h1>
-          {orders ? (
+          {orders.length > 0 ? (
             orders.map((item) => (
               <ul
                 key={item.id}
@@ -70,7 +70,6 @@ export default function Orders() {
                     #<Link to={`/order/${item.id}`}>{item.id}</Link>
                   </h4>
                 </li>
-
                 <li className="flex items-center justify-between h-10 px-5 bg-[#1B1B1B]">
                   <h4 className="text-base font-bold">DATE</h4>
                   <h4 className="text-base font-bold">
@@ -103,7 +102,6 @@ export default function Orders() {
                   ##
                 </h4>
               </li>
-
               <li className="flex items-center justify-between h-10 px-5 bg-[#1B1B1B]">
                 <h4 className="text-base font-bold">DATE</h4>
                 <h4 className="text-base font-bold">##</h4>
