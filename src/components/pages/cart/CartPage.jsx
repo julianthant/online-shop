@@ -102,7 +102,7 @@ export default function CartPage() {
   return (
     <section className="bg-matte-black pt-8 text-white">
       {currentUser && cartItems ? (
-        <div className="flex justify-center xl:gap-28 gap-16 xl:pl-16 max-xl:grid max-xl:container">
+        <div className="flex justify-center xl:gap-28 gap-16 xl:pl-16 max-xl:flex-col max-xl:container">
           <div className="pt-[5rem] w-2/3 max-xl:w-full">
             <div className="flex items-center justify-between border-b-[1px] border-gray-400 py-4 mb-6">
               <h2 className="text-slate-50 text-3xl font-semibold font-[Poppins] pl-4">
