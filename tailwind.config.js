@@ -18,7 +18,8 @@ export default {
         'light-gray': '#787878',
       },
       screens: {
-        xs: '450px',
+        xs: '480px',
+        ms: '550px',
         s: '600px',
         sm: '650px',
         lm: '700px',
