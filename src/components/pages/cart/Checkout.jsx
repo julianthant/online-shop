@@ -54,7 +54,8 @@ export default function Checkout() {
         totalPrice,
         totalItems,
         setError,
-        setSuccess
+        setSuccess,
+        currentUser
       );
 
       setQuantity(0);
