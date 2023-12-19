@@ -33,9 +33,9 @@ export default function CartItem({ item, onQuantityChange, onDelete }) {
             alt={item.name}
           />
         </Link>
-        <div className="flex flex-col ms:product-container gap-4 text-left items-start pt-8">
+        <div className="flex flex-col ms:product-container gap-4 text-left items-start max-ms:pt-8">
           <p className="ms:w-60">{item.name}</p>
-          <div className="lm:hidden flex ms:justify-between ms:items-center gap-20">
+          <div className="m:hidden flex ms:justify-between ms:items-center gap-20">
             <div className="flex items-center">
               <button
                 className="p-1 text-2xl w-9 flex items-center justify-center pb-[0.4rem]"
@@ -57,12 +57,12 @@ export default function CartItem({ item, onQuantityChange, onDelete }) {
               Remove
             </button>
           </div>
-          <p className="max-lm:hidden">{item.brand.toUpperCase()}</p>
+          <p className="max-m:hidden">{item.brand.toUpperCase()}</p>
           <p>${item.price * quantity}.00 USD</p>
         </div>
       </td>
-      <td className="text-right w-28 max-lm:hidden">${item.price}.00 USD</td>
-      <td className="w-36 max-lm:hidden">
+      <td className="text-right w-28 max-m:hidden">${item.price}.00 USD</td>
+      <td className="w-36 max-m:hidden">
         <div className="flex items-center justify-center">
           <button
             className="p-1 text-2xl w-9 flex items-center justify-center pb-[0.4rem]"
@@ -81,7 +81,7 @@ export default function CartItem({ item, onQuantityChange, onDelete }) {
           </button>
         </div>
       </td>
-      <td className="text-right w-28 max-lm:hidden pr-4">
+      <td className="text-right w-28 max-m:hidden pr-4">
         ${item.price * quantity}.00 USD
       </td>
     </tr>
