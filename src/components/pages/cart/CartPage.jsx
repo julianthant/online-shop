@@ -113,7 +113,7 @@ export default function CartPage() {
               </h2>
             </div>
             <table className="w-full">
-              <thead className="h-14 max-lm:hidden">
+              <thead className="h-14 max-m:hidden">
                 <tr className="bg-[#1B1B1B]">
                   <th className="text-left pl-4">PRODUCTS</th>
                   <th className="text-right">PRICE</th>
