@@ -37,7 +37,7 @@ export default function Orders() {
               </th>
             </tr>
           </thead>
-          {currentUser && orders > 0 ? (
+          {currentUser && orders.length > 0 ? (
             <tbody>
               <tr className="h-3"></tr>
               {orders.map((item) => (
